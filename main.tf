@@ -27,6 +27,25 @@ resource "ibm_container_cluster" "cluster" {
   resource_group_id = data.ibm_resource_group.group.id
 }
 
+data "ibm_resource_group" "cos_group" {
+  name = var.resource_group
+}
+
+resource "ibm_resource_instance" "cos_instance" {
+  name              = "cos-instance"
+  resource_group_id = data.ibm_resource_group.cos_group.id
+  service           = "cloud-object-storage"
+  plan              = "standard"
+  location          = "global"
+}
+
+resource "ibm_cos_bucket" "cos_bucket" {
+  bucket_name           = var.bucket_name
+  resource_instance_id  = ibm_resource_instance.cos_instance.id
+  region_location       = var.regional_loc
+  storage_class         = var.storage
+}
+
 resource "null_resource" "create_kubernetes_toolchain" {
   provisioner "local-exec" {
     command = "${path.cwd}/.terraform/modules/shift-left-compliance-module/scripts/create-toolchain.sh"
