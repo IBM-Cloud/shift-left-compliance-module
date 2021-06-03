@@ -11,8 +11,8 @@ variable "region" {
 
 variable "toolchain_template_repo" {
   type        = string
-  description = "Open Toolchain Template URL"
-  default     = "https://github.com/open-toolchain/simple-helm-toolchain"
+  description = "Compliance CI Toolchain Template URL"
+  default     = "https://github.ibm.com/open-toolchain/compliance-ci-toolchain"
 }
 
 variable "toolchain_name" {
@@ -22,8 +22,8 @@ variable "toolchain_name" {
 
 variable "application_repo" {
   type        = string
-  description = "Open Toolchain Template URL"
-  default     = "https://github.com/IBM-Cloud/Scalable-web-app-node"
+  description = "Hello Compliance App URL"
+  default     = "https://github.ibm.com/open-toolchain/hello-compliance-app"
 }
 
 variable "resource_group" {
@@ -49,7 +49,7 @@ variable "container_registry_namespace" {
 variable "pipeline_type" {
   type        = string
   description = "Type of IBM DevOps toolchain pipeline"
-  default     = "classic"
+  default     = "tekton"
 }
 
 variable "branch" {
