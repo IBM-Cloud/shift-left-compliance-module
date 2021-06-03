@@ -29,6 +29,7 @@ variable "application_repo" {
 variable "resource_group" {
   type        = string
   description = "Resource group name where the toolchain should be created"
+  default     = "Defualt"
 }
 
 variable "cluster_name" {
@@ -90,4 +91,16 @@ variable "branch" {
   type        = string
   description = "Branch for toolchain template repo"
   default     = "master"
+}
+
+variable "bucket_name" {
+  default = "a-standard-bucket-at-ams-firewall"
+}
+
+variable "regional_loc" {
+  default = "us-south"
+}
+
+variable "storage" {
+  default = "standard"
 }
