@@ -57,7 +57,7 @@ variable "hardware" {
 }
 
 variable "kube_version" {
-  default     = "1.18"
+  default     = "1.20.7"
   description = "Version of Kubernetes to apply to the new Kubernetes cluster"
 }
 
