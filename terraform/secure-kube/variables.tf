@@ -29,12 +29,13 @@ variable "application_repo" {
 variable "resource_group" {
   type        = string
   description = "Resource group name where the toolchain should be created"
-  default     = "Defualt"
+  default     = "Default"
 }
 
 variable "cluster_name" {
   type        = string
   description = "Name of Kubernetes Cluster to deploy into"
+  default     = "compliance-cluster"
 }
 
 variable "datacenter" {
@@ -74,11 +75,7 @@ variable "private_vlan_num" {
 variable "cluster_namespace" {
   type        = string
   description = "Kubernetes namespace to deploy into"
-}
-
-variable "container_registry_namespace" {
-  type        = string
-  description = "IBM Container Registry namespace to save image into"
+  default     = "default"
 }
 
 variable "pipeline_type" {
@@ -94,7 +91,7 @@ variable "branch" {
 }
 
 variable "bucket_name" {
-  default = "a-standard-bucket-at-ams-firewall"
+  default = "cos-bucket"
 }
 
 variable "regional_loc" {
@@ -103,4 +100,64 @@ variable "regional_loc" {
 
 variable "storage" {
   default = "standard"
+}
+
+variable "app_name" {
+  type        = string
+  description = "Name of the application"
+  default     = "hello-compliance-app"
+}
+
+variable "registry_namespace" {
+  type        = string
+  description = "Container registry namespace to save images"
+}
+
+variable "pipeline_repo" {
+  type        = string
+  description = "Repo where compliance pipeline configurations exists"
+  default     = "https://github.ibm.com/one-pipeline/compliance-pipelines"
+}
+
+variable "artifactory_user_id" {
+  type        = string
+  description = "User ID for Artifactory access"
+}
+
+variable "artifactory_token" {
+  type        = string
+  description = "Token for Artifactory access (base64 encoded)"
+}
+
+variable "evidence_repo" {
+  type        = string
+  description = "Repo where compliance evidence will be stored"
+  default     = "https://github.ibm.com/one-pipeline/compliance-evidence-locker"
+}
+
+variable "issues_repo" {
+  type        = string
+  description = "Repo where compliance issues will be stored"
+  default     = "https://github.ibm.com/one-pipeline/compliance-incident-issues"
+}
+
+variable "inventory_repo" {
+  type        = string
+  description = "Repo where compliance inventory will be stored"
+  default     = "https://github.ibm.com/one-pipeline/compliance-inventory"
+}
+
+variable "cos_bucket" {
+  type        = string
+  description = "Name of COS Bucket"
+}
+
+variable "cos_url" {
+  type        = string
+  description = "URL endpoint to COS Bucket"
+}
+
+variable "vault_secret" {
+  type        = string
+  description = "GPG signing key"
 }

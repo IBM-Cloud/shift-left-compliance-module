@@ -54,14 +54,24 @@ resource "null_resource" "create_kubernetes_toolchain" {
       REGION            =  var.region
       TOOLCHAIN_TEMPLATE_REPO = var.toolchain_template_repo
       APPLICATION_REPO  = var.application_repo
+      PIPELINE_REPO     = var.pipeline_repo
       RESOURCE_GROUP    = var.resource_group
       API_KEY           = var.ibmcloud_api_key
       CLUSTER_NAME      = var.cluster_name
       CLUSTER_NAMESPACE = var.cluster_namespace
-      CONTAINER_REGISTRY_NAMESPACE = var.container_registry_namespace
+      REGISTRY_NAMESPACE  = var.registry_namespace
       TOOLCHAIN_NAME    = var.toolchain_name
       PIPELINE_TYPE     = var.pipeline_type
       BRANCH            = var.branch
+      APP_NAME          = var.app_name
+      ART_USER_ID       = var.artifactory_user_id
+      ART_TOKEN         = var.artifactory_token
+      EVIDENCE_REPO     = var.evidence_repo
+      ISSUES_REPO       = var.issues_repo
+      INVENTORY_REPO    = var.inventory_repo
+      VAULT_SECRET      = var.vault_secret
+      COS_BUCKET_NAME   = var.cos_bucket
+      COS_URL           = var.cos_url
     }
   } 
 }
