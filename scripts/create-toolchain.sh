@@ -16,13 +16,18 @@ if [[ ! $TOOLCHAIN_REGION =~ "ibm:" ]]; then
   export TOOLCHAIN_REGION="ibm:yp:$REGION"
 fi
 
-RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
+#RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
-PARAMETERS="region_id=$TOOLCHAIN_REGION&resourceGroupId=$RESOURCE_GROUP_ID&autocreate=true"`
-`"&repository=$TOOLCHAIN_TEMPLATE_REPO&sourceZipUrl=$APPLICATION_REPO&app_repo=$APPLICATION_REPO&apiKey=$API_KEY"`
-`"&registryRegion=$REGION&registryNamespace=$CONTAINER_REGISTRY_NAMESPACE&prodRegion=$REGION"`
-`"&prodResourceGroup=$RESOURCE_GROUP&prodClusterName=$CLUSTER_NAME&prodClusterNamespace=$CONTAINER_REGISTRY_NAMESPACE"`
-`"&toolchainName=$TOOLCHAIN_NAME&branch=$BRANCH&pipeline_type=$PIPELINE_TYPE"
+#Reserved for command to get
+
+PARAMETERS="autocreate=true&apiKey=$API_KEY"`
+`"&sourceRepoUrl=$APPLICATION_REPO&pipeline_repo=$PIPELINE_REPO&tektonCatalogRepo=$PIPELINE_REPO"`
+`"&registryRegion=$REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
+`"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
+`"&toolchainName=$TOOLCHAIN_NAME&branch=$BRANCH&pipeline_type=$PIPELINE_TYPE"'
+'"&artifactoryUserId=$ART_USER_ID&artifactoryToken=$ART_TOKEN&onePipelineConfigRepo=$APPLICATION_REPO"'
+'"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"'
+'"&cosBucketName=$COS_BUCKET_NAME&coxEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"
 #echo $PARAMETERS
 
 RESPONSE=$(curl -i -X POST \
