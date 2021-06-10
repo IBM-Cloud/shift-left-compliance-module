@@ -11,7 +11,7 @@ variable "region" {
 
 variable "toolchain_template_repo" {
   type        = string
-  description = "Compliance CI Toolchain Template URL"
+  description = "Compliance CI toolchain template repo"
   default     = "https://github.ibm.com/open-toolchain/compliance-ci-toolchain"
 }
 
@@ -22,14 +22,14 @@ variable "toolchain_name" {
 
 variable "application_repo" {
   type        = string
-  description = "Hello Compliance App URL"
+  description = "Hello compliance app repo"
   default     = "https://github.ibm.com/open-toolchain/hello-compliance-app"
 }
 
 variable "resource_group" {
   type        = string
   description = "Resource group name where the toolchain should be created"
-  default     = "Default"
+  default     = "default"
 }
 
 variable "cluster_name" {
@@ -41,6 +41,7 @@ variable "cluster_name" {
 variable "datacenter" {
   type        = string
   description = "Zone from `ibmcloud ks zones --provider classic`"
+  default     = "dal12"
 }
 
 variable "default_pool_size" {
@@ -91,15 +92,18 @@ variable "branch" {
 }
 
 variable "bucket_name" {
-  default = "cos-bucket"
+  description = "Name of the COS bucket"
+  default     = "cos-bucket"
 }
 
 variable "regional_loc" {
-  default = "us-south"
+  description = "Region where the COS bucket will exist"
+  default     = "us-south"
 }
 
 variable "storage" {
-  default = "standard"
+  description = "Storage class for the COS bucket"
+  default     = "standard"
 }
 
 variable "app_name" {
@@ -147,7 +151,7 @@ variable "inventory_repo" {
   default     = "https://github.ibm.com/one-pipeline/compliance-inventory"
 }
 
-variable "cos_bucket" {
+variable "cos_bucket_name" {
   type        = string
   description = "Name of COS Bucket"
 }
@@ -155,6 +159,7 @@ variable "cos_bucket" {
 variable "cos_url" {
   type        = string
   description = "URL endpoint to COS Bucket"
+  default     = "s3.private.us-south.cloud-object-storage.appdomain.cloud"
 }
 
 variable "vault_secret" {
