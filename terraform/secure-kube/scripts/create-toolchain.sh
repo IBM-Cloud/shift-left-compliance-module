@@ -24,11 +24,14 @@ PARAMETERS="autocreate=true&apiKey=$API_KEY"`
 `"&sourceRepoUrl=$APPLICATION_REPO&pipeline_repo=$PIPELINE_REPO&tektonCatalogRepo=$PIPELINE_REPO"`
 `"&registryRegion=$REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
-`"&toolchainName=$TOOLCHAIN_NAME&branch=$BRANCH&pipeline_type=$PIPELINE_TYPE"'
-'"&artifactoryUserId=$ART_USER_ID&artifactoryToken=$ART_TOKEN&onePipelineConfigRepo=$APPLICATION_REPO"'
-'"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"'
-'"&cosBucketName=$COS_BUCKET_NAME&coxEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"
-#echo $PARAMETERS
+`"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
+`"&artifactoryUserId=$ART_USER_ID&artifactoryToken=$ART_TOKEN&onePipelineConfigRepo=$APPLICATION_REPO"`
+`"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"`
+`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"
+echo "PARAMETERS:"
+echo $PARAMETERS
+echo "URL:"
+echo "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&$PARAMETERS"
 
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
