@@ -48,7 +48,7 @@ resource "ibm_cos_bucket" "cos_bucket" {
 
 resource "null_resource" "create_kubernetes_toolchain" {
   provisioner "local-exec" {
-    command = "${path.cwd}/.terraform/modules/shift-left-compliance-module/scripts/create-toolchain.sh"
+    command = "${path.cwd}/scripts/create-toolchain.sh"
 
     environment={
       REGION            =  var.region
@@ -70,7 +70,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       ISSUES_REPO       = var.issues_repo
       INVENTORY_REPO    = var.inventory_repo
       VAULT_SECRET      = var.vault_secret
-      COS_BUCKET_NAME   = var.cos_bucket
+      COS_BUCKET_NAME   = var.cos_bucket_name
       COS_URL           = var.cos_url
     }
   } 
