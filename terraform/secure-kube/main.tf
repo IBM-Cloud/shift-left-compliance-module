@@ -5,12 +5,12 @@ terraform {
 provider "ibm" {
 }
 
-resource "iam_api_key" "iam_api_key" {
+resource "ibm_iam_api_key" "iam_api_key" {
   name        = "compliance-ci-api-key"
   description = "API key for provisioning IBM resources for the Compliance CI toolchain"
 }
 
-data "iam_api_key" "iam_api_key" {
+data "ibm_iam_api_key" "iam_api_key" {
   apikey_id     = iam_api_key.iam_api_key.apikey_id
 }
 
@@ -86,7 +86,7 @@ resource "ibm_iam_service_api_key" "service_api_key" {
   iam_service_id = ibm_iam_service_id.service_id.iam_id
 }
 
-data "iam_api_key" "service_api_key" {
+data "ibm_iam_api_key" "service_api_key" {
     apikey_id = ibm_iam_service_api_key.service_api_key.id
 }
 
