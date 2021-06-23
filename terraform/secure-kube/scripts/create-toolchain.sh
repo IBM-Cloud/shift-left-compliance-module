@@ -18,16 +18,58 @@ fi
 
 #RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
-#Reserved for command to get
+# create secrets manager service
+# NOTE: Secrets Manager service can take approx 5-8 minutes to provision
+sm_name="compliance-ci-secrets-manager"
+ibmcloud resource service-instance-create $sm_name secrets-manager lite us-south
+echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
+wait=480
+count=0
+sleep_time=60
+while [[ $count -le $wait ]]; do
+  ibmcloud resource service-instances >services.txt
+  secretLine=$(cat services.txt | grep $sm_name)
+  stringArray=($secretLine)
+  if [[ "${stringArray[2]}" != "active" ]]; then
+    echo "Secrets Manager status: ${stringArray[2]}"
+    count+=$sleep_time
+    if [[ $count > $wait ]]; then
+      echo "Secrets Manager took longer than 8 minutes to provision"
+      echo "Something must have gone wrong. Exiting."
+      exit 1
+    else
+      echo "Waiting 60 seconds to check again..."
+      sleep $sleep_time
+    fi
+  else
+    echo "Secrets Manager status: ${stringArray[2]}"
+    break
+  fi
+done
+
+# generate gpg key
+gpg --batch --gen-key <<EOF
+%no-protection
+Key-Type: 1
+Key-Length: 2048
+Subkey-Type: 1
+Subkey-Length: 2048
+Name-Real: Root User
+Name-Email: root@compliance.ci.ibm.com
+Expire-Date: 0
+EOF
+gpg --export-secret-key -a "Root User"  | base64 > private.key
+export VAULT_SECRET=$(cat private.key)
 
 PARAMETERS="autocreate=true&apiKey=$API_KEY"`
 `"&sourceRepoUrl=$APPLICATION_REPO&pipeline_repo=$PIPELINE_REPO&tektonCatalogRepo=$PIPELINE_REPO"`
-`"&registryRegion=$REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
+`"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
 `"&artifactoryUserId=$ART_USER_ID&artifactoryToken=$ART_TOKEN&onePipelineConfigRepo=$APPLICATION_REPO"`
 `"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"`
-`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"
+`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
+`"&smName=$sm_name&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$sm_name"
 echo "PARAMETERS:"
 echo $PARAMETERS
 echo "URL:"
