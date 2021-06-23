@@ -150,15 +150,3 @@ variable "storage" {
   description = "Storage class for the COS bucket"
   default     = "standard"
 }
-
-variable "artifactory_user_id" {
-  type        = string
-  description = "User ID for Artifactory access"
-}
-
-variable "artifactory_token" {
-  type        = string
-  description = "Token for Artifactory access (base64 encoded)"
-}
-
-
