@@ -11,7 +11,7 @@ resource "ibm_iam_api_key" "iam_api_key" {
 }
 
 data "ibm_iam_api_key" "iam_api_key" {
-  apikey_id     = iam_api_key.iam_api_key.apikey_id
+  apikey_id     = ibm_iam_api_key.iam_api_key.apikey_id
 }
 
 resource "random_string" "random" {
@@ -126,7 +126,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       APPLICATION_REPO  = var.application_repo
       PIPELINE_REPO     = var.pipeline_repo
       RESOURCE_GROUP    = var.resource_group
-      API_KEY           = data.iam_api_key.iam_api_key.apikey
+      API_KEY           = data.ibm_iam_api_key.iam_api_key.apikey
       CLUSTER_NAME      = var.cluster_name
       CLUSTER_NAMESPACE = var.cluster_namespace
       REGISTRY_NAMESPACE  = var.registry_namespace
@@ -141,7 +141,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       EVIDENCE_REPO     = var.evidence_repo == "https://github.ibm.com/one-pipeline/compliance-evidence-locker" ? github_repository.evidence_repo.id : var.evidence_repo
       COS_BUCKET_NAME   = ibm_cos_bucket.cos_bucket.id
       COS_URL           = var.cos_url
-      SERVICE_API_KEY   = data.iam_api_key.service_api_key.apikey
+      SERVICE_API_KEY   = data.ibm_iam_api_key.service_api_key.apikey
       SM_NAME           = var.sm_name
     }
   } 
