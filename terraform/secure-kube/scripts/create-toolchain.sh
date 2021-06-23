@@ -20,15 +20,15 @@ fi
 
 # create secrets manager service
 # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
-sm_name="compliance-ci-secrets-manager"
-ibmcloud resource service-instance-create $sm_name secrets-manager lite us-south
+SM_SERVICE_NAME="compliance-ci-secrets-manager"
+ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
 echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
 wait=480
 count=0
 sleep_time=60
 while [[ $count -le $wait ]]; do
   ibmcloud resource service-instances >services.txt
-  secretLine=$(cat services.txt | grep $sm_name)
+  secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
   stringArray=($secretLine)
   if [[ "${stringArray[2]}" != "active" ]]; then
     echo "Secrets Manager status: ${stringArray[2]}"
@@ -69,7 +69,7 @@ PARAMETERS="autocreate=true&apiKey=$API_KEY"`
 `"&artifactoryUserId=$ART_USER_ID&artifactoryToken=$ART_TOKEN&onePipelineConfigRepo=$APPLICATION_REPO"`
 `"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"`
 `"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
-`"&smName=$sm_name&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$sm_name"
+`"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 echo "PARAMETERS:"
 echo $PARAMETERS
 echo "URL:"

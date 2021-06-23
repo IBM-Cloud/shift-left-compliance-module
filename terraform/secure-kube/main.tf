@@ -2,6 +2,9 @@ terraform {
   required_version = ">= 0.12"
 }
 
+provider "ibm" {
+}
+
 resource "iam_api_key" "iam_api_key" {
   name        = "compliance-ci-api-key"
   description = "API key for provisioning IBM resources for the Compliance CI toolchain"
@@ -9,10 +12,6 @@ resource "iam_api_key" "iam_api_key" {
 
 data "iam_api_key" "iam_api_key" {
   apikey_id     = iam_api_key.iam_api_key.apikey_id
-}
-
-provider "ibm" {
-  ibmcloud_api_key   = data.iam_api_key.iam_api_key.apikey
 }
 
 resource "random_string" "random" {
@@ -78,12 +77,6 @@ resource "ibm_cos_bucket" "cos_bucket" {
   storage_class         = var.storage
 }
 
-variable "cos_url" {
-  type        = string
-  description = "URL endpoint to COS Bucket"
-  default     = "s3.private.us.cloud-object-storage.appdomain.cloud"
-}
-
 resource "ibm_iam_service_id" "service_id" {
   name = "service_id"
 }
@@ -97,7 +90,7 @@ data "iam_api_key" "service_api_key" {
     apikey_id = ibm_iam_service_api_key.service_api_key.id
 }
 
-resource "ibm_iam_service_policy" "policy" {
+resource "ibm_iam_service_policy" "cos_policy" {
   iam_service_id = ibm_iam_service_id.service_id.id
   roles          = ["Reader", "Writer"]
 
@@ -149,6 +142,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       COS_BUCKET_NAME   = ibm_cos_bucket.cos_bucket.id
       COS_URL           = var.cos_url
       SERVICE_API_KEY   = data.iam_api_key.service_api_key.apikey
+      SM_NAME           = var.sm_name
     }
   } 
 }
