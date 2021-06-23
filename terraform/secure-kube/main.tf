@@ -40,7 +40,7 @@ resource "github_repository" "issues_repo" {
   visibility  = "internal"
 
   template {
-    owner      = "github"
+    owner      = "ibm"
     repository = "https://github.ibm.com/one-pipeline/compliance-incident-issues"
   }
 }
@@ -53,7 +53,7 @@ resource "github_repository" "inventory_repo" {
   visibility  = "internal"
 
   template {
-    owner      = "github"
+    owner      = "ibm"
     repository = "https://github.ibm.com/one-pipeline/compliance-inventory"
   }
 }
@@ -66,7 +66,7 @@ resource "github_repository" "evidence_repo" {
   visibility  = "internal"
 
   template {
-    owner      = "github"
+    owner      = "ibm"
     repository = "https://github.ibm.com/one-pipeline/compliance-evidence-locker"
   }
 }
@@ -147,8 +147,6 @@ resource "null_resource" "create_kubernetes_toolchain" {
       PIPELINE_TYPE     = var.pipeline_type
       BRANCH            = var.branch
       APP_NAME          = var.app_name == "compliance-app-<timestamp>" ? "compliance-app-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.app_name
-      ART_USER_ID       = var.artifactory_user_id
-      ART_TOKEN         = var.artifactory_token
       ISSUES_REPO       = var.issues_repo == "https://github.ibm.com/one-pipeline/compliance-incident-issues" ? github_repository.issues_repo[0].id : var.issues_repo
       INVENTORY_REPO    = var.inventory_repo == "https://github.ibm.com/one-pipeline/compliance-inventory" ? github_repository.inventory_repo[0].id : var.inventory_repo
       EVIDENCE_REPO     = var.evidence_repo == "https://github.ibm.com/one-pipeline/compliance-evidence-locker" ? github_repository.evidence_repo[0].id : var.evidence_repo
