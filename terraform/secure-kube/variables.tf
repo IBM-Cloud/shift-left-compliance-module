@@ -76,7 +76,7 @@ variable "resource_group" {
 
 variable "cluster_name" {
   type        = string
-  description = "Name of Kubernetes Cluster to deploy into. WARNING: A new cluster will be created, and if the cluster already exists, it will be recreated and you will lose all data in it."
+  description = "Name of new Kubernetes Cluster to deploy application into. NOTE: Cluster must not already exist."
   default     = "compliance-cluster"
 }
 
@@ -149,4 +149,9 @@ variable "regional_loc" {
 variable "storage" {
   description = "Storage class for the COS bucket"
   default     = "standard"
+}
+
+variable "github_token" {
+  type        = string
+  description = "A GitHub OAuth/Personal Access Token"
 }
