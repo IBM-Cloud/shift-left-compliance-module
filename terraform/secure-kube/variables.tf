@@ -40,8 +40,8 @@ variable "cos_url" {
 }
 
 variable "bucket_name" {
-  description = "Name of the Cloud Object Storage bucket"
-  default     = "cos-compliance-bucket"
+  description = "Name of the Cloud Object Storage bucket. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
+  default     = "cos-compliance-bucket-<timestamp>"
 }
 
 variable "pipeline_repo" {
@@ -153,5 +153,5 @@ variable "storage" {
 
 variable "github_token" {
   type        = string
-  description = "A GitHub OAuth/Personal Access Token"
+  description = "A GitHub OAuth/Personal Access Token (https://github.ibm.com/settings/tokens)"
 }
