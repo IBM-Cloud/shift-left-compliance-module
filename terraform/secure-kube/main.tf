@@ -37,7 +37,7 @@ resource "github_repository" "issues_repo" {
   name        = "compliance-issues-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance issues"
 
-  visibility  = "private"
+  visibility  = "internal"
 
   template {
     owner      = "github"
@@ -50,7 +50,7 @@ resource "github_repository" "inventory_repo" {
   name        = "compliance-inventory-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance inventory"
 
-  visibility  = "private"
+  visibility  = "internal"
 
   template {
     owner      = "github"
@@ -63,7 +63,7 @@ resource "github_repository" "evidence_repo" {
   name        = "compliance-evidence-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance evidence"
 
-  visibility  = "private"
+  visibility  = "internal"
 
   template {
     owner      = "github"
