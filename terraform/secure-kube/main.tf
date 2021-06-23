@@ -9,6 +9,7 @@ provider "ibm" {
 provider "github" {
   version   = "~> 4.12"
   base_url  = "https://github.ibm.com/"
+  token     = var.github_token
 }
 
 provider "random" {
