@@ -5,6 +5,9 @@
 # log in using the api key
 ibmcloud login --apikey "$API_KEY" -r "$REGION" 
 
+# target default resource group for now
+ibmcloud target -g default
+
 # get the bearer token to create the toolchain instance
 IAM_TOKEN="IAM token:  "
 BEARER_TOKEN=$(ibmcloud iam oauth-tokens | grep "$IAM_TOKEN" | sed -e "s/^$IAM_TOKEN//")
