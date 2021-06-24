@@ -38,7 +38,7 @@ resource "github_repository" "issues_repo" {
   count       = var.issues_repo == "https://github.ibm.com/one-pipeline/compliance-incident-issues" ? 1 : 0
   name        = "compliance-issues-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance issues"
-  visibility  = "internal"
+  visibility  = "private"
 
   template {
     owner      = "one-pipeline"
@@ -50,7 +50,7 @@ resource "github_repository" "inventory_repo" {
   count       = var.inventory_repo == "https://github.ibm.com/one-pipeline/compliance-inventory" ? 1 : 0
   name        = "compliance-inventory-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance inventory"
-  visibility  = "internal"
+  visibility  = "private"
 
   template {
     owner      = "one-pipeline"
@@ -62,7 +62,7 @@ resource "github_repository" "evidence_repo" {
   count       = var.evidence_repo == "https://github.ibm.com/one-pipeline/compliance-evidence-locker" ? 1 : 0
   name        = "compliance-evidence-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance evidence"
-  visibility  = "internal"
+  visibility  = "private"
 
   template {
     owner      = "one-pipeline"
