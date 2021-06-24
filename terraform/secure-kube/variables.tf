@@ -155,3 +155,8 @@ variable "github_token" {
   type        = string
   description = "A GitHub OAuth/Personal Access Token (https://github.ibm.com/settings/tokens)"
 }
+
+variable "ibmcloud_api_key" {
+  type        = string
+  description = "The IAM API Key for IBM Cloud access (https://cloud.ibm.com/iam/apikeys)"
+}

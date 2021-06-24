@@ -3,7 +3,8 @@ terraform {
 }
 
 provider "ibm" {
-  version = "~> 1.25"
+  version           = "~> 1.25"
+  ibmcloud_api_key  = var.ibmcloud_api_key
 }
 
 provider "github" {
@@ -18,15 +19,6 @@ provider "random" {
 
 provider "null" {
   version = "~> 3.1"
-}
-
-resource "ibm_iam_api_key" "iam_api_key" {
-  name        = "compliance-ci-api-key"
-  description = "API key for provisioning IBM resources for the Compliance CI toolchain"
-}
-
-data "ibm_iam_api_key" "iam_api_key" {
-  apikey_id     = ibm_iam_api_key.iam_api_key.apikey_id
 }
 
 resource "random_string" "random" {
@@ -138,7 +130,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       APPLICATION_REPO  = var.application_repo
       PIPELINE_REPO     = var.pipeline_repo
       RESOURCE_GROUP    = var.resource_group
-      API_KEY           = data.ibm_iam_api_key.iam_api_key.apikey
+      API_KEY           = var.ibmcloud_api_key
       CLUSTER_NAME      = var.cluster_name
       CLUSTER_NAMESPACE = var.cluster_namespace
       REGISTRY_NAMESPACE  = var.registry_namespace
