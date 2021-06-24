@@ -6,7 +6,7 @@
 ibmcloud login --apikey "$API_KEY" -r "$REGION" 
 
 # target default resource group for now
-ibmcloud target -g default
+ibmcloud target -g $RESOURCE_GROUP 
 
 # get the bearer token to create the toolchain instance
 IAM_TOKEN="IAM token:  "
@@ -71,7 +71,7 @@ PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_R
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
 `"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"`
 `"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
-`"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
+`"&smName=$SM_SERVICE_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 echo "PARAMETERS:"
 echo $PARAMETERS
