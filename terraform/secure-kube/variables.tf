@@ -50,6 +50,12 @@ variable "pipeline_repo" {
   default     = "https://github.ibm.com/one-pipeline/compliance-pipelines"
 }
 
+variable "tekton_catalog_repo" {
+  type        = string
+  description = "Repo where common Tekton task resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
+  default     = "https://github.ibm.com/one-pipeline/common-tekton-tasks"
+}
+
 variable "app_name" {
   type        = string
   description = "Name of the Compliance CI application. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
