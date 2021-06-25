@@ -22,7 +22,7 @@ resource "github_repository" "issues_repo" {
   name        = "compliance-issues-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance issues"
   visibility  = "private"
-  vulnerability_alerts  = false
+  vulnerability_alerts  = true
 
   template {
     owner      = "one-pipeline"
@@ -35,7 +35,7 @@ resource "github_repository" "inventory_repo" {
   name        = "compliance-inventory-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance inventory"
   visibility  = "private"
-  vulnerability_alerts  = false
+  vulnerability_alerts  = true
 
   template {
     owner      = "one-pipeline"
@@ -48,7 +48,7 @@ resource "github_repository" "evidence_repo" {
   name        = "compliance-evidence-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance evidence"
   visibility  = "private"
-  vulnerability_alerts  = false
+  vulnerability_alerts  = true
 
   template {
     owner      = "one-pipeline"
