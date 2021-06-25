@@ -20,7 +20,7 @@ fi
 #RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
 if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
-  # create secrets manager service
+  echo "Creating Secrets Manager service..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
   ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
   #echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
@@ -77,7 +77,7 @@ PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_R
 `"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 # debugging
-echo "$PARAMETERS"
+#echo "$PARAMETERS"
 
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
