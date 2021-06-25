@@ -67,10 +67,10 @@ PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_R
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
 `"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"`
-`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret='$VAULT_SECRET'"`
+`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
 `"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
-echo "PARAMETERS:"
-echo $PARAMETERS
+
+# debugging
 URL="https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&$PARAMETERS"
 echo "Before sanitize URL:"
 echo $URL
