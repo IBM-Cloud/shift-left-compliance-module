@@ -7,10 +7,9 @@ provider "ibm" {
   ibmcloud_api_key  = var.ibmcloud_api_key
 }
 
-provider "github" {
-  version   = "~> 4.12"
+provider "gitlab" {
   base_url  = "https://us-south.git.cloud.ibm.com/"
-  token     = var.github_token
+  token     = var.gitlab_token
 }
 
 provider "null" {
