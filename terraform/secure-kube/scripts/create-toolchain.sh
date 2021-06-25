@@ -48,7 +48,7 @@ while [[ $count -le $wait ]]; do
 done
 
 # generate gpg key
-gpg --batch --gen-key <<EOF
+gpg --batch --pinentry-mode loopback --generate-key <<EOF
 %no-protection
 Key-Type: 1
 Key-Length: 2048
@@ -60,6 +60,9 @@ Expire-Date: 0
 EOF
 gpg --export-secret-key -a "Root User"  | base64 > private.key
 export VAULT_SECRET=$(cat private.key)
+
+# URL encode VAULT_SECRET
+export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
 
 PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO"`
 `"&sourceRepoUrl=$APPLICATION_REPO&pipeline_repo=$PIPELINE_REPO&tektonCatalogRepo=$PIPELINE_REPO"`
