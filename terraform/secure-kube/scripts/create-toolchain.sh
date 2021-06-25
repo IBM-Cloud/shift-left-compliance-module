@@ -71,6 +71,7 @@ export VAULT_SECRET=$(cat private.key)
 export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
 
 PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
+`"&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH"`
 `"&sourceRepoUrl=$APPLICATION_REPO&pipelineRepo=$PIPELINE_REPO&tektonCatalogRepo=$TEKTON_CAT_REPO"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
