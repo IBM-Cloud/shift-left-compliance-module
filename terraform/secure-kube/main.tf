@@ -13,17 +13,8 @@ provider "github" {
   token     = var.github_token
 }
 
-provider "random" {
-  version = "~> 3.1"
-}
-
 provider "null" {
   version = "~> 3.1"
-}
-
-resource "random_string" "random" {
-  length    = 4
-  min_lower = 4
 }
 
 resource "github_repository" "issues_repo" {
@@ -31,6 +22,7 @@ resource "github_repository" "issues_repo" {
   name        = "compliance-issues-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance issues"
   visibility  = "private"
+  vulnerability_alerts  = true
 
   template {
     owner      = "one-pipeline"
@@ -43,6 +35,7 @@ resource "github_repository" "inventory_repo" {
   name        = "compliance-inventory-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance inventory"
   visibility  = "private"
+  vulnerability_alerts  = true
 
   template {
     owner      = "one-pipeline"
@@ -55,6 +48,7 @@ resource "github_repository" "evidence_repo" {
   name        = "compliance-evidence-${formatdate("YYYYMMDDhhmm", timestamp())}"
   description = "Repo for storing compliance evidence"
   visibility  = "private"
+  vulnerability_alerts  = true
 
   template {
     owner      = "one-pipeline"
@@ -145,6 +139,9 @@ resource "null_resource" "create_kubernetes_toolchain" {
       COS_URL           = var.cos_url
       SERVICE_API_KEY   = data.ibm_iam_api_key.service_api_key.apikey
       SM_NAME           = var.sm_name
+      SM_SERVICE_NAME   = var.sm_service_name == "compliance-ci-secrets-manager" ? "compliance-ci-secrets-manager" : var.sm_service_name
+      GITHUB_TOKEN      = var.github_token
+      TEKTON_CAT_REPO   = var.tekton_catalog_repo
     }
   } 
 }

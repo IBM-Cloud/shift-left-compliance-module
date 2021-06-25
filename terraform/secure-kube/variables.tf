@@ -27,6 +27,11 @@ variable "sm_name" {
   default     = "sm-compliance-secrets"
 }
 
+variable "sm_service_name" {
+  description = "Name of the Secrets Manager service. NOTE: Only 1 Secrets Manager instance is allowed. If you already have a Secrets Manager service provisioned, please override this value to its name."
+  default     = "compliance-ci-secrets-manager"
+}
+
 variable "evidence_repo" {
   type        = string
   description = "Repo where compliance evidence will be stored. If no override is provided, then the default repo will be cloned."
@@ -48,6 +53,12 @@ variable "pipeline_repo" {
   type        = string
   description = "Repo where Tekton resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
   default     = "https://github.ibm.com/one-pipeline/compliance-pipelines"
+}
+
+variable "tekton_catalog_repo" {
+  type        = string
+  description = "Repo where common Tekton task resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
+  default     = "https://github.ibm.com/one-pipeline/common-tekton-tasks"
 }
 
 variable "app_name" {
@@ -86,24 +97,6 @@ variable "cluster_namespace" {
   default     = "default"
 }
 
-variable "toolchain_template_repo" {
-  type        = string
-  description = "Compliance CI toolchain template repo"
-  default     = "https://github.ibm.com/open-toolchain/compliance-ci-toolchain"
-}
-
-variable "branch" {
-  type        = string
-  description = "Branch for Compliance CI toolchain template repo"
-  default     = "master"
-}
-
-variable "pipeline_type" {
-  type        = string
-  description = "Type of IBM DevOps toolchain pipeline"
-  default     = "tekton"
-}
-
 variable "datacenter" {
   type        = string
   description = "Zone from `ibmcloud ks zones --provider classic`"
@@ -139,6 +132,24 @@ variable "private_vlan_num" {
   type        = string
   description = "Number for private VLAN from `ibmcloud ks vlans --zone <ZONE>`"
   default     = "1891999"
+}
+
+variable "toolchain_template_repo" {
+  type        = string
+  description = "Compliance CI toolchain template repo"
+  default     = "https://github.ibm.com/open-toolchain/compliance-ci-toolchain"
+}
+
+variable "branch" {
+  type        = string
+  description = "Branch for Compliance CI toolchain template repo"
+  default     = "master"
+}
+
+variable "pipeline_type" {
+  type        = string
+  description = "Type of IBM DevOps toolchain pipeline"
+  default     = "tekton"
 }
 
 variable "regional_loc" {

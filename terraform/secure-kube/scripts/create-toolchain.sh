@@ -4,6 +4,7 @@
 
 # log in using the api key
 ibmcloud login --apikey "$API_KEY" -r "$REGION" 
+ibmcloud target -g $RESOURCE_GROUP
 
 # target default resource group for now
 ibmcloud target -g $RESOURCE_GROUP 
@@ -21,37 +22,39 @@ fi
 
 #RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
-# create secrets manager service
-# NOTE: Secrets Manager service can take approx 5-8 minutes to provision
-SM_SERVICE_NAME="compliance-ci-secrets-manager"
-ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
-echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
-wait=480
-count=0
-sleep_time=60
-while [[ $count -le $wait ]]; do
-  ibmcloud resource service-instances >services.txt
-  secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
-  stringArray=($secretLine)
-  if [[ "${stringArray[2]}" != "active" ]]; then
-    echo "Secrets Manager status: ${stringArray[2]}"
-    count+=$sleep_time
-    if [[ $count > $wait ]]; then
-      echo "Secrets Manager took longer than 8 minutes to provision"
-      echo "Something must have gone wrong. Exiting."
-      exit 1
-    else
-      echo "Waiting 60 seconds to check again..."
-      sleep $sleep_time
-    fi
-  else
-    echo "Secrets Manager status: ${stringArray[2]}"
-    break
-  fi
-done
+if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
+  echo "Creating Secrets Manager service..."
+  # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
+  ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
+  #echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
+  #wait=480
+  #count=0
+  #sleep_time=60
+  #while [[ $count -le $wait ]]; do
+    #ibmcloud resource service-instances >services.txt
+    #secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
+    #stringArray=($secretLine)
+    #if [[ "${stringArray[2]}" != "active" ]]; then
+      #echo "Secrets Manager status: ${stringArray[2]}"
+      #count=$(($count + $sleep_time))
+      #if [[ $count -gt $wait ]]; then
+        #echo "Secrets Manager took longer than 8 minutes to provision"
+        #echo "Something must have gone wrong. Exiting."
+        #exit 1
+      #else
+        #echo "Waiting $sleep_time seconds to check again..."
+        #sleep $sleep_time
+      #fi
+    #else
+      #echo "Secrets Manager successfully provisioned"
+      #echo "Status: ${stringArray[2]}"
+      #break
+    #fi
+  #done
+fi
 
 # generate gpg key
-gpg --batch --gen-key <<EOF
+gpg --batch --pinentry-mode loopback --generate-key <<EOF
 %no-protection
 Key-Type: 1
 Key-Length: 2048
@@ -64,19 +67,20 @@ EOF
 gpg --export-secret-key -a "Root User"  | base64 > private.key
 export VAULT_SECRET=$(cat private.key)
 
-PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO"`
-`"&sourceRepoUrl=$APPLICATION_REPO&pipeline_repo=$PIPELINE_REPO&tektonCatalogRepo=$PIPELINE_REPO"`
+# URL encode VAULT_SECRET
+export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
+
+PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
+`"&sourceRepoUrl=$APPLICATION_REPO&pipelineRepo=$PIPELINE_REPO&tektonCatalogRepo=$TEKTON_CAT_REPO"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
-`"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
+`"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&appName=$APP_NAME&gitToken=$GITHUB_TOKEN"`
 `"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"`
 `"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
-`"&smName=$SM_SERVICE_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
+`"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
-echo "PARAMETERS:"
-echo $PARAMETERS
-echo "URL:"
-echo "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&$PARAMETERS"
+# debugging
+#echo "$PARAMETERS"
 
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
