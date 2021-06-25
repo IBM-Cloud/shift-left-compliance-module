@@ -4,6 +4,7 @@
 
 # log in using the api key
 ibmcloud login --apikey "$API_KEY" -r "$REGION" 
+ibmcloud target -g $RESOURCE_GROUP
 
 # get the bearer token to create the toolchain instance
 IAM_TOKEN="IAM token:  "
@@ -32,17 +33,18 @@ if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
     stringArray=($secretLine)
     if [[ "${stringArray[2]}" != "active" ]]; then
       echo "Secrets Manager status: ${stringArray[2]}"
-      count+=$sleep_time
+      count=$(($count + $sleep_time))
       if [[ $count > $wait ]]; then
         echo "Secrets Manager took longer than 8 minutes to provision"
         echo "Something must have gone wrong. Exiting."
         exit 1
       else
-        echo "Waiting 60 seconds to check again..."
+        echo "Waiting $sleep_time seconds to check again..."
         sleep $sleep_time
       fi
     else
-      echo "Secrets Manager status: ${stringArray[2]}"
+      echo "Secrets Manager successfully provisioned"
+      echo "Status: ${stringArray[2]}"
       break
     fi
   done
