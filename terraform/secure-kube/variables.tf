@@ -87,7 +87,7 @@ variable "resource_group" {
 
 variable "cluster_name" {
   type        = string
-  description = "Name of new Kubernetes Cluster to deploy application into. NOTE: Cluster must not already exist."
+  description = "Name of new Kubernetes Cluster to deploy application into. WARNING: On first run, the plan will fail to apply if the named cluster already exists. On second run, the plan will destroy the previously created cluster and create a new one (no matter if the name changes)."
   default     = "compliance-cluster"
 }
 

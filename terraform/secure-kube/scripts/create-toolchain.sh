@@ -25,21 +25,21 @@ if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
   echo "Creating Secrets Manager service..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
   ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
-  echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
-  wait=480
+  wait_secs=600
   count=0
   sleep_time=60
-  while [[ $count -le $wait ]]; do
+  wait_mins=$(($wait_secs / $sleep_time))
+  echo "Waiting up to $wait_mins minutes for Secrets Manager service to provision..."
+  while [[ $count -le $wait_secs ]]; do
     ibmcloud resource service-instances >services.txt
     secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
     stringArray=($secretLine)
     if [[ "${stringArray[2]}" != "active" ]]; then
       echo "Secrets Manager status: ${stringArray[2]}"
       count=$(($count + $sleep_time))
-      if [[ $count -gt $wait ]]; then
-        echo "Secrets Manager took longer than 8 minutes to provision"
-        echo "Something must have gone wrong. Exiting."
-        exit 1
+      if [[ $count -gt $wait_secs ]]; then
+        echo "Secrets Manager service took longer than $wait_mins minutes to provision."
+        echo "You might have to re-configure this integration in the toolchain once the service finally provisions."
       else
         echo "Waiting $sleep_time seconds to check again..."
         sleep $sleep_time
