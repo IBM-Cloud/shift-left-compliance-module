@@ -125,9 +125,9 @@ variable "storage" {
   default     = "standard"
 }
 
-variable "gitlab_token" {
+variable "github_token" {
   type        = string
-  description = "A GitLab Personal Access Token (https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens)"
+  description = "A GitHub OAuth/Personal Access Token (https://github.ibm.com/settings/tokens)"
 }
 
 variable "ibmcloud_api_key" {
