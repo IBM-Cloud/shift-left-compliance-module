@@ -128,7 +128,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       SERVICE_API_KEY   = data.ibm_iam_api_key.service_api_key.apikey
       SM_NAME           = var.sm_name
       SM_SERVICE_NAME   = var.sm_service_name == "compliance-ci-secrets-manager" ? "compliance-ci-secrets-manager" : var.sm_service_name
-      GITHUB_TOKEN      = var.github_token
+      GITLAB_TOKEN      = var.gitlab_token
       TEKTON_CAT_REPO   = var.tekton_catalog_repo
     }
   } 
