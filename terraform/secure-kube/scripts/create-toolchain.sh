@@ -3,8 +3,7 @@
 #// https://github.com/open-toolchain/sdk/wiki/Toolchain-Creation-page-parameters#headless-toolchain-creation-and-update
 
 # log in using the api key
-ibmcloud login --apikey "$API_KEY" -r "$REGION" 
-ibmcloud target -g $RESOURCE_GROUP
+ibmcloud login --apikey "$API_KEY" -r "$REGION"
 
 # target default resource group for now
 ibmcloud target -g $RESOURCE_GROUP 
@@ -20,7 +19,7 @@ if [[ ! $TOOLCHAIN_REGION =~ "ibm:" ]]; then
   export TOOLCHAIN_REGION="ibm:yp:$REGION"
 fi
 
-#RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
+RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
 if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
   echo "Creating Secrets Manager service..."
@@ -71,7 +70,7 @@ export VAULT_SECRET=$(cat private.key)
 export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
 
 PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
-`"&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH"`
+`"&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH&resourceGroupId=$RESOURCE_GROUP_ID"`
 `"&sourceRepoUrl=$APPLICATION_REPO&pipelineRepo=$PIPELINE_REPO&tektonCatalogRepo=$TEKTON_CAT_REPO"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
