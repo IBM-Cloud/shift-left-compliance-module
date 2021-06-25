@@ -1,6 +1,70 @@
-variable "ibmcloud_api_key" {
+variable "toolchain_name" {
   type        = string
-  description = "The IAM API Key for IBM Cloud access"
+  description = "Name of the Compliance CI toolchain. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
+  default     = "compliance-ci-toolchain-<timestamp>"
+}
+
+variable "application_repo" {
+  type        = string
+  description = "Hello compliance app repo"
+  default     = "https://github.ibm.com/open-toolchain/hello-compliance-app"
+}
+
+variable "inventory_repo" {
+  type        = string
+  description = "Repo where compliance inventory will be stored. If no override is provided, then the default repo will be cloned."
+  default     = "https://github.ibm.com/one-pipeline/compliance-inventory"
+}
+
+variable "issues_repo" {
+  type        = string
+  description = "Repo where compliance issues will be stored. If no override is provided, then the default repo will be cloned."
+  default     = "https://github.ibm.com/one-pipeline/compliance-incident-issues"
+}
+
+variable "sm_name" {
+  description = "Name of the Secrets Manager tool integration (Ex. my-secrets-manager)"
+  default     = "sm-compliance-secrets"
+}
+
+variable "sm_service_name" {
+  description = "Name of the Secrets Manager service. NOTE: Only 1 Secrets Manager instance is allowed. If you already have a Secrets Manager service provisioned, please override this value to its name."
+  default     = "compliance-ci-secrets-manager"
+}
+
+variable "evidence_repo" {
+  type        = string
+  description = "Repo where compliance evidence will be stored. If no override is provided, then the default repo will be cloned."
+  default     = "https://github.ibm.com/one-pipeline/compliance-evidence-locker"
+}
+
+variable "cos_url" {
+  type        = string
+  description = "URL endpoint to Cloud Object Storage Bucket"
+  default     = "s3.private.us.cloud-object-storage.appdomain.cloud"
+}
+
+variable "bucket_name" {
+  description = "Name of the Cloud Object Storage bucket. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
+  default     = "cos-compliance-bucket-<timestamp>"
+}
+
+variable "pipeline_repo" {
+  type        = string
+  description = "Repo where Tekton resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
+  default     = "https://github.ibm.com/one-pipeline/compliance-pipelines"
+}
+
+variable "tekton_catalog_repo" {
+  type        = string
+  description = "Repo where common Tekton task resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
+  default     = "https://github.ibm.com/one-pipeline/common-tekton-tasks"
+}
+
+variable "app_name" {
+  type        = string
+  description = "Name of the Compliance CI application. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
+  default     = "compliance-app-<timestamp>"
 }
 
 variable "region" {
@@ -9,21 +73,10 @@ variable "region" {
   default     = "us-south"
 }
 
-variable "toolchain_template_repo" {
+variable "registry_namespace" {
   type        = string
-  description = "Compliance CI toolchain template repo"
-  default     = "https://github.ibm.com/open-toolchain/compliance-ci-toolchain"
-}
-
-variable "toolchain_name" {
-  type        = string
-  description = "Name of the toolchain as it will appear on IBM Cloud"
-}
-
-variable "application_repo" {
-  type        = string
-  description = "Hello compliance app repo"
-  default     = "https://github.ibm.com/open-toolchain/hello-compliance-app"
+  description = "Container registry namespace to save images"
+  default     = "compliance"
 }
 
 variable "resource_group" {
@@ -34,8 +87,14 @@ variable "resource_group" {
 
 variable "cluster_name" {
   type        = string
-  description = "Name of Kubernetes Cluster to deploy into"
+  description = "Name of new Kubernetes Cluster to deploy application into. NOTE: Cluster must not already exist."
   default     = "compliance-cluster"
+}
+
+variable "cluster_namespace" {
+  type        = string
+  description = "Kubernetes namespace to deploy into"
+  default     = "default"
 }
 
 variable "datacenter" {
@@ -66,34 +125,31 @@ variable "kube_version" {
 variable "public_vlan_num" {
   type        = string
   description = "Number for public VLAN from `ibmcloud ks vlans --zone <ZONE>`"
+  default     = "1911479"
 }
 
 variable "private_vlan_num" {
   type        = string
   description = "Number for private VLAN from `ibmcloud ks vlans --zone <ZONE>`"
+  default     = "1891999"
 }
 
-variable "cluster_namespace" {
+variable "toolchain_template_repo" {
   type        = string
-  description = "Kubernetes namespace to deploy into"
-  default     = "default"
+  description = "Compliance CI toolchain template repo"
+  default     = "https://github.ibm.com/open-toolchain/compliance-ci-toolchain"
+}
+
+variable "branch" {
+  type        = string
+  description = "Branch for Compliance CI toolchain template repo"
+  default     = "master"
 }
 
 variable "pipeline_type" {
   type        = string
   description = "Type of IBM DevOps toolchain pipeline"
   default     = "tekton"
-}
-
-variable "branch" {
-  type        = string
-  description = "Branch for toolchain template repo"
-  default     = "master"
-}
-
-variable "bucket_name" {
-  description = "Name of the COS bucket"
-  default     = "cos-bucket"
 }
 
 variable "regional_loc" {
@@ -106,63 +162,12 @@ variable "storage" {
   default     = "standard"
 }
 
-variable "app_name" {
+variable "github_token" {
   type        = string
-  description = "Name of the application"
-  default     = "hello-compliance-app"
+  description = "A GitHub OAuth/Personal Access Token (https://github.ibm.com/settings/tokens)"
 }
 
-variable "registry_namespace" {
+variable "ibmcloud_api_key" {
   type        = string
-  description = "Container registry namespace to save images"
-}
-
-variable "pipeline_repo" {
-  type        = string
-  description = "Repo where compliance pipeline configurations exists"
-  default     = "https://github.ibm.com/one-pipeline/compliance-pipelines"
-}
-
-variable "artifactory_user_id" {
-  type        = string
-  description = "User ID for Artifactory access"
-}
-
-variable "artifactory_token" {
-  type        = string
-  description = "Token for Artifactory access (base64 encoded)"
-}
-
-variable "evidence_repo" {
-  type        = string
-  description = "Repo where compliance evidence will be stored"
-  default     = "https://github.ibm.com/one-pipeline/compliance-evidence-locker"
-}
-
-variable "issues_repo" {
-  type        = string
-  description = "Repo where compliance issues will be stored"
-  default     = "https://github.ibm.com/one-pipeline/compliance-incident-issues"
-}
-
-variable "inventory_repo" {
-  type        = string
-  description = "Repo where compliance inventory will be stored"
-  default     = "https://github.ibm.com/one-pipeline/compliance-inventory"
-}
-
-variable "cos_bucket_name" {
-  type        = string
-  description = "Name of COS Bucket"
-}
-
-variable "cos_url" {
-  type        = string
-  description = "URL endpoint to COS Bucket"
-  default     = "s3.private.us-south.cloud-object-storage.appdomain.cloud"
-}
-
-variable "vault_secret" {
-  type        = string
-  description = "GPG signing key"
+  description = "The IAM API Key for IBM Cloud access (https://cloud.ibm.com/iam/apikeys)"
 }
