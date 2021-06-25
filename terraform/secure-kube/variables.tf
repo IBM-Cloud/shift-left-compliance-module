@@ -7,19 +7,19 @@ variable "toolchain_name" {
 variable "application_repo" {
   type        = string
   description = "Hello compliance app repo"
-  default     = "https://github.ibm.com/open-toolchain/hello-compliance-app"
+  default     = "https://us-south.git.cloud.ibm.com/open-toolchain/hello-compliance-app"
 }
 
 variable "inventory_repo" {
   type        = string
   description = "Repo where compliance inventory will be stored. If no override is provided, then the default repo will be cloned."
-  default     = "https://github.ibm.com/one-pipeline/compliance-inventory"
+  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-inventory"
 }
 
 variable "issues_repo" {
   type        = string
   description = "Repo where compliance issues will be stored. If no override is provided, then the default repo will be cloned."
-  default     = "https://github.ibm.com/one-pipeline/compliance-incident-issues"
+  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-incident-issues"
 }
 
 variable "sm_name" {
@@ -35,7 +35,7 @@ variable "sm_service_name" {
 variable "evidence_repo" {
   type        = string
   description = "Repo where compliance evidence will be stored. If no override is provided, then the default repo will be cloned."
-  default     = "https://github.ibm.com/one-pipeline/compliance-evidence-locker"
+  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-evidence-locker"
 }
 
 variable "cos_url" {
@@ -52,13 +52,13 @@ variable "bucket_name" {
 variable "pipeline_repo" {
   type        = string
   description = "Repo where Tekton resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
-  default     = "https://github.ibm.com/one-pipeline/compliance-pipelines"
+  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-pipelines"
 }
 
 variable "tekton_catalog_repo" {
   type        = string
   description = "Repo where common Tekton task resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
-  default     = "https://github.ibm.com/one-pipeline/common-tekton-tasks"
+  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/common-tekton-tasks"
 }
 
 variable "app_name" {
@@ -100,7 +100,7 @@ variable "cluster_namespace" {
 variable "toolchain_template_repo" {
   type        = string
   description = "Compliance CI toolchain template repo"
-  default     = "https://github.ibm.com/open-toolchain/compliance-ci-toolchain"
+  default     = "https://us-south.git.cloud.ibm.com/open-toolchain/compliance-ci-toolchain"
 }
 
 variable "branch" {
@@ -125,9 +125,9 @@ variable "storage" {
   default     = "standard"
 }
 
-variable "github_token" {
+variable "gitlab_token" {
   type        = string
-  description = "A GitHub OAuth/Personal Access Token (https://github.ibm.com/settings/tokens)"
+  description = "A GitLab Personal Access Token (https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens)"
 }
 
 variable "ibmcloud_api_key" {
