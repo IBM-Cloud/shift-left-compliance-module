@@ -27,6 +27,11 @@ variable "sm_name" {
   default     = "sm-compliance-secrets"
 }
 
+variable "sm_service_name" {
+  description = "Name of the Secrets Manager service. NOTE: Only 1 Secrets Manager instance is allowed. If you already have a Secrets Manager service provisioned, please override this value to its name."
+  default     = "compliance-ci-secrets-manager"
+}
+
 variable "evidence_repo" {
   type        = string
   description = "Repo where compliance evidence will be stored. If no override is provided, then the default repo will be cloned."

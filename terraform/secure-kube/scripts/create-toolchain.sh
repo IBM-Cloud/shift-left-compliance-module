@@ -18,34 +18,35 @@ fi
 
 #RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
-# create secrets manager service
-# NOTE: Secrets Manager service can take approx 5-8 minutes to provision
-SM_SERVICE_NAME="compliance-ci-secrets-manager"
-ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
-echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
-wait=480
-count=0
-sleep_time=60
-while [[ $count -le $wait ]]; do
-  ibmcloud resource service-instances >services.txt
-  secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
-  stringArray=($secretLine)
-  if [[ "${stringArray[2]}" != "active" ]]; then
-    echo "Secrets Manager status: ${stringArray[2]}"
-    count+=$sleep_time
-    if [[ $count > $wait ]]; then
-      echo "Secrets Manager took longer than 8 minutes to provision"
-      echo "Something must have gone wrong. Exiting."
-      exit 1
+if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
+  # create secrets manager service
+  # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
+  ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
+  echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
+  wait=480
+  count=0
+  sleep_time=60
+  while [[ $count -le $wait ]]; do
+    ibmcloud resource service-instances >services.txt
+    secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
+    stringArray=($secretLine)
+    if [[ "${stringArray[2]}" != "active" ]]; then
+      echo "Secrets Manager status: ${stringArray[2]}"
+      count+=$sleep_time
+      if [[ $count > $wait ]]; then
+        echo "Secrets Manager took longer than 8 minutes to provision"
+        echo "Something must have gone wrong. Exiting."
+        exit 1
+      else
+        echo "Waiting 60 seconds to check again..."
+        sleep $sleep_time
+      fi
     else
-      echo "Waiting 60 seconds to check again..."
-      sleep $sleep_time
+      echo "Secrets Manager status: ${stringArray[2]}"
+      break
     fi
-  else
-    echo "Secrets Manager status: ${stringArray[2]}"
-    break
-  fi
-done
+  done
+fi
 
 # generate gpg key
 gpg --batch --pinentry-mode loopback --generate-key <<EOF
