@@ -8,6 +8,7 @@ provider "ibm" {
 }
 
 provider "gitlab" {
+  version   = "~> 3.6"
   base_url  = "https://us-south.git.cloud.ibm.com/"
   token     = var.gitlab_token
 }
@@ -16,28 +17,43 @@ provider "null" {
   version = "~> 3.1"
 }
 
-resource "gitlab_project" "issues_repo" {
-  count             = var.issues_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-incident-issues" ? 1 : 0
-  name              = "compliance-issues-${formatdate("YYYYMMDDhhmm", timestamp())}"
-  description       = "Repo for storing compliance issues"
-  visibility_level  = "private"
-  template_name     = "one-pipeline/compliance-incident-issues"
+resource "github_repository" "issues_repo" {
+  count       = var.issues_repo == "https://github.ibm.com/one-pipeline/compliance-incident-issues" ? 1 : 0
+  name        = "compliance-issues-${formatdate("YYYYMMDDhhmm", timestamp())}"
+  description = "Repo for storing compliance issues"
+  visibility  = "private"
+  vulnerability_alerts  = true
+
+  template {
+    owner      = "one-pipeline"
+    repository = "compliance-incident-issues"
+  }
 }
 
-resource "gitlab_project" "inventory_repo" {
-  count             = var.inventory_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-inventory" ? 1 : 0
-  name              = "compliance-inventory-${formatdate("YYYYMMDDhhmm", timestamp())}"
-  description       = "Repo for storing compliance inventory"
-  visibility_level  = "private"
-  template_name     = "one-pipeline/compliance-inventory"
+resource "github_repository" "inventory_repo" {
+  count       = var.inventory_repo == "https://github.ibm.com/one-pipeline/compliance-inventory" ? 1 : 0
+  name        = "compliance-inventory-${formatdate("YYYYMMDDhhmm", timestamp())}"
+  description = "Repo for storing compliance inventory"
+  visibility  = "private"
+  vulnerability_alerts  = true
+
+  template {
+    owner      = "one-pipeline"
+    repository = "compliance-inventory"
+  }
 }
 
-resource "gitlab_project" "evidence_repo" {
-  count             = var.evidence_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-evidence-locker" ? 1 : 0
-  name              = "compliance-evidence-${formatdate("YYYYMMDDhhmm", timestamp())}"
-  description       = "Repo for storing compliance evidence"
-  visibility_level  = "private"
-  template_name     = "one-pipeline/compliance-evidence-locker"
+resource "github_repository" "evidence_repo" {
+  count       = var.evidence_repo == "https://github.ibm.com/one-pipeline/compliance-evidence-locker" ? 1 : 0
+  name        = "compliance-evidence-${formatdate("YYYYMMDDhhmm", timestamp())}"
+  description = "Repo for storing compliance evidence"
+  visibility  = "private"
+  vulnerability_alerts  = true
+
+  template {
+    owner      = "one-pipeline"
+    repository = "compliance-evidence-locker"
+  }
 }
 
 data "ibm_resource_group" "cos_group" {
