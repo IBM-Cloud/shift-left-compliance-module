@@ -23,31 +23,31 @@ if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
   # create secrets manager service
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
   ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
-  echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
-  wait=480
-  count=0
-  sleep_time=60
-  while [[ $count -le $wait ]]; do
-    ibmcloud resource service-instances >services.txt
-    secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
-    stringArray=($secretLine)
-    if [[ "${stringArray[2]}" != "active" ]]; then
-      echo "Secrets Manager status: ${stringArray[2]}"
-      count=$(($count + $sleep_time))
-      if [[ $count -gt $wait ]]; then
-        echo "Secrets Manager took longer than 8 minutes to provision"
-        echo "Something must have gone wrong. Exiting."
-        exit 1
-      else
-        echo "Waiting $sleep_time seconds to check again..."
-        sleep $sleep_time
-      fi
-    else
-      echo "Secrets Manager successfully provisioned"
-      echo "Status: ${stringArray[2]}"
-      break
-    fi
-  done
+  #echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
+  #wait=480
+  #count=0
+  #sleep_time=60
+  #while [[ $count -le $wait ]]; do
+    #ibmcloud resource service-instances >services.txt
+    #secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
+    #stringArray=($secretLine)
+    #if [[ "${stringArray[2]}" != "active" ]]; then
+      #echo "Secrets Manager status: ${stringArray[2]}"
+      #count=$(($count + $sleep_time))
+      #if [[ $count -gt $wait ]]; then
+        #echo "Secrets Manager took longer than 8 minutes to provision"
+        #echo "Something must have gone wrong. Exiting."
+        #exit 1
+      #else
+        #echo "Waiting $sleep_time seconds to check again..."
+        #sleep $sleep_time
+      #fi
+    #else
+      #echo "Secrets Manager successfully provisioned"
+      #echo "Status: ${stringArray[2]}"
+      #break
+    #fi
+  #done
 fi
 
 # generate gpg key
