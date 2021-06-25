@@ -16,43 +16,28 @@ provider "null" {
   version = "~> 3.1"
 }
 
-resource "github_repository" "issues_repo" {
-  count       = var.issues_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-incident-issues" ? 1 : 0
-  name        = "compliance-issues-${formatdate("YYYYMMDDhhmm", timestamp())}"
-  description = "Repo for storing compliance issues"
-  visibility  = "private"
-  vulnerability_alerts  = true
-
-  template {
-    owner      = "one-pipeline"
-    repository = "compliance-incident-issues"
-  }
+resource "gitlab_project" "issues_repo" {
+  count             = var.issues_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-incident-issues" ? 1 : 0
+  name              = "compliance-issues-${formatdate("YYYYMMDDhhmm", timestamp())}"
+  description       = "Repo for storing compliance issues"
+  visibility_level  = "private"
+  template_name     = "one-pipeline/compliance-incident-issues"
 }
 
-resource "github_repository" "inventory_repo" {
-  count       = var.inventory_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-inventory" ? 1 : 0
-  name        = "compliance-inventory-${formatdate("YYYYMMDDhhmm", timestamp())}"
-  description = "Repo for storing compliance inventory"
-  visibility  = "private"
-  vulnerability_alerts  = true
-
-  template {
-    owner      = "one-pipeline"
-    repository = "compliance-inventory"
-  }
+resource "gitlab_project" "inventory_repo" {
+  count             = var.inventory_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-inventory" ? 1 : 0
+  name              = "compliance-inventory-${formatdate("YYYYMMDDhhmm", timestamp())}"
+  description       = "Repo for storing compliance inventory"
+  visibility_level  = "private"
+  template_name     = "one-pipeline/compliance-inventory"
 }
 
-resource "github_repository" "evidence_repo" {
-  count       = var.evidence_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-evidence-locker" ? 1 : 0
-  name        = "compliance-evidence-${formatdate("YYYYMMDDhhmm", timestamp())}"
-  description = "Repo for storing compliance evidence"
-  visibility  = "private"
-  vulnerability_alerts  = true
-
-  template {
-    owner      = "one-pipeline"
-    repository = "compliance-evidence-locker"
-  }
+resource "gitlab_project" "evidence_repo" {
+  count             = var.evidence_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-evidence-locker" ? 1 : 0
+  name              = "compliance-evidence-${formatdate("YYYYMMDDhhmm", timestamp())}"
+  description       = "Repo for storing compliance evidence"
+  visibility_level  = "private"
+  template_name     = "one-pipeline/compliance-evidence-locker"
 }
 
 data "ibm_resource_group" "cos_group" {
@@ -119,9 +104,9 @@ resource "null_resource" "create_kubernetes_toolchain" {
       PIPELINE_TYPE     = var.pipeline_type
       BRANCH            = var.branch
       APP_NAME          = var.app_name == "compliance-app-<timestamp>" ? "compliance-app-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.app_name
-      ISSUES_REPO       = var.issues_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-incident-issues" ? github_repository.issues_repo[0].id : var.issues_repo
-      INVENTORY_REPO    = var.inventory_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-inventory" ? github_repository.inventory_repo[0].id : var.inventory_repo
-      EVIDENCE_REPO     = var.evidence_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-evidence-locker" ? github_repository.evidence_repo[0].id : var.evidence_repo
+      ISSUES_REPO       = var.issues_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-incident-issues" ? gitlab_project.issues_repo[0].id : var.issues_repo
+      INVENTORY_REPO    = var.inventory_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-inventory" ? gitlab_project.inventory_repo[0].id : var.inventory_repo
+      EVIDENCE_REPO     = var.evidence_repo == "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-evidence-locker" ? gitlab_project.evidence_repo[0].id : var.evidence_repo
       COS_BUCKET_NAME   = "${element(split(":", ibm_cos_bucket.cos_bucket.crn),9)}"
       COS_URL           = var.cos_url
       SERVICE_API_KEY   = data.ibm_iam_api_key.service_api_key.apikey
