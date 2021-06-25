@@ -13,17 +13,8 @@ provider "github" {
   token     = var.github_token
 }
 
-provider "random" {
-  version = "~> 3.1"
-}
-
 provider "null" {
   version = "~> 3.1"
-}
-
-resource "random_string" "random" {
-  length    = 4
-  min_lower = 4
 }
 
 resource "github_repository" "issues_repo" {

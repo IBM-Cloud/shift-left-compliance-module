@@ -71,14 +71,18 @@ PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_R
 `"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 echo "PARAMETERS:"
 echo $PARAMETERS
-echo "URL:"
-echo "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&$PARAMETERS"
+URL="https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&$PARAMETERS"
+echo "Before sanitize URL:"
+echo $URL
+URL=${URL%$'\r'}
+echo "After sanitize URL:"
+echo $URL
 
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
   -H "Authorization: $BEARER_TOKEN" \
-  "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&$PARAMETERS")
+  "$URL")
 
 echo "$RESPONSE"
 LOCATION=$(grep location <<<"$RESPONSE" | awk {'print $2'})
