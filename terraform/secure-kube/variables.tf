@@ -10,18 +10,6 @@ variable "application_repo" {
   default     = "https://us-south.git.cloud.ibm.com/open-toolchain/hello-compliance-app"
 }
 
-variable "inventory_repo" {
-  type        = string
-  description = "Repo where compliance inventory will be stored. If no override is provided, then the default repo will be cloned."
-  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-inventory"
-}
-
-variable "issues_repo" {
-  type        = string
-  description = "Repo where compliance issues will be stored. If no override is provided, then the default repo will be cloned."
-  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-incident-issues"
-}
-
 variable "sm_name" {
   description = "Name of the Secrets Manager tool integration (Ex. my-secrets-manager)"
   default     = "sm-compliance-secrets"
@@ -30,12 +18,6 @@ variable "sm_name" {
 variable "sm_service_name" {
   description = "Name of the Secrets Manager service. NOTE: Only 1 Secrets Manager instance is allowed. If you already have a Secrets Manager service provisioned, please override this value to its name."
   default     = "compliance-ci-secrets-manager"
-}
-
-variable "evidence_repo" {
-  type        = string
-  description = "Repo where compliance evidence will be stored. If no override is provided, then the default repo will be cloned."
-  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-evidence-locker"
 }
 
 variable "cos_url" {
@@ -47,18 +29,6 @@ variable "cos_url" {
 variable "bucket_name" {
   description = "Name of the Cloud Object Storage bucket. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
   default     = "cos-compliance-bucket-<timestamp>"
-}
-
-variable "pipeline_repo" {
-  type        = string
-  description = "Repo where Tekton resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
-  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/compliance-pipelines"
-}
-
-variable "tekton_catalog_repo" {
-  type        = string
-  description = "Repo where common Tekton task resources are defined. WARNING: Do not alter the code in this repository unless absolutely necessary."
-  default     = "https://us-south.git.cloud.ibm.com/one-pipeline/common-tekton-tasks"
 }
 
 variable "app_name" {

@@ -66,16 +66,17 @@ EOF
 gpg --export-secret-key -a "Root User"  | base64 > private.key
 export VAULT_SECRET=$(cat private.key)
 
-# URL encode VAULT_SECRET
+# URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, and APPLICATION_REPO
 export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
+export TOOLCHAIN_TEMPLATE_REPO=$(echo $TOOLCHAIN_TEMPLATE_REPO | jq -rR @uri)
+export APPLICATION_REPO=$(echo $APPLICATION_REPO | jq -rR @uri)
 
 PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH&resourceGroupId=$RESOURCE_GROUP_ID"`
-`"&sourceRepoUrl=$APPLICATION_REPO&pipelineRepo=$PIPELINE_REPO&tektonCatalogRepo=$TEKTON_CAT_REPO"`
+`"&sourceRepoUrl=$APPLICATION_REPO"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&appName=$APP_NAME&gitToken=$GITLAB_TOKEN"`
-`"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"`
 `"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
 `"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
