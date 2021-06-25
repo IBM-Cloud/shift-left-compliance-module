@@ -34,7 +34,7 @@ if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
     if [[ "${stringArray[2]}" != "active" ]]; then
       echo "Secrets Manager status: ${stringArray[2]}"
       count=$(($count + $sleep_time))
-      if [[ $count > $wait ]]; then
+      if [[ $count -gt $wait ]]; then
         echo "Secrets Manager took longer than 8 minutes to provision"
         echo "Something must have gone wrong. Exiting."
         exit 1
