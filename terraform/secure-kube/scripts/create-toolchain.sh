@@ -24,7 +24,7 @@ RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq "
 if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
   echo "Creating Secrets Manager service..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
-  ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
+  ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite $REGION
   wait_secs=600
   count=0
   sleep_time=60

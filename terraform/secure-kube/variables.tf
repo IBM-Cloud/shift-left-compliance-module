@@ -4,12 +4,6 @@ variable "toolchain_name" {
   default     = "compliance-ci-toolchain-<timestamp>"
 }
 
-variable "application_repo" {
-  type        = string
-  description = "Your application repository. The default URL is a sample application."
-  default     = "https://us-south.git.cloud.ibm.com/open-toolchain/hello-compliance-app"
-}
-
 variable "sm_name" {
   description = "Name of the Secrets Manager tool integration (Ex. my-secrets-manager)"
   default     = "sm-compliance-secrets"
@@ -39,7 +33,7 @@ variable "app_name" {
 
 variable "region" {
   type        = string
-  description = "IBM Cloud Region"
+  description = "IBM Cloud region where your application will be deployed"
   default     = "us-south"
 }
 
@@ -51,19 +45,19 @@ variable "registry_namespace" {
 
 variable "resource_group" {
   type        = string
-  description = "Resource group name where the toolchain should be created"
+  description = "Resource group where the resources will be created"
   default     = "default"
 }
 
 variable "cluster_name" {
   type        = string
-  description = "Name of Kubernetes Cluster where application will be deployed. If the default value is not overridden, a new cluster will be provisioned."
+  description = "Name of Kubernetes Cluster where your application will be deployed. If the default value is not overridden, a new cluster will be provisioned."
   default     = "compliance-cluster"
 }
 
 variable "cluster_namespace" {
   type        = string
-  description = "Kubernetes namespace to deploy into"
+  description = "Namespace in Kubernetes cluster where your application will be deployed. If the namespace does not exist, it will be created."
   default     = "default"
 }
 
@@ -104,12 +98,6 @@ variable "private_vlan_num" {
   default     = "1891999"
 }
 
-variable "toolchain_template_repo" {
-  type        = string
-  description = "Compliance CI toolchain template repo"
-  default     = "https://us-south.git.cloud.ibm.com/open-toolchain/compliance-ci-toolchain"
-}
-
 variable "branch" {
   type        = string
   description = "Branch for Compliance CI toolchain template repo"
@@ -139,5 +127,5 @@ variable "ibmcloud_api_key" {
 
 variable "gitlab_token" {
   type        = string
-  description = "A GitLab Personal Access Token (https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens)"
+  description = "A GitLab Personal Access Token (https://<region>.git.cloud.ibm.com/-/profile/personal_access_tokens NOTE: Change <region> to match the 'region' variable.)"
 }
