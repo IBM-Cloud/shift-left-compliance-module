@@ -6,7 +6,7 @@ variable "toolchain_name" {
 
 variable "application_repo" {
   type        = string
-  description = "Hello compliance app repo"
+  description = "Your application repository. The default URL is a sample application."
   default     = "https://us-south.git.cloud.ibm.com/open-toolchain/hello-compliance-app"
 }
 
@@ -57,7 +57,7 @@ variable "resource_group" {
 
 variable "cluster_name" {
   type        = string
-  description = "Name of new Kubernetes Cluster to deploy application into. WARNING: On first run, the plan will fail to apply if the named cluster already exists. On second run, the plan will destroy the previously created cluster and create a new one (no matter if the name changes)."
+  description = "Name of Kubernetes Cluster where application will be deployed. If the default value is not overridden, a new cluster will be provisioned."
   default     = "compliance-cluster"
 }
 
@@ -65,6 +65,43 @@ variable "cluster_namespace" {
   type        = string
   description = "Kubernetes namespace to deploy into"
   default     = "default"
+}
+
+variable "datacenter" {
+  type        = string
+  description = "Zone from `ibmcloud ks zones --provider classic`"
+  default     = "dal12"
+}
+
+variable "default_pool_size" {
+  default     = "1"
+  description = "Number of worker nodes for the new Kubernetes cluster"
+}
+
+variable "machine_type" {
+  default     = "b3c.4x16"
+  description = "Name of machine type from `ibmcloud ks flavors --zone <ZONE>`"
+}
+variable "hardware" {
+  default     = "shared"
+  description = "The level of hardware isolation for your worker node. Use 'dedicated' to have available physical resources dedicated to you only, or 'shared' to allow physical resources to be shared with other IBM customers. For IBM Cloud Public accounts, the default value is shared. For IBM Cloud Dedicated accounts, dedicated is the only available option."
+}
+
+variable "kube_version" {
+  default     = "1.20.7"
+  description = "Version of Kubernetes to apply to the new Kubernetes cluster"
+}
+
+variable "public_vlan_num" {
+  type        = string
+  description = "Number for public VLAN from `ibmcloud ks vlans --zone <ZONE>`"
+  default     = "1911479"
+}
+
+variable "private_vlan_num" {
+  type        = string
+  description = "Number for private VLAN from `ibmcloud ks vlans --zone <ZONE>`"
+  default     = "1891999"
 }
 
 variable "toolchain_template_repo" {
@@ -95,12 +132,12 @@ variable "storage" {
   default     = "standard"
 }
 
-variable "gitlab_token" {
-  type        = string
-  description = "A GitLab Personal Access Token (https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens)"
-}
-
 variable "ibmcloud_api_key" {
   type        = string
   description = "The IAM API Key for IBM Cloud access (https://cloud.ibm.com/iam/apikeys)"
+}
+
+variable "gitlab_token" {
+  type        = string
+  description = "A GitLab Personal Access Token (https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens)"
 }
