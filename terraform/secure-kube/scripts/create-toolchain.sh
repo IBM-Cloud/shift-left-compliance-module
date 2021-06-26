@@ -3,8 +3,7 @@
 #// https://github.com/open-toolchain/sdk/wiki/Toolchain-Creation-page-parameters#headless-toolchain-creation-and-update
 
 # log in using the api key
-ibmcloud login --apikey "$API_KEY" -r "$REGION" 
-ibmcloud target -g $RESOURCE_GROUP
+ibmcloud login --apikey "$API_KEY" -r "$REGION"
 
 # target default resource group for now
 ibmcloud target -g $RESOURCE_GROUP 
@@ -20,37 +19,37 @@ if [[ ! $TOOLCHAIN_REGION =~ "ibm:" ]]; then
   export TOOLCHAIN_REGION="ibm:yp:$REGION"
 fi
 
-#RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
+RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
 if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
   echo "Creating Secrets Manager service..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
   ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite us-south
-  #echo "Waiting up to 8 minutes for Secrets Manager service to provision..."
-  #wait=480
-  #count=0
-  #sleep_time=60
-  #while [[ $count -le $wait ]]; do
-    #ibmcloud resource service-instances >services.txt
-    #secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
-    #stringArray=($secretLine)
-    #if [[ "${stringArray[2]}" != "active" ]]; then
-      #echo "Secrets Manager status: ${stringArray[2]}"
-      #count=$(($count + $sleep_time))
-      #if [[ $count -gt $wait ]]; then
-        #echo "Secrets Manager took longer than 8 minutes to provision"
-        #echo "Something must have gone wrong. Exiting."
-        #exit 1
-      #else
-        #echo "Waiting $sleep_time seconds to check again..."
-        #sleep $sleep_time
-      #fi
-    #else
-      #echo "Secrets Manager successfully provisioned"
-      #echo "Status: ${stringArray[2]}"
-      #break
-    #fi
-  #done
+  wait_secs=600
+  count=0
+  sleep_time=60
+  wait_mins=$(($wait_secs / $sleep_time))
+  echo "Waiting up to $wait_mins minutes for Secrets Manager service to provision..."
+  while [[ $count -le $wait_secs ]]; do
+    ibmcloud resource service-instances >services.txt
+    secretLine=$(cat services.txt | grep $SM_SERVICE_NAME)
+    stringArray=($secretLine)
+    if [[ "${stringArray[2]}" != "active" ]]; then
+      echo "Secrets Manager status: ${stringArray[2]}"
+      count=$(($count + $sleep_time))
+      if [[ $count -gt $wait_secs ]]; then
+        echo "Secrets Manager service took longer than $wait_mins minutes to provision."
+        echo "You might have to re-configure this integration in the toolchain once the service finally provisions."
+      else
+        echo "Waiting $sleep_time seconds to check again..."
+        sleep $sleep_time
+      fi
+    else
+      echo "Secrets Manager successfully provisioned"
+      echo "Status: ${stringArray[2]}"
+      break
+    fi
+  done
 fi
 
 # generate gpg key
@@ -67,20 +66,26 @@ EOF
 gpg --export-secret-key -a "Root User"  | base64 > private.key
 export VAULT_SECRET=$(cat private.key)
 
-# URL encode VAULT_SECRET
+# URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, and APPLICATION_REPO
 export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
+export TOOLCHAIN_TEMPLATE_REPO=$(echo $TOOLCHAIN_TEMPLATE_REPO | jq -rR @uri)
+export APPLICATION_REPO=$(echo $APPLICATION_REPO | jq -rR @uri)
+
+export appName=$APP_NAME
 
 PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
-`"&sourceRepoUrl=$APPLICATION_REPO&pipelineRepo=$PIPELINE_REPO&tektonCatalogRepo=$TEKTON_CAT_REPO"`
+`"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH"`
+`"&sourceRepoUrl=$APPLICATION_REPO&resourceGroupId=$RESOURCE_GROUP_ID"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
-`"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&appName=$APP_NAME&gitToken=$GITHUB_TOKEN"`
-`"&evidenceRepo=$EVIDENCE_REPO&issuesRepo=$ISSUES_REPO&inventoryRepo=$INVENTORY_REPO"`
+`"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&appName=$APP_NAME&gitToken=$GITLAB_TOKEN"`
 `"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
 `"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 # debugging
 #echo "$PARAMETERS"
+# adding some sleep time, so hopefully the toolchain will see the recently provisioned Secrets Manager
+sleep 10
 
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
