@@ -76,8 +76,8 @@ resource "null_resource" "create_kubernetes_toolchain" {
 
     environment={
       REGION            =  var.region
-      TOOLCHAIN_TEMPLATE_REPO = var.toolchain_template_repo
-      APPLICATION_REPO  = var.application_repo
+      TOOLCHAIN_TEMPLATE_REPO = "https://${var.region}.git.cloud.ibm.com/open-toolchain/compliance-ci-toolchain"
+      APPLICATION_REPO  = "https://${var.region}.git.cloud.ibm.com/open-toolchain/hello-compliance-app"
       RESOURCE_GROUP    = var.resource_group
       API_KEY           = var.ibmcloud_api_key
       CLUSTER_NAME      = var.cluster_name
