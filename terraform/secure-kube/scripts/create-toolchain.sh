@@ -26,7 +26,8 @@ SM_FOUND=$(bx resource service-instance "$SM_SERVICE_NAME" --output JSON | jq ".
 if [[ $SM_FOUND ]]; then
   echo "Secrets Manager '$SM_SERVICE_NAME' already exists."
 else
-  echo "Creating Secrets Manager service..."
+  echo "Secrets Manager '$SM_SERVICE_NAME' does not exist."
+  echo "Creating Secrets Manager service now..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
   ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite $REGION
   wait_secs=600
