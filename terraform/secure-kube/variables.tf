@@ -20,7 +20,14 @@ variable "cos_url" {
   default     = "s3.private.us.cloud-object-storage.appdomain.cloud"
 }
 
-variable "bucket_name" {
+variable "cos_instance_name" {
+  type        = string
+  description = "Name of the Cloud Object Storage instance. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
+  default     = "cos-compliance-instance-<timestamp>"
+}
+
+variable "cos_bucket_name" {
+  type        = string
   description = "Name of the Cloud Object Storage bucket. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
   default     = "cos-compliance-bucket-<timestamp>"
 }
