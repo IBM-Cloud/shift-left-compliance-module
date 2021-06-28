@@ -51,7 +51,7 @@ resource "ibm_iam_service_policy" "cos_policy" {
 
   resources {
     service = "cloud-object-storage"
-    resource_instance_id  = ibm_resource_instance.cos_instance[0].id ? ibm_resource_instance.cos_instance[0].id : var.cos_instance_name
+    resource_instance_id  = var.cos_instance_name == "cos-compliance-instance-<timestamp>" ? ibm_resource_instance.cos_instance[0].id : var.cos_instance_name
   }
 }
 
