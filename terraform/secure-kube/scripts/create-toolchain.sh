@@ -77,6 +77,7 @@ export TOOLCHAIN_TEMPLATE_REPO=$(echo $TOOLCHAIN_TEMPLATE_REPO | jq -rR @uri)
 export APPLICATION_REPO=$(echo $APPLICATION_REPO | jq -rR @uri)
 export API_KEY=$(echo $API_KEY | jq -rR @uri)
 export appName=$APP_NAME
+echo "App Name: $APP_NAME"
 
 PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH"`
@@ -88,9 +89,9 @@ PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY&onePipelineConfigR
 `"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 # debugging
-#echo "$PARAMETERS"
-# adding some sleep time, so hopefully the toolchain will see the recently provisioned Secrets Manager
-sleep 10
+echo "Here are the parameters:"
+echo "$PARAMETERS"
+
 
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
