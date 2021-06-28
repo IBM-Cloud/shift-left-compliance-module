@@ -95,7 +95,7 @@ RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
   -H "Authorization: $BEARER_TOKEN" \
-  -d "$PARAMETERS"
+  -d "$PARAMETERS" \
   "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION")
 
 echo "$RESPONSE"
