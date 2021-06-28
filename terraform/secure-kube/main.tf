@@ -57,19 +57,6 @@ data "ibm_resource_group" "group" {
   name = var.resource_group
 }
 
-resource "ibm_container_cluster" "cluster" {
-  count             = var.cluster_name == "compliance-cluster" ? 1 : 0
-  name              = var.cluster_name
-  datacenter        = var.datacenter
-  default_pool_size = var.default_pool_size
-  machine_type      = var.machine_type
-  hardware          = var.hardware
-  kube_version      = var.kube_version
-  public_vlan_id    = var.public_vlan_num
-  private_vlan_id   = var.private_vlan_num
-  resource_group_id = data.ibm_resource_group.group.id
-}
-
 resource "null_resource" "create_kubernetes_toolchain" {
   provisioner "local-exec" {
     command = "${path.cwd}/scripts/create-toolchain.sh"
@@ -80,11 +67,11 @@ resource "null_resource" "create_kubernetes_toolchain" {
       APPLICATION_REPO  = "https://${var.region}.git.cloud.ibm.com/open-toolchain/hello-compliance-app"
       RESOURCE_GROUP    = var.resource_group
       API_KEY           = var.ibmcloud_api_key
-      CLUSTER_NAME      = var.cluster_name
-      CLUSTER_NAMESPACE = var.cluster_namespace
+      CLUSTER_NAME      = "compliance-cluster"
+      CLUSTER_NAMESPACE = "default"
       REGISTRY_NAMESPACE  = var.registry_namespace
       TOOLCHAIN_NAME    = var.toolchain_name == "compliance-ci-toolchain-<timestamp>" ? "compliance-ci-toolchain-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.toolchain_name
-      PIPELINE_TYPE     = var.pipeline_type
+      PIPELINE_TYPE     = "tekton"
       BRANCH            = var.branch
       APP_NAME          = var.app_name == "compliance-app-<timestamp>" ? "compliance-app-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.app_name
       COS_BUCKET_NAME   = "${element(split(":", ibm_cos_bucket.cos_bucket.crn),9)}"
