@@ -96,7 +96,7 @@ RESPONSE=$(curl -i -X POST \
   -H 'Accept: application/json' \
   -H "Authorization: $BEARER_TOKEN" \
   -d "$PARAMETERS" \
-  "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION")
+  "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH")
 
 echo "$RESPONSE"
 LOCATION=$(grep location <<<"$RESPONSE" | awk {'print $2'})
