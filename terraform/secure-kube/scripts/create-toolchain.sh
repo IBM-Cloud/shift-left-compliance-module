@@ -21,7 +21,11 @@ fi
 
 RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
-if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
+# check for the existence of the Secrets Manager instance
+SM_FOUND=$(bx resource service-instance "$SM_SERVICE_NAME" --output JSON | jq ".[].name" -r)
+if [[ $SM_FOUND ]]; then
+  echo "Secrets Manager '$SM_SERVICE_NAME' already exists."
+else
   echo "Creating Secrets Manager service..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
   ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite $REGION
