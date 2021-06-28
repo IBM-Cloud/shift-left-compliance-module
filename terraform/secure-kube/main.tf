@@ -27,7 +27,7 @@ resource "ibm_resource_instance" "cos_instance" {
 resource "ibm_cos_bucket" "cos_bucket" {
   count                 = var.cos_bucket_name == "cos-compliance-bucket-<timestamp>" ? 1 : 0
   bucket_name           = "cos-compliance-bucket-${formatdate("YYYYMMDDhhmm", timestamp())}"
-  resource_instance_id  = ibm_resource_instance.cos_instance.id
+  resource_instance_id  = ibm_resource_instance.cos_instance[0].id
   region_location       = var.regional_loc
   storage_class         = var.storage
 }
@@ -51,7 +51,7 @@ resource "ibm_iam_service_policy" "cos_policy" {
 
   resources {
     service = "cloud-object-storage"
-    resource_instance_id  = ibm_resource_instance.cos_instance.id ? ibm_resource_instance.cos_instance.id : var.cos_instance_name
+    resource_instance_id  = ibm_resource_instance.cos_instance[0].id ? ibm_resource_instance.cos_instance[0].id : var.cos_instance_name
   }
 }
 
@@ -89,7 +89,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       PIPELINE_TYPE     = "tekton"
       BRANCH            = var.branch
       APP_NAME          = var.app_name == "compliance-app-<timestamp>" ? "compliance-app-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.app_name
-      COS_BUCKET_NAME   = var.cos_bucket_name == "cos-compliance-bucket-<timestamp>" ? "${element(split(":", ibm_cos_bucket.cos_bucket.crn),9)}" : var.cos_bucket_name
+      COS_BUCKET_NAME   = var.cos_bucket_name == "cos-compliance-bucket-<timestamp>" ? "${element(split(":", ibm_cos_bucket.cos_bucket[0].crn),9)}" : var.cos_bucket_name
       COS_URL           = var.cos_url
       SERVICE_API_KEY   = data.ibm_iam_api_key.service_api_key.apikey
       SM_NAME           = var.sm_name
