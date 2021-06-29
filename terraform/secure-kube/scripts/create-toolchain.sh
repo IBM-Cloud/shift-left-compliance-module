@@ -21,8 +21,13 @@ fi
 
 RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
-if [[ $SM_SERVICE_NAME == "compliance-ci-secrets-manager" ]]; then
-  echo "Creating Secrets Manager service..."
+# check for the existence of the Secrets Manager instance
+SM_FOUND=$(bx resource service-instance "$SM_SERVICE_NAME" --output JSON | jq ".[].name" -r)
+if [[ $SM_FOUND ]]; then
+  echo "Secrets Manager '$SM_SERVICE_NAME' already exists."
+else
+  echo "Secrets Manager '$SM_SERVICE_NAME' does not exist."
+  echo "Creating Secrets Manager service now..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
   ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite $REGION
   wait_secs=600
@@ -66,32 +71,32 @@ EOF
 gpg --export-secret-key -a "Root User"  | base64 > private.key
 export VAULT_SECRET=$(cat private.key)
 
-# URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, and APPLICATION_REPO
+# URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, APPLICATION_REPO, and API_KEY
 export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
 export TOOLCHAIN_TEMPLATE_REPO=$(echo $TOOLCHAIN_TEMPLATE_REPO | jq -rR @uri)
 export APPLICATION_REPO=$(echo $APPLICATION_REPO | jq -rR @uri)
-
+export API_KEY=$(echo $API_KEY | jq -rR @uri)
 export appName=$APP_NAME
 
-PARAMETERS="autocreate=true&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
+PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH"`
 `"&sourceRepoUrl=$APPLICATION_REPO&resourceGroupId=$RESOURCE_GROUP_ID"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
-`"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&appName=$APP_NAME&gitToken=$GITLAB_TOKEN"`
+`"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&gitToken=$GITLAB_TOKEN"`
 `"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
 `"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 # debugging
+#echo "Here are the parameters:"
 #echo "$PARAMETERS"
-# adding some sleep time, so hopefully the toolchain will see the recently provisioned Secrets Manager
-sleep 10
 
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
   -H "Authorization: $BEARER_TOKEN" \
-  "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&$PARAMETERS")
+  -d "$PARAMETERS" \
+  "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH")
 
 echo "$RESPONSE"
 LOCATION=$(grep location <<<"$RESPONSE" | awk {'print $2'})

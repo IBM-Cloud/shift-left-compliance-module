@@ -20,7 +20,14 @@ variable "cos_url" {
   default     = "s3.private.us.cloud-object-storage.appdomain.cloud"
 }
 
-variable "bucket_name" {
+variable "cos_instance_name" {
+  type        = string
+  description = "Name of the Cloud Object Storage instance. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
+  default     = "cos-compliance-instance-<timestamp>"
+}
+
+variable "cos_bucket_name" {
+  type        = string
   description = "Name of the Cloud Object Storage bucket. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
   default     = "cos-compliance-bucket-<timestamp>"
 }
@@ -104,12 +111,6 @@ variable "branch" {
   default     = "master"
 }
 
-variable "pipeline_type" {
-  type        = string
-  description = "Type of IBM DevOps toolchain pipeline"
-  default     = "tekton"
-}
-
 variable "regional_loc" {
   description = "Region where the COS bucket will exist"
   default     = "us-south"
@@ -127,5 +128,5 @@ variable "ibmcloud_api_key" {
 
 variable "gitlab_token" {
   type        = string
-  description = "A GitLab Personal Access Token (https://<region>.git.cloud.ibm.com/-/profile/personal_access_tokens NOTE: Change <region> to match the 'region' variable.)"
+  description = "A GitLab Personal Access Token (Ex. https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens NOTE: Make sure to create your token in the same region as your toolchain, or 'region' variable.)"
 }
