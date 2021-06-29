@@ -32,6 +32,16 @@ variable "cos_bucket_name" {
   default     = "cos-compliance-bucket-<timestamp>"
 }
 
+variable "regional_loc" {
+  description = "Region where the COS bucket will exist"
+  default     = "us-south"
+}
+
+variable "storage" {
+  description = "Storage class for the COS bucket"
+  default     = "standard"
+}
+
 variable "app_name" {
   type        = string
   description = "Name of the Compliance CI application. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
@@ -109,16 +119,6 @@ variable "branch" {
   type        = string
   description = "Branch for Compliance CI toolchain template repo"
   default     = "master"
-}
-
-variable "regional_loc" {
-  description = "Region where the COS bucket will exist"
-  default     = "us-south"
-}
-
-variable "storage" {
-  description = "Storage class for the COS bucket"
-  default     = "standard"
 }
 
 variable "ibmcloud_api_key" {

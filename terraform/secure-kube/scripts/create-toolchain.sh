@@ -78,7 +78,7 @@ export APPLICATION_REPO=$(echo $APPLICATION_REPO | jq -rR @uri)
 export API_KEY=$(echo $API_KEY | jq -rR @uri)
 export appName=$APP_NAME
 
-PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
+PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH"`
 `"&sourceRepoUrl=$APPLICATION_REPO&resourceGroupId=$RESOURCE_GROUP_ID"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
