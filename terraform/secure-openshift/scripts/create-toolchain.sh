@@ -22,7 +22,7 @@ fi
 RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
 # check for the existence of the Secrets Manager instance
-SM_FOUND=$(bx resource service-instance "$SM_SERVICE_NAME" --output JSON | jq ".[].name" -r)
+SM_FOUND=$(ibmcloud resource service-instance "$SM_SERVICE_NAME" --output JSON | jq ".[].name" -r)
 if [[ $SM_FOUND ]]; then
   echo "Secrets Manager '$SM_SERVICE_NAME' already exists."
 else
@@ -78,14 +78,14 @@ export APPLICATION_REPO=$(echo $APPLICATION_REPO | jq -rR @uri)
 export API_KEY=$(echo $API_KEY | jq -rR @uri)
 export appName=$APP_NAME
 
-PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY&onePipelineConfigRepo=$APPLICATION_REPO&configRepoEnabled=true"`
+PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH"`
 `"&sourceRepoUrl=$APPLICATION_REPO&resourceGroupId=$RESOURCE_GROUP_ID"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&gitToken=$GITLAB_TOKEN"`
 `"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&vaultSecret=$VAULT_SECRET"`
-`"&smName=$SM_NAME&smRegion=$REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
+`"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 # debugging
 #echo "Here are the parameters:"
