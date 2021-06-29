@@ -32,6 +32,16 @@ variable "cos_bucket_name" {
   default     = "cos-compliance-bucket-<timestamp>"
 }
 
+variable "regional_loc" {
+  description = "Region where the COS bucket will exist"
+  default     = "us-south"
+}
+
+variable "storage" {
+  description = "Storage class for the COS bucket"
+  default     = "standard"
+}
+
 variable "app_name" {
   type        = string
   description = "Name of the Compliance CI application. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
@@ -40,25 +50,25 @@ variable "app_name" {
 
 variable "region" {
   type        = string
-  description = "IBM Cloud region where your application will be deployed"
+  description = "IBM Cloud region where your application will be deployed (to view your current targeted region `ibmcloud cr region`)"
   default     = "us-south"
 }
 
 variable "registry_namespace" {
   type        = string
-  description = "Container registry namespace to save images"
+  description = "Container registry namespace to save images (`ibmcloud cr namespaces`)"
   default     = "compliance"
 }
 
 variable "resource_group" {
   type        = string
-  description = "Resource group where the resources will be created"
+  description = "Resource group where the resources will be created (`ibmcloud resource groups`)"
   default     = "default"
 }
 
 variable "cluster_name" {
   type        = string
-  description = "Name of Kubernetes Cluster where your application will be deployed. If the default value is not overridden, a new cluster will be provisioned."
+  description = "Name of the Kubernetes cluster where your application is deployed. If you use the default value, a new cluster is provisioned. If you override the default value with a different cluster name, that cluster must already exist."
   default     = "compliance-cluster"
 }
 
@@ -109,16 +119,6 @@ variable "branch" {
   type        = string
   description = "Branch for Compliance CI toolchain template repo"
   default     = "master"
-}
-
-variable "regional_loc" {
-  description = "Region where the COS bucket will exist"
-  default     = "us-south"
-}
-
-variable "storage" {
-  description = "Storage class for the COS bucket"
-  default     = "standard"
 }
 
 variable "ibmcloud_api_key" {
