@@ -68,7 +68,7 @@ variable "resource_group" {
 
 variable "cluster_name" {
   type        = string
-  description = "Name of Kubernetes Cluster where your application will be deployed. If the default value is not overridden, a new cluster will be provisioned."
+  description = "Name of the Kubernetes cluster where your application is deployed. If you use the default value, a new cluster is provisioned. If you override the default value with a different cluster name, that cluster must already exist."
   default     = "compliance-cluster"
 }
 
