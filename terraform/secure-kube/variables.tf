@@ -40,19 +40,19 @@ variable "app_name" {
 
 variable "region" {
   type        = string
-  description = "IBM Cloud region where your application will be deployed"
+  description = "IBM Cloud region where your application will be deployed (to view your current targeted region `ibmcloud cr region`)"
   default     = "us-south"
 }
 
 variable "registry_namespace" {
   type        = string
-  description = "Container registry namespace to save images"
+  description = "Container registry namespace to save images (`ibmcloud cr namespaces`)"
   default     = "compliance"
 }
 
 variable "resource_group" {
   type        = string
-  description = "Resource group where the resources will be created"
+  description = "Resource group where the resources will be created (`ibmcloud resource groups`)"
   default     = "default"
 }
 
