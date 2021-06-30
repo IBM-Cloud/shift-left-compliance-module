@@ -56,8 +56,7 @@ variable "region" {
 
 variable "registry_namespace" {
   type        = string
-  description = "Container registry namespace to save images (`ibmcloud cr namespaces`)"
-  default     = "compliance"
+  description = "Container registry namespace to save images (`ibmcloud cr namespaces`). NOTE: The namespace must already exist, or be a unique value."
 }
 
 variable "resource_group" {
