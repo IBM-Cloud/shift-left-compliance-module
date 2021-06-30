@@ -91,7 +91,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       APP_NAME          = var.app_name == "compliance-app-<timestamp>" ? "compliance-app-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.app_name
       COS_BUCKET_NAME   = var.cos_bucket_name == "cos-compliance-bucket-<timestamp>" ? "${element(split(":", ibm_cos_bucket.cos_bucket[0].crn),9)}" : var.cos_bucket_name
       COS_URL           = var.cos_url
-      SERVICE_API_KEY   = data.ibm_iam_api_key.service_api_key.apikey
+      COS_API_KEY       = data.ibm_iam_api_key.service_api_key.apikey
       SM_NAME           = var.sm_name
       SM_SERVICE_NAME   = var.sm_service_name
       GITLAB_TOKEN      = var.gitlab_token
