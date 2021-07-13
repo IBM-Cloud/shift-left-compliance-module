@@ -1,18 +1,22 @@
 terraform {
-  required_version = ">= 0.12"
+  required_version = ">= 0.13.0"
+  required_providers {
+    ibm = {
+      source = "ibm-cloud/ibm"
+      version = ">= 1.27.0"
+    }
+  }
 }
 
 provider "ibm" {
-  version           = "~> 1.25"
   ibmcloud_api_key  = var.ibmcloud_api_key
 }
 
 provider "null" {
-  version = "~> 3.1"
 }
 
 data "ibm_resource_group" "cos_group" {
-  name = var.resource_group
+  name              = var.resource_group
 }
 
 resource "ibm_resource_instance" "cos_instance" {
@@ -32,21 +36,17 @@ resource "ibm_cos_bucket" "cos_bucket" {
   storage_class         = var.storage
 }
 
-resource "ibm_iam_service_id" "service_id" {
-  name = "service_id"
+resource "ibm_iam_service_id" "cos_serviceID" {
+  name = "cos_service_id"
 }
 
-resource "ibm_iam_service_api_key" "service_api_key" {
-  name = "service_api_key"
-  iam_service_id = ibm_iam_service_id.service_id.iam_id
-}
-
-data "ibm_iam_api_key" "service_api_key" {
-    apikey_id = ibm_iam_service_api_key.service_api_key.id
+resource "ibm_iam_service_api_key" "cos_service_api_key" {
+  name = "cos_service_api_key"
+  iam_service_id = ibm_iam_service_id.cos_serviceID.iam_id
 }
 
 resource "ibm_iam_service_policy" "cos_policy" {
-  iam_service_id = ibm_iam_service_id.service_id.id
+  iam_service_id = ibm_iam_service_id.cos_serviceID.id
   roles          = ["Reader", "Writer"]
 
   resources {
@@ -91,7 +91,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       APP_NAME          = var.app_name == "compliance-app-<timestamp>" ? "compliance-app-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.app_name
       COS_BUCKET_NAME   = var.cos_bucket_name == "cos-compliance-bucket-<timestamp>" ? "${element(split(":", ibm_cos_bucket.cos_bucket[0].crn),9)}" : var.cos_bucket_name
       COS_URL           = var.cos_url
-      COS_API_KEY       = data.ibm_iam_api_key.service_api_key.apikey
+      COS_API_KEY       = ibm_iam_service_api_key.cos_service_api_key.apikey
       SM_NAME           = var.sm_name
       SM_SERVICE_NAME   = var.sm_service_name
       GITLAB_TOKEN      = var.gitlab_token
