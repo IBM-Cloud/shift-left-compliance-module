@@ -76,6 +76,11 @@ export API_KEY=$(echo $API_KEY | jq -rR @uri)
 export appName=$APP_NAME
 export COS_API_KEY=$(echo $COS_API_KEY | jq -rR @uri)
 
+# get secrets manager instance id
+IN=$(ibmcloud resource service-instance "$SM_SERVICE_NAME" | grep crn)
+IFS=':' read -ra ADDR <<< "$IN"
+SM_INSTANCE_ID="${ADDR[8]}"
+
 # get secrets data for API, GPG, and COS API keys
 SECRETS_NAMES=("IAM_API_Key" "GPG_Key" "COS_API_Key")
 SECRETS_PAYLOADS=("$API_KEY" "$VAULT_SECRET" "$COS_API_KEY")
@@ -88,7 +93,7 @@ for i in ${!SECRETS_NAMES[@]}; do
     --arg sn "${SECRETS_NAMES[$i]}" \
     --arg sp "${SECRETS_PAYLOADS[$i]}" \
     '{metadata: {collection_type: "application/vnd.ibm.secrets-manager.secret+json", collection_total: 1}, resources: [{name: $sn, payload: $sp}]}' )
-  RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null -X POST \
+  RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null -i -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: $BEARER_TOKEN" \
