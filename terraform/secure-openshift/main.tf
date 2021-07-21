@@ -89,7 +89,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       PIPELINE_TYPE           = "tekton"
       BRANCH                  = var.branch
       APP_NAME                = var.app_name == "compliance-app-<timestamp>" ? "compliance-app-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.app_name
-      COS_BUCKET_NAME         = var.cos_bucket_name == "cos-compliance-bucket-<timestamp>" ? "${element(split(":", ibm_cos_bucket.cos_bucket[0].crn), 9)}" : var.cos_bucket_name
+      COS_BUCKET_NAME         = var.cos_bucket_name == "cos-compliance-bucket-<timestamp>" ? ibm_cos_bucket.cos_bucket[0].bucket_name : var.cos_bucket_name
       COS_URL                 = var.cos_url
       COS_API_KEY             = ibm_iam_service_api_key.cos_service_api_key.apikey
       SM_NAME                 = var.sm_name

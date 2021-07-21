@@ -98,8 +98,8 @@ variable "hardware" {
 }
 
 variable "kube_version" {
-  default     = "4.6.28_openshift"
-  description = "Version of Kubernetes to apply to the new Kubernetes cluster"
+  default     = "4.6.34_openshift"
+  description = "Version of Kubernetes to apply to the new Kubernetes cluster (Run: `ibmcloud ks versions` to see available versions)"
 }
 
 variable "public_vlan_num" {

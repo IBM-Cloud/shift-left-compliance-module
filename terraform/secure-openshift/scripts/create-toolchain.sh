@@ -3,10 +3,7 @@
 #// https://github.com/open-toolchain/sdk/wiki/Toolchain-Creation-page-parameters#headless-toolchain-creation-and-update
 
 # log in using the api key
-ibmcloud login --apikey "$API_KEY" -r "$REGION"
-
-# target default resource group for now
-ibmcloud target -g $RESOURCE_GROUP 
+ibmcloud login --apikey "$API_KEY" -r "$REGION" -g "$RESOURCE_GROUP"
 
 # get the bearer token to create the toolchain instance
 IAM_TOKEN="IAM token:  "
@@ -22,7 +19,7 @@ fi
 RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
 # check for the existence of the Secrets Manager instance
-SM_FOUND=$(ibmcloud resource service-instance "$SM_SERVICE_NAME" --output JSON | jq ".[].name" -r)
+SM_FOUND=$(ibmcloud resource service-instances | grep "$SM_SERVICE_NAME")
 if [[ $SM_FOUND ]]; then
   echo "Secrets Manager '$SM_SERVICE_NAME' already exists."
 else
@@ -77,7 +74,58 @@ export TOOLCHAIN_TEMPLATE_REPO=$(echo $TOOLCHAIN_TEMPLATE_REPO | jq -rR @uri)
 export APPLICATION_REPO=$(echo $APPLICATION_REPO | jq -rR @uri)
 export API_KEY=$(echo $API_KEY | jq -rR @uri)
 export appName=$APP_NAME
+export COS_API_KEY=$(echo $COS_API_KEY | jq -rR @uri)
 
+# get secrets manager instance id
+IN=$(ibmcloud resource service-instance "$SM_SERVICE_NAME" | grep crn)
+IFS=':' read -ra ADDR <<< "$IN"
+SM_INSTANCE_ID="${ADDR[8]}"
+
+# get secrets data for API, GPG, and COS API keys
+SECRETS_NAMES=("IAM_API_Key" "GPG_Key" "COS_API_Key")
+SECRETS_PAYLOADS=("$API_KEY" "$VAULT_SECRET" "$COS_API_KEY")
+
+# loop through secrets names and create secrets for each in the secrets manager
+for i in ${!SECRETS_NAMES[@]}; do
+  echo "Creating Arbitrary secret for ${SECRETS_NAMES[$i]} in $SM_SERVICE_NAME..."
+  REQUEST_BODY=$( jq -n \
+    --arg sn "${SECRETS_NAMES[$i]}" \
+    --arg sp "${SECRETS_PAYLOADS[$i]}" \
+    '{metadata: {collection_type: "application/vnd.ibm.secrets-manager.secret+json", collection_total: 1}, resources: [{name: $sn, payload: $sp}]}' )
+  RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null -i -X POST \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: $BEARER_TOKEN" \
+    -d "$REQUEST_BODY" \
+    "https://$SM_INSTANCE_ID.$REGION.secrets-manager.appdomain.cloud/api/v1/secrets/arbitrary")
+  if [[ "$RESPONSE" =~ ^2 ]]; then
+    echo "The secret was successfully created."
+  else
+    echo "The secret failed to be created."
+    case $RESPONSE in
+      400)
+        echo "Status Code: 400 Bad Request"
+	      ;;
+      401)
+        echo "Status Code: 401 Unauthorized"
+	      ;;
+      403)
+        echo "Status Code: 403 Forbidden"
+	      ;;
+      409)
+        echo "Status Code: 409 Secret Already Exists"
+	      ;;
+      429)
+        echo "Status Code: 429 Too Many Requests"
+	      ;;
+      *)
+	      echo "Status Code: $RESPONSE Unknown"
+	      ;;
+    esac
+  fi
+done
+
+# create parameters for headless toolchain
 PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH"`
 `"&sourceRepoUrl=$APPLICATION_REPO&resourceGroupId=$RESOURCE_GROUP_ID"`
@@ -91,6 +139,7 @@ PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY"`
 #echo "Here are the parameters:"
 #echo "$PARAMETERS"
 
+# create headless toolchain
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
