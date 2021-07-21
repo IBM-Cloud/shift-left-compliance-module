@@ -88,7 +88,7 @@ for i in ${!SECRETS_NAMES[@]}; do
     --arg sn "${SECRETS_NAMES[$i]}" \
     --arg sp "${SECRETS_PAYLOADS[$i]}" \
     '{metadata: {collection_type: "application/vnd.ibm.secrets-manager.secret+json", collection_total: 1}, resources: [{name: $sn, payload: $sp}]}' )
-  RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null -X POST \
+  RESPONSE=$(curl --write-out '%{http_code}' -i -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: $BEARER_TOKEN" \
