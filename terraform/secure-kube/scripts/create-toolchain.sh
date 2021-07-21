@@ -3,10 +3,7 @@
 #// https://github.com/open-toolchain/sdk/wiki/Toolchain-Creation-page-parameters#headless-toolchain-creation-and-update
 
 # log in using the api key
-ibmcloud login --apikey "$API_KEY" -r "$REGION"
-
-# target default resource group for now
-ibmcloud target -g $RESOURCE_GROUP 
+ibmcloud login --apikey "$API_KEY" -r "$REGION" -g "$RESOURCE_GROUP"
 
 # get the bearer token to create the toolchain instance
 IAM_TOKEN="IAM token:  "
@@ -84,6 +81,7 @@ SECRETS_NAMES=("IAM_API_Key" "GPG_Key" "COS_API_Key")
 SECRETS_PAYLOADS=("$API_KEY" "$VAULT_SECRET" "$COS_API_KEY")
 
 # loop through secrets names and create secrets for each in the secrets manager
+sleep 30  # adding 30 second sleep to allow secrets manager to fully provision
 for i in ${!SECRETS_NAMES[@]}; do
   echo "Creating Arbitrary secret for ${SECRETS_NAMES[$i]} in $SM_SERVICE_NAME..."
   REQUEST_BODY=$( jq -n \
