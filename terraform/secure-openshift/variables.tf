@@ -17,7 +17,7 @@ variable "sm_service_name" {
 variable "cos_url" {
   type        = string
   description = "URL endpoint to Cloud Object Storage Bucket"
-  default     = "s3.private.us.cloud-object-storage.appdomain.cloud"
+  default     = "s3.private.us-south.cloud-object-storage.appdomain.cloud"
 }
 
 variable "cos_instance_name" {
