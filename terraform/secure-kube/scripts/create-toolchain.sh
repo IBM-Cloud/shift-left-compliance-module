@@ -72,9 +72,9 @@ export VAULT_SECRET=$(cat private.key)
 #export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
 export TOOLCHAIN_TEMPLATE_REPO=$(echo $TOOLCHAIN_TEMPLATE_REPO | jq -rR @uri)
 export APPLICATION_REPO=$(echo $APPLICATION_REPO | jq -rR @uri)
-#export API_KEY=$(echo $API_KEY | jq -rR @uri)
+export API_KEY=$(echo $API_KEY | jq -rR @uri)
 export appName=$APP_NAME
-#export COS_API_KEY=$(echo $COS_API_KEY | jq -rR @uri)
+export COS_API_KEY=$(echo $COS_API_KEY | jq -rR @uri)
 
 # get secrets manager instance id
 IN=$(ibmcloud resource service-instance "$SM_SERVICE_NAME" | grep crn)
