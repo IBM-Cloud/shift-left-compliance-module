@@ -65,8 +65,7 @@ Name-Real: Root User
 Name-Email: root@compliance.ci.ibm.com
 Expire-Date: 0
 EOF
-gpg --export-secret-key root@compliance.ci.ibm.com  | base64 > private.key
-export VAULT_SECRET=$(cat private.key)
+export VAULT_SECRET=$(gpg --export-secret-key root@compliance.ci.ibm.com  | base64 | jq -rR @uri)
 
 # URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, APPLICATION_REPO, and API_KEY
 #export VAULT_SECRET=$(echo $VAULT_SECRET | jq -rR @uri)
