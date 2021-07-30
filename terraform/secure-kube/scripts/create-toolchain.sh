@@ -65,9 +65,15 @@ Name-Real: Root User
 Name-Email: root@cipipeline.ibm.com
 Expire-Date: 0
 EOF
-gpg --export-secret-key root@cipipeline.ibm.com  | base64 > private.key
-export VAULT_SECRET=$(cat private.key)
-#export VAULT_SECRET=$(gpg --export-secret-key root@compliance.ci.ibm.com  | base64 | jq -rR @uri)
+export VAULT_SECRET=$(gpg --export-secret-key root@compliance.ci.ibm.com  | base64)
+
+# URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, APPLICATION_REPO, API_KEY, and COS_API_KEY
+export VAULT_SECRET=$(echo "$VAULT_SECRET" | jq -rR @uri)
+export TOOLCHAIN_TEMPLATE_REPO=$(echo "$TOOLCHAIN_TEMPLATE_REPO" | jq -rR @uri)
+export APPLICATION_REPO=$(echo "$APPLICATION_REPO" | jq -rR @uri)
+export API_KEY=$(echo "$API_KEY" | jq -rR @uri)
+export appName=$APP_NAME
+export COS_API_KEY=$(echo "$COS_API_KEY" | jq -rR @uri)
 
 # get secrets manager instance id
 IN=$(ibmcloud resource service-instance "$SM_SERVICE_NAME" | grep crn)
@@ -117,14 +123,6 @@ for i in ${!SECRETS_NAMES[@]}; do
     esac
   fi
 done
-
-# URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, APPLICATION_REPO, and API_KEY
-export VAULT_SECRET=$(echo "$VAULT_SECRET" | jq -rR @uri)
-export TOOLCHAIN_TEMPLATE_REPO=$(echo "$TOOLCHAIN_TEMPLATE_REPO" | jq -rR @uri)
-export APPLICATION_REPO=$(echo "$APPLICATION_REPO" | jq -rR @uri)
-export API_KEY=$(echo "$API_KEY" | jq -rR @uri)
-export appName=$APP_NAME
-export COS_API_KEY=$(echo "$COS_API_KEY" | jq -rR @uri)
 
 # create parameters for headless toolchain
 PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY"`
