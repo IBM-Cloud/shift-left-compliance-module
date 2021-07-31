@@ -67,14 +67,6 @@ Expire-Date: 0
 EOF
 export VAULT_SECRET=$(gpg --export-secret-key root@cipipeline.ibm.com  | base64)
 
-# URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, APPLICATION_REPO, API_KEY, and COS_API_KEY
-#export VAULT_SECRET=$(echo "$VAULT_SECRET" | jq -rR @uri)
-#export TOOLCHAIN_TEMPLATE_REPO=$(echo "$TOOLCHAIN_TEMPLATE_REPO" | jq -rR @uri)
-#export APPLICATION_REPO=$(echo "$APPLICATION_REPO" | jq -rR @uri)
-#export API_KEY=$(echo "$API_KEY" | jq -rR @uri)
-#export appName=$APP_NAME
-#export COS_API_KEY=$(echo "$COS_API_KEY" | jq -rR @uri)
-
 # get secrets manager instance id
 IN=$(ibmcloud resource service-instance "$SM_SERVICE_NAME" | grep crn)
 IFS=':' read -ra ADDR <<< "$IN"
@@ -124,19 +116,27 @@ for i in ${!SECRETS_NAMES[@]}; do
   fi
 done
 
+# URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, APPLICATION_REPO, API_KEY, and COS_API_KEY
+export VAULT_SECRET=$(echo "$VAULT_SECRET" | jq -sRr @uri)  # added -s (slurp) option due to multiple lines
+export TOOLCHAIN_TEMPLATE_REPO=$(echo "$TOOLCHAIN_TEMPLATE_REPO" | jq -Rr @uri)
+export APPLICATION_REPO=$(echo "$APPLICATION_REPO" | jq -Rr @uri)
+export API_KEY=$(echo "$API_KEY" | jq -Rr @uri)
+export appName=$APP_NAME
+export COS_API_KEY=$(echo "$COS_API_KEY" | jq -Rr @uri)
+
 # create parameters for headless toolchain
-PARAMETERS="autocreate=true&appName='$APP_NAME'&apiKey='$API_KEY'"`
-`"&repository='$TOOLCHAIN_TEMPLATE_REPO'&repository_token='$GITLAB_TOKEN'&branch='$BRANCH'"`
-`"&sourceRepoUrl='$APPLICATION_REPO'&resourceGroupId='$RESOURCE_GROUP_ID'"`
-`"&registryRegion='$TOOLCHAIN_REGION'&registryNamespace='$REGISTRY_NAMESPACE'&devRegion='$REGION'"`
-`"&devResourceGroup='$RESOURCE_GROUP'&devClusterName='$CLUSTER_NAME'&devClusterNamespace='$CLUSTER_NAMESPACE'"`
-`"&toolchainName='$TOOLCHAIN_NAME'&pipeline_type='$PIPELINE_TYPE'&gitToken='$GITLAB_TOKEN'"`
-`"&cosBucketName='$COS_BUCKET_NAME'&cosEndpoint='$COS_URL'&cosApiKey='$COS_API_KEY'&vaultSecret='$VAULT_SECRET'"`
-`"&smName='$SM_NAME'&smRegion='$TOOLCHAIN_REGION'&smResourceGroup='$RESOURCE_GROUP'&smInstanceName='$SM_SERVICE_NAME'"
+PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY"`
+`"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH"`
+`"&sourceRepoUrl=$APPLICATION_REPO&resourceGroupId=$RESOURCE_GROUP_ID"`
+`"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
+`"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
+`"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&gitToken=$GITLAB_TOKEN"`
+`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&cosApiKey=$COS_API_KEY&vaultSecret=$VAULT_SECRET"`
+`"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 # debugging
-#echo "Here are the parameters:"
-#echo "$PARAMETERS"
+echo "Here are the parameters:"
+echo "$PARAMETERS"
 
 # create headless toolchain
 RESPONSE=$(curl -i -X POST \
