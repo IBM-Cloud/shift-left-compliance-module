@@ -65,7 +65,8 @@ Name-Real: Root User
 Name-Email: root@cipipeline.ibm.com
 Expire-Date: 0
 EOF
-export VAULT_SECRET=$(gpg --export-secret-key root@cipipeline.ibm.com  | base64)
+export GPG_SECRET=$(gpg --export-secret-key root@cipipeline.ibm.com  | base64)
+gpg --export-secret-key root@cipipeline.ibm.com  | base64 > privatekey.txt
 
 # get secrets manager instance id
 IN=$(ibmcloud resource service-instance "$SM_SERVICE_NAME" | grep crn)
@@ -74,7 +75,7 @@ SM_INSTANCE_ID="${ADDR[8]}"
 
 # get secrets data for API, GPG, and COS API keys
 SECRETS_NAMES=("IAM_API_Key" "GPG_Key" "COS_API_Key")
-SECRETS_PAYLOADS=("$API_KEY" "$VAULT_SECRET" "$COS_API_KEY")
+SECRETS_PAYLOADS=("$API_KEY" "$GPG_SECRET" "$COS_API_KEY")
 
 # loop through secrets names and create secrets for each in the secrets manager
 for i in ${!SECRETS_NAMES[@]}; do
@@ -117,7 +118,7 @@ for i in ${!SECRETS_NAMES[@]}; do
 done
 
 # URL encode VAULT_SECRET, TOOLCHAIN_TEMPLATE_REPO, APPLICATION_REPO, API_KEY, and COS_API_KEY
-export VAULT_SECRET=$(echo "$VAULT_SECRET" | jq -sRr @uri)  # added -s (slurp) option due to multiple lines
+#export VAULT_SECRET=$(echo "$VAULT_SECRET" | jq -sRr @uri)  # added -s (slurp) option due to multiple lines
 export TOOLCHAIN_TEMPLATE_REPO=$(echo "$TOOLCHAIN_TEMPLATE_REPO" | jq -Rr @uri)
 export APPLICATION_REPO=$(echo "$APPLICATION_REPO" | jq -Rr @uri)
 export API_KEY=$(echo "$API_KEY" | jq -Rr @uri)
@@ -131,7 +132,7 @@ PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&gitToken=$GITLAB_TOKEN"`
-`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&cosApiKey=$COS_API_KEY&vaultSecret=$VAULT_SECRET"`
+`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&cosApiKey=$COS_API_KEY"`
 `"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 # debugging
@@ -143,6 +144,7 @@ RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
   -H "Authorization: $BEARER_TOKEN" \
+  --data-binary vaultSecret@privatekey.txt \
   -d "$PARAMETERS" \
   "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH")
 
