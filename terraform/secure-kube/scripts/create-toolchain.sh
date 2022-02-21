@@ -144,7 +144,6 @@ RESPONSE=$(curl -i -X POST \
   -H "Authorization: $iamtoken" \
   -d "$PARAMETERS" \  
   "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH")
-
 echo "$RESPONSE"
 LOCATION=$(grep location <<<"$RESPONSE" | awk {'print $2'})
 echo "View the toolchain at: $LOCATION"
