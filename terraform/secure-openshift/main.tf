@@ -70,6 +70,7 @@ resource "ibm_container_cluster" "cluster" {
   public_vlan_id    = var.public_vlan_num
   private_vlan_id   = var.private_vlan_num
   resource_group_id = data.ibm_resource_group.group.id
+  wait_till         = "OneWorkerNodeReady"
 }
 
 resource "null_resource" "create_kubernetes_toolchain" {
@@ -90,7 +91,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       BRANCH                  = var.branch
       APP_NAME                = var.app_name == "compliance-app-<timestamp>" ? "compliance-app-${formatdate("YYYYMMDDhhmm", timestamp())}" : var.app_name
       COS_BUCKET_NAME         = var.cos_bucket_name == "cos-compliance-bucket-<timestamp>" ? ibm_cos_bucket.cos_bucket[0].bucket_name : var.cos_bucket_name
-      COS_URL                 = var.cos_url
+      COS_URL                 = "s3.${var.region}.cloud-object-storage.appdomain.cloud"
       COS_API_KEY             = ibm_iam_service_api_key.cos_service_api_key.apikey
       SM_NAME                 = var.sm_name
       SM_SERVICE_NAME         = var.sm_service_name
