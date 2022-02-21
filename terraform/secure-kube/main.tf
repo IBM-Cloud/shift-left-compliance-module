@@ -70,6 +70,7 @@ resource "ibm_container_cluster" "cluster" {
   public_vlan_id    = var.public_vlan_num
   private_vlan_id   = var.private_vlan_num
   resource_group_id = data.ibm_resource_group.group.id
+  wait_till         = "OneWorkerNodeReady"
 }
 
 resource "null_resource" "create_kubernetes_toolchain" {
