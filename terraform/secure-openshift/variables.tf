@@ -14,12 +14,6 @@ variable "sm_service_name" {
   default     = "compliance-ci-secrets-manager"
 }
 
-variable "cos_url" {
-  type        = string
-  description = "URL endpoint to Cloud Object Storage Bucket"
-  default     = "s3.private.us-south.cloud-object-storage.appdomain.cloud"
-}
-
 variable "cos_instance_name" {
   type        = string
   description = "Name of the Cloud Object Storage instance. NOTE: The <timestamp> will be in the format YYYYMMDDhhmm."
@@ -98,20 +92,19 @@ variable "hardware" {
 }
 
 variable "kube_version" {
-  default     = "4.6.34_openshift"
   description = "Version of Kubernetes to apply to the new Kubernetes cluster (Run: `ibmcloud ks versions` to see available versions)"
-}
-
-variable "public_vlan_num" {
-  type        = string
-  description = "Number for public VLAN from `ibmcloud ks vlans --zone <ZONE>`"
-  default     = "1911479"
 }
 
 variable "private_vlan_num" {
   type        = string
   description = "Number for private VLAN from `ibmcloud ks vlans --zone <ZONE>`"
   default     = "1891999"
+}
+
+variable "public_vlan_num" {
+  type        = string
+  description = "Number for public VLAN from `ibmcloud ks vlans --zone <ZONE>`"
+  default     = "1911479"
 }
 
 variable "branch" {
@@ -127,5 +120,5 @@ variable "ibmcloud_api_key" {
 
 variable "gitlab_token" {
   type        = string
-  description = "A GitLab Personal Access Token (Ex. https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens NOTE: Make sure to create your token in the same region as your toolchain, or 'region' variable.)"
+  description = "A GitLab Personal Access Token (https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens NOTE: Make sure to create your token in the same region as your toolchain, or 'region' variable.)"
 }
