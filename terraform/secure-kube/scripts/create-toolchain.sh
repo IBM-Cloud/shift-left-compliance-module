@@ -5,11 +5,6 @@
 # log in using the api key
 ibmcloud login --apikey "$API_KEY" -r "$REGION" -g "$RESOURCE_GROUP"
 
-# get the bearer token to create the toolchain instance
-IAM_TOKEN="IAM token:  "
-BEARER_TOKEN=$(ibmcloud iam oauth-tokens | grep "$IAM_TOKEN" | sed -e "s/^$IAM_TOKEN//")
-#echo $BEARER_TOKEN
-
 # prefix region for toolchains
 TOOLCHAIN_REGION=$REGION
 if [[ ! $TOOLCHAIN_REGION =~ "ibm:" ]]; then
@@ -27,7 +22,7 @@ else
   echo "Creating Secrets Manager service now..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
   ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite $REGION
-  wait_secs=600
+  wait_secs=900
   count=0
   sleep_time=60
   wait_mins=$(($wait_secs / $sleep_time))
@@ -77,6 +72,9 @@ SM_INSTANCE_ID="${ADDR[8]}"
 SECRETS_NAMES=("IAM_API_Key" "GPG_Key" "COS_API_Key")
 SECRETS_PAYLOADS=("$API_KEY" "$GPG_SECRET" "$COS_API_KEY")
 
+# get a new Bearer token
+iamtoken=$(ibmcloud iam oauth-tokens | awk '/IAM/{ print $3" "$4 }')
+
 # loop through secrets names and create secrets for each in the secrets manager
 for i in ${!SECRETS_NAMES[@]}; do
   echo "Creating Arbitrary secret for ${SECRETS_NAMES[$i]} in $SM_SERVICE_NAME..."
@@ -87,7 +85,7 @@ for i in ${!SECRETS_NAMES[@]}; do
   RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null -i -X POST \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -H "Authorization: $BEARER_TOKEN" \
+    -H "Authorization: $iamtoken" \
     -d "$REQUEST_BODY" \
     "https://$SM_INSTANCE_ID.$REGION.secrets-manager.appdomain.cloud/api/v1/secrets/arbitrary")
   if [[ "$RESPONSE" =~ ^2 ]]; then
@@ -126,26 +124,25 @@ export appName=$APP_NAME
 export COS_API_KEY=$(echo "$COS_API_KEY" | jq -Rr @uri)
 
 # create parameters for headless toolchain
-PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey=$API_KEY"`
+PARAMETERS="autocreate=true&appName=$APP_NAME&apiKey={vault::$SM_NAME.Default.IAM_API_Key}"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&repository_token=$GITLAB_TOKEN&branch=$BRANCH"`
-`"&sourceRepoUrl=$APPLICATION_REPO&resourceGroupId=$RESOURCE_GROUP_ID"`
+`"&sourceRepoUrl=$APPLICATION_REPO&resourceGroupId=$RESOURCE_GROUP_ID&vaultSecret={vault::$SM_NAME.Default.GPG_Key}"`
 `"&registryRegion=$TOOLCHAIN_REGION&registryNamespace=$REGISTRY_NAMESPACE&devRegion=$REGION"`
 `"&devResourceGroup=$RESOURCE_GROUP&devClusterName=$CLUSTER_NAME&devClusterNamespace=$CLUSTER_NAMESPACE"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE&gitToken=$GITLAB_TOKEN"`
-`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&cosApiKey=$COS_API_KEY"`
+`"&cosBucketName=$COS_BUCKET_NAME&cosEndpoint=$COS_URL&cosApiKey={vault::$SM_NAME.Default.COS_API_Key}"`
 `"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_SERVICE_NAME"
 
 # debugging
-echo "Here are the parameters:"
-echo "$PARAMETERS"
+#echo "Here are the parameters:"
+#echo "$PARAMETERS"
 
 # create headless toolchain
 RESPONSE=$(curl -i -X POST \
   -H 'Content-Type: application/x-www-form-urlencoded' \
   -H 'Accept: application/json' \
-  -H "Authorization: $BEARER_TOKEN" \
-  --data-binary vaultSecret@privatekey.txt \
-  -d "$PARAMETERS" \
+  -H "Authorization: $iamtoken" \
+  -d "$PARAMETERS" \  
   "https://cloud.ibm.com/devops/setup/deploy?env_id=$TOOLCHAIN_REGION&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH")
 
 echo "$RESPONSE"
