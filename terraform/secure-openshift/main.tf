@@ -74,9 +74,9 @@ resource "ibm_container_cluster" "cluster" {
 }
 
 resource "null_resource" "create_kubernetes_toolchain" {
+  depends_on = [ibm_container_cluster.cluster]
   provisioner "local-exec" {
     command = "${path.cwd}/scripts/create-toolchain.sh"
-
     environment = {
       REGION                  = var.region
       TOOLCHAIN_TEMPLATE_REPO = "https://${var.region}.git.cloud.ibm.com/open-toolchain/compliance-ci-toolchain"
