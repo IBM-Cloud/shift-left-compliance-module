@@ -1,12 +1,3 @@
-variable "sm_name" {
-  description = "Name of the Secrets Manager tool integration (Ex. my-secrets-manager)"
-  default     = "sm-compliance-secrets"
-}
-
-variable "sm_service_name" {
-  description = "Name of the Secrets Manager service. NOTE: Only 1 Secrets Manager instance is allowed. If you already have a Secrets Manager service provisioned, please override this value to its name."
-  default     = "compliance-ci-secrets-manager"
-}
 variable "region" {
   type        = string
   description = "IBM Cloud region where your application will be deployed (to view your current targeted region `ibmcloud cr region`)"
@@ -68,4 +59,14 @@ variable "ibmcloud_api_key" {
 variable "gitlab_token" {
   type        = string
   description = "A GitLab Personal Access Token (https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens NOTE: Make sure to create your token in the same region as your toolchain, or 'region' variable.)"
+}
+
+variable "sm_name" {
+  description = "Name of the Secrets Manager tool integration (Ex. my-secrets-manager)"
+  default     = "sm-compliance-secrets"
+}
+
+variable "sm_service_name" {
+  description = "Name of the Secrets Manager service. NOTE: Only 1 Secrets Manager instance is allowed. If you already have a Secrets Manager service provisioned, please override this value to its name."
+  default     = "compliance-ci-secrets-manager"
 }
