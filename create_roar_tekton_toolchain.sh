@@ -68,6 +68,7 @@ PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
 # debugging
 echo "Here are the parameters:"
 echo "$PARAMETERS"
+echo "test"
 
 # get a fresh Bearer token
 iamtoken=$(ibmcloud iam oauth-tokens | awk '/IAM/{ print $3" "$4 }')
