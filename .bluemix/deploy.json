@@ -150,22 +150,6 @@
             "url": "/devops/validator/validator-v1.html"
         },
         {
-            "type": "boolean",
-            "default": true,
-            "title": {
-                "$ref": "#/messages/deploy.enableCfTitle"
-            },
-            "key": "enable-cf"
-        },
-        {
-            "type": "boolean",
-            "default": true,
-            "title": {
-                "$ref": "#/messages/deploy.enableHelmTitle"
-            },
-            "key": "enable-helm"
-        },
-        {
             "type": "password",
             "readonly": false,
             "title": {
