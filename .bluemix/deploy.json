@@ -1,10 +1,169 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "description": { "$ref": "#/messages/deploy.description" },
+    "messages": {
+        "$i18n": "locales.yml"
+    },
+    "title": {
+        "$ref": "#/messages/deploy.title"
+    },
+    "description": {
+        "$ref": "#/messages/deploy.description"
+    },
+    "longDescription": {
+        "$ref": "#/messages/deploy.longDescription"
+    },
+    "type": "object",
+    "properties": {
+        "api-key": {
+            "description": {
+                "$ref": "#/messages/deploy.apikeyDescription"
+            },
+            "type": "string",
+            "pattern": "\\S",
+            "validator": {
+                "v-type": "api-key"
+            }
+        },
+        "registry-region": {
+            "description": {
+                "$ref": "#/messages/deploy.registryRegionDescription"
+            },
+            "type": "string",
+            "disabled": false,
+            "validator": {
+                "v-type": "k8s-region",
+                "params": ["api-key"]
+            }
+        },
+        "registry-namespace": {
+            "description": {
+                "$ref": "#/messages/deploy.registrynsDescription"
+            },
+            "type": "string",
+            "pattern": "^[a-z0-9][-_a-z0-9]{2,28}[a-z0-9]$",
+            "validator": {
+                "v-type": "k8s-registry-namespace",
+                "params": ["registry-region"],
+                "validate": false
+            }
+        },
+        "prod-region": {
+            "description": {
+                "$ref": "#/messages/deploy.regionDescription"
+            },
+            "type": "string",
+            "disabled": false,
+            "validator": {
+                "v-type": "k8s-region",
+                "params": ["api-key"]
+            }
+        },
+        "prod-resource-group": {
+            "description": {
+                "$ref": "#/messages/deploy.rgDescription"
+            },
+            "type": "string",
+            "validator": {
+                "v-type": "resource-group",
+                "params": ["api-key"]
+            }
+        },
+        "prod-cluster-name": {
+            "description": {
+                "$ref": "#/messages/deploy.clusterNameDescription"
+            },
+            "type": "string",
+            "pattern": "\\S",
+            "validator": {
+                "v-type": "k8s-cluster-name",
+                "params": ["prod-region", "prod-resource-group"]
+            }
+        },
+        "prod-cluster-namespace": {
+            "description": {
+                "$ref": "#/messages/deploy.namespaceDescription"
+            },
+            "type": "string",
+            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+        },
+        "prod-organization": {
+            "description": {
+                "$ref": "#/messages/deploy.organizationDescription"
+            },
+            "type": "string",
+            "validator": {
+                "v-type": "cf-org",
+                "params": ["prod-region"]
+            }
+        },
+        "prod-space": {
+            "description": {
+                "$ref": "#/messages/deploy.spaceDescription"
+            },
+            "type": "string",
+            "validator": {
+                "v-type": "cf-space",
+                "params": ["prod-organization"]
+            }
+        },
+        "devx-slack-channel-webhook": {
+            "description": {
+                "$ref": "#/messages/verify.devxSlackWebhookURLDescription"
+            },
+            "type": "string"
+        },
+        "owner-slack-channel-webhook": {
+            "description": {
+                "$ref": "#/messages/verify.ownersSlackWebhookURLDescription"
+            },
+            "type": "string"
+        },
+        "pagerduty-api-token": {
+            "description": {
+                "$ref": "#/messages/verify.pagerDutyAPITokenDescription"
+            },
+            "type": "string",
+            "pattern": "\\S"
+        },
+        "pagerduty-service-name": {
+            "description": {
+                "$ref": "#/messages/verify.pagerDutyServiceNameDescription"
+            },
+            "type": "string",
+            "pattern": "\\S"
+        }
+    },
+    "required": [
+        "api-key",
+        "registry-region",
+        "registry-namespace",
+        "prod-region",
+        "prod-resource-group",
+        "prod-cluster-name",
+        "prod-cluster-namespace",
+        "prod-organization",
+        "prod-space"
+                ],
     "form": [
         {
             "type": "validator",
             "url": "/devops/validator/validator-v1.html"
+        },
+        {
+            "type": "boolean",
+            "default": true,
+            "title": {
+                "$ref": "#/messages/deploy.enableCfTitle"
+            },
+            "key": "enable-cf"
+        },
+        {
+            "type": "boolean",
+            "default": true,
+            "title": {
+                "$ref": "#/messages/deploy.enableHelmTitle"
+            },
+            "key": "enable-helm"
         },
         {
             "type": "password",
@@ -67,69 +226,48 @@
         {
             "type": "table",
             "columnCount": 3,
-            "widths": [
-                "50%",
-                "3%",
-                "47%"
-            ],
-            "items": [
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.containerregRegion"
-                    }
-                },
-                {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.containerregns"
-                    }
-                },
-                {
-                    "type": "select",
-                    "title": {
-                        "$ref": "#/messages/deploy.imgregRegion"
-                    },
-                    "key": "registry-region"
-                },
-                {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "select",
-                    "readonly": false,
-                    "title": {
-                        "$ref": "#/messages/deploy.imgregNs"
-                    },
-                    "key": "registry-namespace"
+            "widths": ["50%", "3%", "47%"],
+            "items": [{
+                "type": "label",
+                "title": {
+                    "$ref": "#/messages/deploy.containerregRegion"
                 }
-            ]
+            }, {
+                "type": "label",
+                "title": ""
+            }, {
+                "type": "label",
+                "title": {
+                    "$ref": "#/messages/deploy.containerregns"
+                }
+            }, {
+                "type": "select",
+                "title": {
+                    "$ref": "#/messages/deploy.imgregRegion"
+                },
+                "key": "registry-region"
+            }, {
+                "type": "label",
+                "title": ""
+            }, {
+                "type": "select",
+                "readonly": false,
+                "title": {
+                    "$ref": "#/messages/deploy.imgregNs"
+                },
+                "key": "registry-namespace"
+            }]
         },
         {
             "type": "table",
             "columnCount": 7,
-            "widths": [
-                "24%",
-                "2%",
-                "24%",
-                "3%",
-                "23%",
-                "1%",
-                "23%"
-            ],
-            "items": [
-                {
+            "widths": ["24%", "2%", "24%", "3%", "23%", "1%", "23%"],
+            "items": [{
                     "type": "label",
                     "title": {
                         "$ref": "#/messages/region"
                     }
-                },
-                {
+                }, {
                     "type": "label",
                     "title": ""
                 },
@@ -138,8 +276,7 @@
                     "title": {
                         "$ref": "#/messages/deploy.rg"
                     }
-                },
-                {
+                }, {
                     "type": "label",
                     "title": ""
                 },
@@ -148,8 +285,7 @@
                     "title": {
                         "$ref": "#/messages/deploy.cluster"
                     }
-                },
-                {
+                }, {
                     "type": "label",
                     "title": ""
                 },
@@ -158,12 +294,10 @@
                     "title": {
                         "$ref": "#/messages/deploy.clusterNs"
                     }
-                },
-                {
+                }, {
                     "type": "select",
                     "key": "prod-region"
-                },
-                {
+                }, {
                     "type": "label",
                     "title": ""
                 },
@@ -171,8 +305,7 @@
                     "type": "select",
                     "key": "prod-resource-group",
                     "readonly": false
-                },
-                {
+                }, {
                     "type": "label",
                     "title": ""
                 },
@@ -180,8 +313,7 @@
                     "type": "select",
                     "key": "prod-cluster-name",
                     "readonly": false
-                },
-                {
+                }, {
                     "type": "label",
                     "title": ""
                 },
@@ -191,36 +323,26 @@
                     "readonly": false
                 }
             ]
-        },
-        {
+        }, {
             "type": "table",
             "columnCount": 1,
-            "widths": [
-                "100%"
-            ],
-            "items": [
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.clusterDescription"
-                    }
+            "widths": ["100%"],
+            "items": [{
+                "type": "label",
+                "title": {
+                    "$ref": "#/messages/deploy.clusterDescription"
                 }
-            ]
-        },
-        {
+            }]
+        }, {
             "type": "table",
             "columnCount": 1,
-            "widths": [
-                "100%"
-            ],
-            "items": [
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.clusternsDescription"
-                    }
+            "widths": ["100%"],
+            "items": [{
+                "type": "label",
+                "title": {
+                    "$ref": "#/messages/deploy.clusternsDescription"
                 }
-            ]
+            }]
         },
         {
             "type": "table",
@@ -275,52 +397,5 @@
                 }
             ]
         }
-    ],
-    "longDescription": {
-        "$ref": "#/messages/deploy.longDescription"
-    },
-    "messages": {
-        "$i18n": "locales.yml"
-    },
-    "properties": {
-        "api-key": {
-            "description": {
-                "$ref": "#/messages/deploy.apikeyDescription"
-            },
-            "pattern": "\\S",
-            "type": "string",
-            "validator": {
-                "v-type": "api-key"
-            }
-        },
-        "devx-slack-channel-webhook": {
-            "description": {
-                "$ref": "#/messages/verify.devxSlackWebhookURLDescription"
-            },
-            "type": "string"
-        },
-        "pagerduty-api-token": {
-            "description": { "$ref": "#/messages/verify.pagerDutyAPITokenDescription" },
-            "pattern": "\\S",
-            "type": "string"
-        },
-        "pagerduty-service-name": {
-            "description": { "$ref": "#/messages/verify.pagerDutyServiceNameDescription" },
-            "pattern": "\\S",
-            "type": "string"
-        }
-    },
-    "required": [
-        "api-key",
-        "registry-region",
-        "registry-namespace",
-        "prod-region",
-        "prod-resource-group",
-        "prod-cluster-name",
-        "prod-cluster-namespace",
-        "prod-organization",
-        "prod-space"
-    ],
-    "title": { "$ref": "#/messages/deploy.title"},
-    "type": "object"
+    ]
 }
