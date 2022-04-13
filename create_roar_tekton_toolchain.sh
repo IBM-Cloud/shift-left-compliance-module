@@ -33,8 +33,8 @@ SM_NAME="RoarSecretsManager"
 SM_REGION="$TOOLCHAIN_REGION"
 SM_RESOURCE_GROUP="$RESOURCE_GROUP"
 
-TOOLCHAIN_TEMPLATE_REPO="https://github.ibm.com/arf/cli-dev-plugin-test"
-BRANCH="tektonroar"
+TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
+BRANCH="roartest"
 PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker1"
 
 # NOTE: the query param enablePDAlerts isn't getting passed down when creating the toolchain
