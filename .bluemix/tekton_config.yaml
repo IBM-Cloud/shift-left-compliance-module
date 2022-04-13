@@ -1,0 +1,94 @@
+---
+inputs:
+  - type: git
+    branch: ${PIPELINE_REPO_BRANCH}
+    service: ${PIPELINE_REPO}
+    path: .tekton
+triggers:
+  - name: commit-push
+    type: git
+    eventListener: ${GIT_COMMIT_EVENT_LISTENER_NAME}
+    service: ${GIT_REPO}
+    branch: master
+    events: { "push": true }
+  - name: manual-run
+    type: manual
+    eventListener: manual-run
+    properties: []
+  - name: cron-monitor
+    type: timer
+    eventListener: manual-run
+    cron: "30 10 * * *"
+    timezone: "America/Chicago"
+    properties:
+      - name: branch
+        type: text
+        value: master
+properties:
+  - name: TEST_DATA
+    type: text
+    value: ${TEST_NAME}
+  - name: api
+    type: text
+    value: ${API_URL}
+  - name: apikey
+    type: secure
+    value: ${API_KEY}
+  - name: appname-prefix
+    type: text
+    value: ${APPNAME_PREFIX}
+  - name: art-apikey
+    type: secure
+    value: ${ART_API_KEY}
+  - name: cluster
+    type: text
+    value: ${CLUSTER_NAME}
+  - name: cr-namespace
+    type: text
+    value: ${CR_NAMESPACE}
+  - name: gitlab-token
+    type: secure
+    value: ${GITLAB_TOKEN}
+  - name: gitlab-user
+    type: text
+    value: ${GITLAB_USER}
+  - name: logs-dir
+    type: text
+    value: ${LOGS_DIR}
+  - name: org
+    type: text
+    value: ${ORG}
+  - name: passphrase
+    type: text
+    value: ${PASSPHRASE}
+  - name: personal-yaas
+    type: text
+    value: ${PERSONAL_YAAS}
+  - name: region
+    type: text
+    value: ${REGION}
+  - name: repository
+    type: text
+    value: ${REPOSITORY}
+  - name: resource-group
+    type: text
+    value: ${RESOURCE_GROUP}
+  - name: revision
+    type: text
+    value: ${REVISION}
+  - name: slack-url
+    type: text
+    value: ${SLACK_URL}
+  - name: space
+    type: text
+    value: ${SPACE}
+  - name: test-dir
+    type: text
+    value: ${TEST_DIR}
+  - name: pipeline-debug
+    type: single_select
+    value:
+      "0": true
+      "1": false
+settings:
+  #slackEnabled: true

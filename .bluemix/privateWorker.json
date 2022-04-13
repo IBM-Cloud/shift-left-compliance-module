@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "messages": {
+        "$i18n": "locales.yml"
+    },
+    "title": {
+        "$ref": "#/messages/privateWorker.title"
+    },
+    "description": "{{template.settings.privateWorkerDescription}}",
+    "longDescription": "{{template.settings.privateWorkerLongDescription}}",
+    "type": "object",
+    "properties": {
+        "name": {
+            "title": {
+                "$ref": "#/messages/privateWorker.name.title"
+            },
+            "description": {
+                "$ref": "#/messages/privateWorker.name.description"
+            },
+            "type": "string"
+        },
+        "workerQueueCredentials": {
+            "title": {
+                "$ref": "#/messages/privateWorker.workerQueueCredentials.title"
+            },
+            "description": {
+                "$ref": "#/messages/privateWorker.workerQueueCredentials.description"
+            },
+            "type": "password",
+            "validator": {
+                "v-type": "service-id-api-key"
+            }
+        },
+        "workerQueueIdentifier": {
+            "type": "string",
+            "validator": {
+                "v-type": "private-worker-queue-id",
+                "params": ["workerQueueCredentials"]
+            }
+        }
+    },
+    "form": [{
+            "type": "validator",
+            "url": "/devops/validator/validator-v1.html"
+        }, {
+            "type": "string",
+            "key": "name"
+
+        }, {
+            "type": "password",
+            "readonly": false,
+            "key": "workerQueueCredentials"
+        }
+    ],
+    "required": ["name", "workerQueueCredentials"]
+}

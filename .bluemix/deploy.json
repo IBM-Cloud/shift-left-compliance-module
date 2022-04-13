@@ -1,0 +1,326 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": { "$ref": "#/messages/deploy.description" },
+    "form": [
+        {
+            "type": "validator",
+            "url": "/devops/validator/validator-v1.html"
+        },
+        {
+            "type": "password",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.apikey"
+            },
+            "key": "api-key"
+        },
+        {
+            "type": "label",
+            "title": {
+                "$ref": "#/messages/verify.slackIntegrationDescription"
+            }
+        },
+        {
+            "type": "password",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/verify.devxSlackWebhookURLTitle"
+            },
+            "key": "devx-slack-channel-webhook"
+        },
+        {
+            "type": "password",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/verify.ownersSlackWebhookURLTitle"
+            },
+            "key": "owner-slack-channel-webhook"
+        },
+        {
+            "type": "label",
+            "title": {
+                "$ref": "#/messages/verify.pagerDutyIntegrationDescription"
+            }
+        },
+        {
+            "type": "password",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/verify.pagerDutyAPITokenTitle"
+            },
+            "key": "pagerduty-api-token"
+        },
+        {
+            "type": "password",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/verify.pagerDutyServiceNameTitle"
+            },
+            "key": "pagerduty-service-name"
+        },
+        {
+            "type": "label",
+            "title": {
+                "$ref": "#/messages/kubeEnv"
+            }
+        },
+        {
+            "type": "table",
+            "columnCount": 3,
+            "widths": [
+                "50%",
+                "3%",
+                "47%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.containerregRegion"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.containerregns"
+                    }
+                },
+                {
+                    "type": "select",
+                    "title": {
+                        "$ref": "#/messages/deploy.imgregRegion"
+                    },
+                    "key": "registry-region"
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "select",
+                    "readonly": false,
+                    "title": {
+                        "$ref": "#/messages/deploy.imgregNs"
+                    },
+                    "key": "registry-namespace"
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "columnCount": 7,
+            "widths": [
+                "24%",
+                "2%",
+                "24%",
+                "3%",
+                "23%",
+                "1%",
+                "23%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/region"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.rg"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.cluster"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.clusterNs"
+                    }
+                },
+                {
+                    "type": "select",
+                    "key": "prod-region"
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "select",
+                    "key": "prod-resource-group",
+                    "readonly": false
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "select",
+                    "key": "prod-cluster-name",
+                    "readonly": false
+                },
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "text",
+                    "key": "prod-cluster-namespace",
+                    "readonly": false
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "columnCount": 1,
+            "widths": [
+                "100%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.clusterDescription"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "columnCount": 1,
+            "widths": [
+                "100%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.clusternsDescription"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "table",
+            "columnCount": 4,
+            "widths": [
+                "15%",
+                "28%",
+                "28%",
+                "28%"
+            ],
+            "items": [
+                {
+                    "type": "label",
+                    "title": ""
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/region"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/organization"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/space"
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/cloudFoundryEnv"
+                    }
+                },
+                {
+                    "type": "select",
+                    "key": "prod-region"
+                },
+                {
+                    "type": "select",
+                    "key": "prod-organization"
+                },
+                {
+                    "type": "select",
+                    "key": "prod-space",
+                    "readonly": false
+                }
+            ]
+        }
+    ],
+    "longDescription": {
+        "$ref": "#/messages/deploy.longDescription"
+    },
+    "messages": {
+        "$i18n": "locales.yml"
+    },
+    "properties": {
+        "api-key": {
+            "description": {
+                "$ref": "#/messages/deploy.apikeyDescription"
+            },
+            "pattern": "\\S",
+            "type": "string",
+            "validator": {
+                "v-type": "api-key"
+            }
+        },
+        "devx-slack-channel-webhook": {
+            "description": {
+                "$ref": "#/messages/verify.devxSlackWebhookURLDescription"
+            },
+            "type": "string"
+        },
+        "pagerduty-api-token": {
+            "description": { "$ref": "#/messages/verify.pagerDutyAPITokenDescription" },
+            "pattern": "\\S",
+            "type": "string"
+        },
+        "pagerduty-service-name": {
+            "description": { "$ref": "#/messages/verify.pagerDutyServiceNameDescription" },
+            "pattern": "\\S",
+            "type": "string"
+        }
+    },
+    "required": [
+        "api-key",
+        "registry-region",
+        "registry-namespace",
+        "prod-region",
+        "prod-resource-group",
+        "prod-cluster-name",
+        "prod-cluster-namespace",
+        "prod-organization",
+        "prod-space"
+    ],
+    "title": { "$ref": "#/messages/deploy.title"},
+    "type": "object"
+}
