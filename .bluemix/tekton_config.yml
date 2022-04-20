@@ -64,6 +64,11 @@ properties:
   - name: personal-yaas
     type: text
     value: ${PERSONAL_YAAS}
+  - name: pipeline-debug
+    type: single_select
+    value:
+      "0": true
+      "1": false
   - name: region
     type: text
     value: ${REGION}
@@ -85,10 +90,5 @@ properties:
   - name: test-dir
     type: text
     value: ${TEST_DIR}
-  - name: pipeline-debug
-    type: single_select
-    value:
-      "0": true
-      "1": false
 settings:
   #slackEnabled: true

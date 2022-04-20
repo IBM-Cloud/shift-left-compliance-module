@@ -58,7 +58,7 @@ export SM_NAME=$(echo "$SM_NAME" | jq -Rr @uri)
 
 # create parameters for headless toolchain
 PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
-`"&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH"`
+`"&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH&testEnv=$test_env"`
 `"&resourceGroupId=$RESOURCE_GROUP_ID&gitLabToken={vault::$SM_NAME.Default.gitLabToken}"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
 `"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`

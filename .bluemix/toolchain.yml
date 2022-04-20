@@ -11,24 +11,24 @@ template:
   - DjangoToolCF
   #- DjangoToolCE
 toolchain:
-  name: $env.TOOLCHAIN_NAME
+  name: $env.toolchainName
 services:
   repo_cli_dev_plugin_test:
-    service_id: githubconsolidated
+    service_id: github_integrated
     parameters:
-      repo_url: >
-        $env.repository
+      repo_url: 'https://github.ibm.com/arf/cli-dev-plugin-test'
       source_repo_url: 'https://github.ibm.com/arf/cli-dev-plugin-test'
       type: clone
       has_issues: false
       enable_traceability: false
       kind: pipeline
+      branch: tektonroar
 
   DjangoToolK8:
     service_id: pipeline
     parameters:
-      name: '{{services.repo_cli_dev_plugin_test.parameters.repo_name}}-toolk8'
-      label: Pipeline for testing the Django starter kit via Helm
+      name: 'DjangoToolK8'
+      label: Pipeline for testing deployment of the Django starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
       type: tekton
@@ -38,12 +38,12 @@ services:
         content:
           $text: tekton_config.yml
         env:
-          TEST_NAME: 'django:app:DJANGO:no:noskip:${env.test_env}:auth:create:toolK8'
+          TEST_NAME: 'django:app:DJANGO:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t1
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: 'tektonroar${env.test_env}'
+          CLUSTER_NAME: 'tektonroar{{testEnv}}'
           CR_NAMESPACE: arftt_namespace
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
@@ -54,9 +54,9 @@ services:
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
-          REPOSITORY: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'default'
-          REVISION: '{{form.pipeline.parameters.git-template-branch}}'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'test'
           TEST_DIR: 'workspace/testFiles'
@@ -67,7 +67,7 @@ services:
 #          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
 #          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
           PIPELINE_REPO: repo_cli_dev_plugin_test
-          PIPELINE_REPO_BRANCH: '{{form.pipeline.parameters.git-template-branch}}'
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           GIT_COMMIT_EVENT_LISTENER_NAME: >
             if ( $env.source_provider === 'githubconsolidated' ) {
               'github-commit';
@@ -88,8 +88,8 @@ services:
   DjangoToolCF:
     service_id: pipeline
     parameters:
-      name: '{{services.repo_cli_dev_plugin_test.parameters.repo_name}}-toolcf'
-      label: Pipeline for testing the Django starter kit via Cloud Foundry
+      name: 'DjangoToolCF'
+      label: Pipeline for testing deployment of the Django starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
       type: tekton
@@ -99,14 +99,14 @@ services:
         content:
           $text: tekton_config.yml
         env:
-          TEST_NAME: 'django:app:DJANGO:no:noskip:${env.test_env}:auth:create:toolCF'
+          TEST_NAME: 'django:app:DJANGO:no:noskip:{{testEnv}}:auth:create:toolCF'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t2
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: 'tektonroar${env.test_env}'
+          CLUSTER_NAME: 'tektonroar{{testEnv}}'
           CR_NAMESPACE: arftt_namespace
-          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_REPO: '{{services.repo_cli_dev_plugin_test}}'
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
           GITLAB_USER: arftt
@@ -115,9 +115,9 @@ services:
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
-          REPOSITORY: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          REPOSITORY: '{{services.repo_cli_dev_plugin_test}}'
           RESOURCE_GROUP: 'default'
-          REVISION: '{{form.pipeline.parameters.git-template-branch}}'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'test'
           TEST_DIR: 'workspace/testFiles'
@@ -127,8 +127,8 @@ services:
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
           #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
           #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
-          PIPELINE_REPO: repo_cli_dev_plugin_test
-          PIPELINE_REPO_BRANCH: '{{form.pipeline.parameters.git-template-branch}}'
+          PIPELINE_REPO: '{{services.repo_cli_dev_plugin_test}}'
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           GIT_COMMIT_EVENT_LISTENER_NAME: >
             if ( $env.source_provider === 'githubconsolidated' ) {
               'github-commit';
@@ -170,7 +170,7 @@ services:
 #    parameters:
 #      api_token: '{{form.pipeline.parameters.devx-slack-channel-webhook}}'
 #      channel_name: >
-#        if ( $env.test_env === 'prod' ) {
+#        if ( {{testEnv}} === 'prod' ) {
 #          'devx-cli-tests-prod'
 #        } else {
 #          'devx-cli-tests-ondeck'
@@ -188,7 +188,8 @@ form:
     parameters:
       api-key: '{{apiKey}}'
       art-api-key: '{{artApiKey}}'
-      gitlab-token: '{{gitlabToken}}'
+      gitlab-token: '{{gitLabToken}}'
+      git-template-repo: '{{repository}}'
       git-template-branch: '{{branch}}'
       slack-webhook: '{{slackWebhook}}'
 #      pagerduty-api-token: '{{pagerDutyAPIToken}}'
