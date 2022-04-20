@@ -24,89 +24,25 @@
                 "v-type": "api-key"
             }
         },
-        "registry-region": {
+        "art-api-key": {
             "description": {
-                "$ref": "#/messages/deploy.registryRegionDescription"
+                "$ref": "#/messages/deploy.apikeyDescription"
             },
-            "type": "string",
-            "disabled": false,
-            "validator": {
-                "v-type": "k8s-region",
-                "params": ["api-key"]
-            }
+            "type": "string"
         },
-        "registry-namespace": {
+        "gitlab-token": {
             "description": {
-                "$ref": "#/messages/deploy.registrynsDescription"
+                "$ref": "#/messages/deploy.apikeyDescription"
             },
-            "type": "string",
-            "pattern": "^[a-z0-9][-_a-z0-9]{2,28}[a-z0-9]$",
-            "validator": {
-                "v-type": "k8s-registry-namespace",
-                "params": ["registry-region"],
-                "validate": false
-            }
+            "type": "string"
         },
-        "prod-region": {
+        "git-template-branch": {
             "description": {
-                "$ref": "#/messages/deploy.regionDescription"
+                "$ref": "#/messages/deploy.apikeyDescription"
             },
-            "type": "string",
-            "disabled": false,
-            "validator": {
-                "v-type": "k8s-region",
-                "params": ["api-key"]
-            }
+            "type": "string"
         },
-        "prod-resource-group": {
-            "description": {
-                "$ref": "#/messages/deploy.rgDescription"
-            },
-            "type": "string",
-            "validator": {
-                "v-type": "resource-group",
-                "params": ["api-key"]
-            }
-        },
-        "prod-cluster-name": {
-            "description": {
-                "$ref": "#/messages/deploy.clusterNameDescription"
-            },
-            "type": "string",
-            "pattern": "\\S",
-            "validator": {
-                "v-type": "k8s-cluster-name",
-                "params": ["prod-region", "prod-resource-group"]
-            }
-        },
-        "prod-cluster-namespace": {
-            "description": {
-                "$ref": "#/messages/deploy.namespaceDescription"
-            },
-            "type": "string",
-            "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
-        },
-        "prod-organization": {
-            "description": {
-                "$ref": "#/messages/deploy.organizationDescription"
-            },
-            "type": "string",
-            "validator": {
-                "v-type": "cf-org",
-                "params": ["prod-region"]
-            }
-        },
-        "prod-space": {
-            "description": {
-                "$ref": "#/messages/deploy.spaceDescription"
-            },
-            "type": "string",
-            "validator": {
-                "v-type": "cf-space",
-                "params": ["prod-organization"]
-            }
-        },
-        "devx-slack-channel-webhook": {
+        "slack-webhook": {
             "description": {
                 "$ref": "#/messages/verify.devxSlackWebhookURLDescription"
             },
@@ -135,14 +71,9 @@
     },
     "required": [
         "api-key",
-        "registry-region",
-        "registry-namespace",
-        "prod-region",
-        "prod-resource-group",
-        "prod-cluster-name",
-        "prod-cluster-namespace",
-        "prod-organization",
-        "prod-space"
+        "art-api-key",
+        "gitlab-token",
+        "git-template-branch"
                 ],
     "form": [
         {
@@ -200,186 +131,6 @@
                 "$ref": "#/messages/verify.pagerDutyServiceNameTitle"
             },
             "key": "pagerduty-service-name"
-        },
-        {
-            "type": "label",
-            "title": {
-                "$ref": "#/messages/kubeEnv"
-            }
-        },
-        {
-            "type": "table",
-            "columnCount": 3,
-            "widths": ["50%", "3%", "47%"],
-            "items": [{
-                "type": "label",
-                "title": {
-                    "$ref": "#/messages/deploy.containerregRegion"
-                }
-            }, {
-                "type": "label",
-                "title": ""
-            }, {
-                "type": "label",
-                "title": {
-                    "$ref": "#/messages/deploy.containerregns"
-                }
-            }, {
-                "type": "select",
-                "title": {
-                    "$ref": "#/messages/deploy.imgregRegion"
-                },
-                "key": "registry-region"
-            }, {
-                "type": "label",
-                "title": ""
-            }, {
-                "type": "select",
-                "readonly": false,
-                "title": {
-                    "$ref": "#/messages/deploy.imgregNs"
-                },
-                "key": "registry-namespace"
-            }]
-        },
-        {
-            "type": "table",
-            "columnCount": 7,
-            "widths": ["24%", "2%", "24%", "3%", "23%", "1%", "23%"],
-            "items": [{
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/region"
-                    }
-                }, {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.rg"
-                    }
-                }, {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.cluster"
-                    }
-                }, {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/deploy.clusterNs"
-                    }
-                }, {
-                    "type": "select",
-                    "key": "prod-region"
-                }, {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "select",
-                    "key": "prod-resource-group",
-                    "readonly": false
-                }, {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "select",
-                    "key": "prod-cluster-name",
-                    "readonly": false
-                }, {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "text",
-                    "key": "prod-cluster-namespace",
-                    "readonly": false
-                }
-            ]
-        }, {
-            "type": "table",
-            "columnCount": 1,
-            "widths": ["100%"],
-            "items": [{
-                "type": "label",
-                "title": {
-                    "$ref": "#/messages/deploy.clusterDescription"
-                }
-            }]
-        }, {
-            "type": "table",
-            "columnCount": 1,
-            "widths": ["100%"],
-            "items": [{
-                "type": "label",
-                "title": {
-                    "$ref": "#/messages/deploy.clusternsDescription"
-                }
-            }]
-        },
-        {
-            "type": "table",
-            "columnCount": 4,
-            "widths": [
-                "15%",
-                "28%",
-                "28%",
-                "28%"
-            ],
-            "items": [
-                {
-                    "type": "label",
-                    "title": ""
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/region"
-                    }
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/organization"
-                    }
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/space"
-                    }
-                },
-                {
-                    "type": "label",
-                    "title": {
-                        "$ref": "#/messages/cloudFoundryEnv"
-                    }
-                },
-                {
-                    "type": "select",
-                    "key": "prod-region"
-                },
-                {
-                    "type": "select",
-                    "key": "prod-organization"
-                },
-                {
-                    "type": "select",
-                    "key": "prod-space",
-                    "readonly": false
-                }
-            ]
         }
     ]
 }

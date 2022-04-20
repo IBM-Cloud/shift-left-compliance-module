@@ -1,0 +1,108 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline
+spec:
+  params:
+    - name: TEST_DATA
+      description: the data for this test scenario
+    - name: repository
+      description: the git repo
+    - name: revision
+      description: the revision
+      default: master
+    - name: apikey
+      description: the ibmcloud api key
+    - name: api
+      description: the ibmcloud api endpoint
+      default: "https://cloud.ibm.com"
+    - name: region
+      description: region where cluster and registry are located
+      default: us-south
+    - name: appname-prefix
+      description: the prefix added to the app name
+    - name: art-apikey
+      description: the API key used to copy logs to Artifactory
+    - name: cluster
+      description: the name of the Kube cluster
+    - name: cr-namespace
+      description: container registry namespace
+      default: default
+    - name: gitlab-token
+      description: the access token for GitLab
+    - name: gitlab-user
+      description: the username for GitLab
+    - name: logs-dir
+      description: the directory logs are stored
+    - name: node-path
+      description: the path to where node is installed
+      default: "/opt/IBM/node-v4.2/bin"
+    - name: org
+      description: the org used for login
+    - name: passphrase
+      description: the passphrase for ssh key (if applicable)
+      default: None
+    - name: personal-yaas
+      description: the URL to a personal YAAS (for testing)
+      default: None
+    - name: resource-group
+      description: the name of the resource group for login
+      default: default
+    - name: slack-url
+      description: the URL of the Slack webhook (for reporting)
+    - name: space
+      description: the name of the space for login
+    - name: test-dir
+      description: the directory skit files are saved
+  workspaces:
+    - name: pipeline-pvc
+  tasks:
+    - name: pipeline-roar-test
+      taskRef:
+        name: roar-test
+      params:
+        - name: TEST_DATA
+          value: $(params.TEST_DATA)
+        - name: repository
+          value: $(params.repository)
+        - name: revision
+          value: $(params.revision)
+        - name: apikey
+          value: $(params.apikey)
+        - name: api
+          value: $(params.api)
+        - name: region
+          value: $(params.region)
+        - name: appname-prefix
+          value: $(params.appname-prefix)
+        - name: art-apikey
+          value: $(params.art-apikey)
+        - name: cluster
+          value: $(params.cluster)
+        - name: cr-namespace
+          value: $(params.cr-namespace)
+        - name: gitlab-token
+          value: $(params.gitlab-token)
+        - name: gitlab-user
+          value: $(params.gitlab-user)
+        - name: logs-dir
+          value: $(params.logs-dir)
+        - name: node-path
+          value: $(params.node-path)
+        - name: org
+          value: $(params.org)
+        - name: passphrase
+          value: $(params.passphrase)
+        - name: personal-yaas
+          value: $(params.personal-yaas)
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: slack-url
+          value: $(params.slack-url)
+        - name: space
+          value: $(params.space)
+        - name: test-dir
+          value: $(params.test-dir)
+      workspaces:
+      - name: task-pvc
+        workspace: pipeline-pvc
