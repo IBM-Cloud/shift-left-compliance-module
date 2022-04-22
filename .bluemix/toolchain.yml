@@ -14,7 +14,7 @@ toolchain:
   name: $env.toolchainName
 services:
   repo_cli_dev_plugin_test:
-    service_id: github_integrated
+    service_id: hostedgit
     parameters:
       repo_url: 'https://github.ibm.com/arf/cli-dev-plugin-test'
       source_repo_url: 'https://github.ibm.com/arf/cli-dev-plugin-test'
@@ -115,7 +115,7 @@ services:
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
-          REPOSITORY: '{{services.repo_cli_dev_plugin_test}}'
+          REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'default'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'

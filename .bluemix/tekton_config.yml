@@ -73,8 +73,9 @@ properties:
     type: text
     value: ${REGION}
   - name: repository
-    type: text
-    value: ${REPOSITORY}
+    path: parameters.repo_url
+    type: integration
+    value: repo_cli_dev_plugin_test
   - name: resource-group
     type: text
     value: ${RESOURCE_GROUP}
@@ -82,7 +83,7 @@ properties:
     type: text
     value: ${REVISION}
   - name: slack-url
-    type: text
+    type: secure
     value: ${SLACK_URL}
   - name: space
     type: text
