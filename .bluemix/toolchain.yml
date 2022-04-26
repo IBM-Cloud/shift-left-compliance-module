@@ -16,6 +16,7 @@ services:
   repo_cli_dev_plugin_test:
     service_id: hostedgit
     parameters:
+      repo_name: 'cli-dev-plugin-test'
       repo_url: 'https://github.ibm.com/arf/cli-dev-plugin-test'
       source_repo_url: 'https://github.ibm.com/arf/cli-dev-plugin-test'
       type: clone
@@ -31,6 +32,7 @@ services:
       label: Pipeline for testing deployment of the Django starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
+        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -54,6 +56,7 @@ services:
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'default'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
@@ -92,6 +95,7 @@ services:
       label: Pipeline for testing deployment of the Django starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
+        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -115,6 +119,7 @@ services:
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'default'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'

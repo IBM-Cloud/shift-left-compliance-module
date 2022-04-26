@@ -7,17 +7,17 @@ inputs:
 triggers:
   - name: commit-push
     type: git
-    eventListener: ${GIT_COMMIT_EVENT_LISTENER_NAME}
+    eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
     service: ${GIT_REPO}
     branch: master
     events: { "push": true }
   - name: manual-run
     type: manual
-    eventListener: manual-run
+    eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
     properties: []
   - name: cron-monitor
     type: timer
-    eventListener: manual-run
+    eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
     cron: "30 10 * * *"
     timezone: "America/Chicago"
     properties:
