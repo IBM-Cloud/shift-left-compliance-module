@@ -9,7 +9,7 @@ template:
   - privateWorker
   - DjangoToolK8
   - DjangoToolCF
-  #- DjangoToolCE
+  - DjangoToolCE
 toolchain:
   name: $env.toolchainName
 services:
