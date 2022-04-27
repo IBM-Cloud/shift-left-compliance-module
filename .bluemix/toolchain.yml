@@ -62,7 +62,7 @@ services:
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'test'
-          TEST_DIR: 'workspace/testFiles'
+          TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
@@ -110,7 +110,7 @@ services:
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: 'tektonroar{{testEnv}}'
           CR_NAMESPACE: arftt_namespace
-          GIT_REPO: '{{services.repo_cli_dev_plugin_test}}'
+          GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
           GITLAB_USER: arftt
@@ -125,14 +125,14 @@ services:
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'test'
-          TEST_DIR: 'workspace/testFiles'
+          TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
           #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
           #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
-          PIPELINE_REPO: '{{services.repo_cli_dev_plugin_test}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
           PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           GIT_COMMIT_EVENT_LISTENER_NAME: >
             if ( $env.source_provider === 'githubconsolidated' ) {
