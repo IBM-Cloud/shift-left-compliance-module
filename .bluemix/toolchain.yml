@@ -25,11 +25,11 @@ services:
       kind: pipeline
       branch: tektonroar
 
-  DjangoToolK8:
+  DjangoToolCE:
     service_id: pipeline
     parameters:
-      name: 'DjangoToolK8'
-      label: Pipeline for testing deployment of the Django starter kit via Helm toolchain
+      name: 'DjangoToolCE'
+      label: Pipeline for testing deployment of the Django starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
         - privateWorker
@@ -40,7 +40,7 @@ services:
         content:
           $text: tekton_config.yml
         env:
-          TEST_NAME: 'django:app:DJANGO:no:noskip:{{testEnv}}:auth:create:toolK8'
+          TEST_NAME: 'django:app:DJANGO:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t1
@@ -64,11 +64,11 @@ services:
           SPACE: 'test'
           TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
-#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
-#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
-#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
-#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
-#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
           PIPELINE_REPO: repo_cli_dev_plugin_test
           PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           GIT_COMMIT_EVENT_LISTENER_NAME: >
@@ -83,10 +83,10 @@ services:
             } else {
               'grit-or-gitlab-commit';
             }
-#          DOCKER_USERNAME: >
-#            $env.dockerUsername ? '{{dockerUsername}}' : ''
-#          DOCKER_PASSWORD: >
-#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
 
   DjangoToolCF:
     service_id: pipeline
@@ -150,6 +150,69 @@ services:
           #    $env.dockerUsername ? '{{dockerUsername}}' : ''
           #  DOCKER_PASSWORD: >
           #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  DjangoToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'DjangoToolK8'
+      label: Pipeline for testing deployment of the Django starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'django:app:DJANGO:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t3
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: 'tektonroar{{testEnv}}'
+          CR_NAMESPACE: arftt_namespace
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'arftt@us.ibm.com'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'default'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'test'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
 
   sm-vault:
     service_id: secretsmanager

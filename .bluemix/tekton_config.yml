@@ -91,5 +91,6 @@ properties:
   - name: test-dir
     type: text
     value: ${TEST_DIR}
+private_worker: ${PRIVATE_WORKER}
 settings:
   #slackEnabled: true
