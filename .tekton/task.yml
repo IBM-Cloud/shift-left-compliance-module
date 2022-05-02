@@ -70,7 +70,7 @@ spec:
         - set -e -o pipefail;
           echo "Cloning $REPOSITORY";
           cd /workspace && git clone -q -b $REVISION $REPOSITORY .;
-    - name: check-env
+    - name: run-roar-test
       image: ibmcom/pipeline-base-image:latest
       env:
         - name: IBMCLOUD_API_KEY
