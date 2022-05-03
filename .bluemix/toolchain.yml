@@ -465,7 +465,7 @@ form:
       name: '{{privateWorkerName}}'
       workerQueueCredentials: '{{privateWorkerCreds}}'
       # this wont be needed once a fix is in place for https://github.ibm.com/org-ids/roadmap/issues/15360
-      #workerQueueIdentifier: "{{privateWorkerIdentifier}}"
+      workerQueueIdentifier: "{{privateWorkerIdentifier}}"
     schema:
       $ref: privateWorker.json
 
