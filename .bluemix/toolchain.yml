@@ -425,7 +425,7 @@ services:
     parameters:
       name: "{{form.private_worker.parameters.name}}"
       workerQueueCredentials: "{{form.private_worker.parameters.workerQueueCredentials}}"
-      #workerQueueIdentifier: "{{form.private_worker.parameters.workerQueueIdentifier}}"
+      workerQueueIdentifier: "{{form.private_worker.parameters.workerQueueIdentifier}}"
 
 #  slack-roar-testing:
 #    service_id: slack

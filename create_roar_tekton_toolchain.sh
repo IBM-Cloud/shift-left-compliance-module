@@ -35,7 +35,7 @@ SM_RESOURCE_GROUP="$RESOURCE_GROUP"
 
 TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
 BRANCH="roartest"
-PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker1"
+PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker"
 
 # NOTE: the query param enablePDAlerts isn't getting passed down when creating the toolchain
 #ENABLE_PD_ALERTS=true
