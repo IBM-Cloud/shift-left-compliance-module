@@ -36,6 +36,7 @@ SM_RESOURCE_GROUP="$RESOURCE_GROUP"
 TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
 BRANCH="roartest"
 PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker"
+PRIVATE_WORKER_SERVICEID="ServiceId-df69adc7-a67e-4ac1-8bd7-f18983032fdd"
 
 # NOTE: the query param enablePDAlerts isn't getting passed down when creating the toolchain
 #ENABLE_PD_ALERTS=true
@@ -64,12 +65,11 @@ PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
 `"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
 `"&artApiKey={vault::$SM_NAME.Default.artApiKey}&slackWebhook={vault::$SM_NAME.Default.slack-webhook-roar-$test_env}"`
 `"&privateWorkerName=$PRIVATE_WORKER_NAME&privateWorkerCreds={vault::$SM_NAME.Default.tekton-roar-$test_env-testing}"`
-`"&privateWorkerIdentifier={vault::$SM_NAME.Default.tekton-roar-$test_env-serviceid}"
+`"&privateWorkerIdentifier=$PRIVATE_WORKER_SERVICEID"
 
 # debugging
-echo "Here are the parameters:"
-echo "$PARAMETERS"
-echo "test"
+#echo "Here are the parameters:"
+#echo "$PARAMETERS"
 
 # get a fresh Bearer token
 iamtoken=$(ibmcloud iam oauth-tokens | awk '/IAM/{ print $3" "$4 }')
