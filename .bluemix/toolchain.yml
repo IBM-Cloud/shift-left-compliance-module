@@ -50,7 +50,7 @@ services:
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t1
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: 'tektonroar{{testEnv}}'
+          CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
@@ -113,7 +113,7 @@ services:
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t2
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: 'tektonroar{{testEnv}}'
+          CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
@@ -176,7 +176,7 @@ services:
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t3
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: 'tektonroar{{testEnv}}'
+          CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
@@ -239,7 +239,7 @@ services:
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t4
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: 'tektonroar{{testEnv}}'
+          CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
@@ -302,7 +302,7 @@ services:
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t5
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: 'tektonroar{{testEnv}}'
+          CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
@@ -365,7 +365,7 @@ services:
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t6
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: 'tektonroar{{testEnv}}'
+          CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
