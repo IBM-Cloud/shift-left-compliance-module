@@ -51,7 +51,7 @@ services:
           APPNAME_PREFIX: t1
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: 'tektonroar{{testEnv}}'
-          CR_NAMESPACE: arftt_namespace
+          CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -63,10 +63,10 @@ services:
           REGION: 'us-south'
           REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
           REPOSITORY: repo_cli_dev_plugin_test
-          RESOURCE_GROUP: 'default'
+          RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
-          SPACE: 'test'
+          SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
@@ -114,7 +114,7 @@ services:
           APPNAME_PREFIX: t2
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: 'tektonroar{{testEnv}}'
-          CR_NAMESPACE: arftt_namespace
+          CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -126,10 +126,10 @@ services:
           REGION: 'us-south'
           REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
           REPOSITORY: repo_cli_dev_plugin_test
-          RESOURCE_GROUP: 'default'
+          RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
-          SPACE: 'test'
+          SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
@@ -177,7 +177,7 @@ services:
           APPNAME_PREFIX: t3
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: 'tektonroar{{testEnv}}'
-          CR_NAMESPACE: arftt_namespace
+          CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -189,10 +189,10 @@ services:
           REGION: 'us-south'
           REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
           REPOSITORY: repo_cli_dev_plugin_test
-          RESOURCE_GROUP: 'default'
+          RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
-          SPACE: 'test'
+          SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
@@ -240,7 +240,7 @@ services:
           APPNAME_PREFIX: t4
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: 'tektonroar{{testEnv}}'
-          CR_NAMESPACE: arftt_namespace
+          CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -252,10 +252,10 @@ services:
           REGION: 'us-south'
           REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
           REPOSITORY: repo_cli_dev_plugin_test
-          RESOURCE_GROUP: 'default'
+          RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
-          SPACE: 'test'
+          SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
@@ -303,7 +303,7 @@ services:
           APPNAME_PREFIX: t5
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: 'tektonroar{{testEnv}}'
-          CR_NAMESPACE: arftt_namespace
+          CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -315,10 +315,10 @@ services:
           REGION: 'us-south'
           REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
           REPOSITORY: repo_cli_dev_plugin_test
-          RESOURCE_GROUP: 'default'
+          RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
-          SPACE: 'test'
+          SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
@@ -366,7 +366,7 @@ services:
           APPNAME_PREFIX: t6
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: 'tektonroar{{testEnv}}'
-          CR_NAMESPACE: arftt_namespace
+          CR_NAMESPACE: roar-test
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -378,10 +378,10 @@ services:
           REGION: 'us-south'
           REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
           REPOSITORY: repo_cli_dev_plugin_test
-          RESOURCE_GROUP: 'default'
+          RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
-          SPACE: 'test'
+          SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
           PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'

@@ -16,7 +16,7 @@ fi
 export test_env=$1
 API_KEY=$2
 REGION="us-south"
-RESOURCE_GROUP="default"
+RESOURCE_GROUP="devex-falcon"
 
 # log in using the api key
 ibmcloud login --apikey "$API_KEY" -r "$REGION" -g "$RESOURCE_GROUP"
@@ -31,12 +31,11 @@ RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq "
 
 SM_NAME="RoarSecretsManager"
 SM_REGION="$TOOLCHAIN_REGION"
-SM_RESOURCE_GROUP="$RESOURCE_GROUP"
 
 TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
 BRANCH="roartest"
 PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker"
-PRIVATE_WORKER_SERVICEID="ServiceId-df69adc7-a67e-4ac1-8bd7-f18983032fdd"
+PRIVATE_WORKER_SERVICEID="ServiceId-f05e7c9b-a0a2-484b-8080-66ae8574947d"
 
 # NOTE: the query param enablePDAlerts isn't getting passed down when creating the toolchain
 #ENABLE_PD_ALERTS=true
@@ -55,7 +54,6 @@ echo "Creating new toolchain $TOOLCHAIN_NAME..."
 
 # URL encode TOOLCHAIN_TEMPLATE_REPO and SM_NAME
 export TOOLCHAIN_TEMPLATE_REPO=$(echo "$TOOLCHAIN_TEMPLATE_REPO" | jq -Rr @uri)
-export SM_NAME=$(echo "$SM_NAME" | jq -Rr @uri)
 
 # create parameters for headless toolchain
 PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
