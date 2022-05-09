@@ -57,7 +57,7 @@ services:
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
           GITLAB_USER: arftt
           LOGS_DIR: '/workspace/ROAR'
-          ORG: 'arftt@us.ibm.com'
+          ORG: 'devex-force'
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
@@ -120,7 +120,7 @@ services:
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
           GITLAB_USER: arftt
           LOGS_DIR: '/workspace/ROAR'
-          ORG: 'arftt@us.ibm.com'
+          ORG: 'devex-force'
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
@@ -183,7 +183,7 @@ services:
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
           GITLAB_USER: arftt
           LOGS_DIR: '/workspace/ROAR'
-          ORG: 'arftt@us.ibm.com'
+          ORG: 'devex-force'
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
@@ -246,7 +246,7 @@ services:
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
           GITLAB_USER: arftt
           LOGS_DIR: '/workspace/ROAR'
-          ORG: 'arftt@us.ibm.com'
+          ORG: 'devex-force'
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
@@ -309,7 +309,7 @@ services:
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
           GITLAB_USER: arftt
           LOGS_DIR: '/workspace/ROAR'
-          ORG: 'arftt@us.ibm.com'
+          ORG: 'devex-force'
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
@@ -372,7 +372,7 @@ services:
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
           GITLAB_USER: arftt
           LOGS_DIR: '/workspace/ROAR'
-          ORG: 'arftt@us.ibm.com'
+          ORG: 'devex-force'
           PASSPHRASE: 'None'
           PERSONAL_YAAS: 'None'
           REGION: 'us-south'
