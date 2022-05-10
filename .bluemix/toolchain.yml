@@ -234,7 +234,7 @@ services:
         content:
           $text: tekton_config.yml
         env:
-          TEST_NAME: 'django:app:GO:no:noskip:{{testEnv}}:auth:create:toolCE'
+          TEST_NAME: 'gin:app:GO:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t4
@@ -297,7 +297,7 @@ services:
         content:
           $text: tekton_config.yml
         env:
-          TEST_NAME: 'django:app:GO:no:noskip:{{testEnv}}:auth:create:toolCF'
+          TEST_NAME: 'gin:app:GO:no:noskip:{{testEnv}}:auth:create:toolCF'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t5
@@ -360,10 +360,1963 @@ services:
         content:
           $text: tekton_config.yml
         env:
-          TEST_NAME: 'django:app:GO:no:noskip:{{testEnv}}:auth:create:toolK8'
+          TEST_NAME: 'gin:app:GO:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t6
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  JavaToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'JavaToolCE'
+      label: Pipeline for testing deployment of the Java starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'liberty:app:JAVA:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t7
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  JavaToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'JavaToolCF'
+      label: Pipeline for testing deployment of the Java starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'liberty:app:JAVA:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t8
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  JavaToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'JavaToolK8'
+      label: Pipeline for testing deployment of the Java starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'liberty:app:JAVA:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t9
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'NodeToolCE'
+      label: Pipeline for testing deployment of the Node Express starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'express:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t10
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'NodeToolCF'
+      label: Pipeline for testing deployment of the Node Express starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'express:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t11
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'NodeToolK8'
+      label: Pipeline for testing deployment of the Node Express starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'express:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t12
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NLUToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'NLUToolCE'
+      label: Pipeline for testing deployment of the Natural Language Understanding starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nlu:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t13
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NLUToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'NLUToolCF'
+      label: Pipeline for testing deployment of the Natural Language Understanding starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nlu:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t14
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NLUToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'NLUToolK8'
+      label: Pipeline for testing deployment of the Natural Language Understanding starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nlu:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t15
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  STTToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'STTToolCE'
+      label: Pipeline for testing deployment of the Speech To Text starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'stt:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t16
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  STTToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'STTToolCF'
+      label: Pipeline for testing deployment of the Speech To Text starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'stt:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t17
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  STTToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'STTToolK8'
+      label: Pipeline for testing deployment of the Speech To Text starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'stt:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t18
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  TTSToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'TTSToolCE'
+      label: Pipeline for testing deployment of the Text To Speech starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'tts:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t19
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  TTSToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'TTSToolCF'
+      label: Pipeline for testing deployment of the Text To Speech starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'tts:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t20
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  TTSToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'TTSToolK8'
+      label: Pipeline for testing deployment of the Text To Speech starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'tts:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t21
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  PythonToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'PythonToolCE'
+      label: Pipeline for testing deployment of the Python Flask starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'flask:app:PYTHON:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t22
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  PythonToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'PythonToolCF'
+      label: Pipeline for testing deployment of the Python Flask starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'flask:app:PYTHON:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t23
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  PythonToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'PythonToolK8'
+      label: Pipeline for testing deployment of the Python Flask starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'flask:app:PYTHON:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t24
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeCloudantToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'NodeCloudantToolCE'
+      label: Pipeline for testing deployment of the Node.js+Cloudant starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nodecloudant:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t25
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeCloudantToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'NodeCloudantToolCF'
+      label: Pipeline for testing deployment of the Node.js+Cloudant starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nodecloudant:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t26
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeCloudantToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'NodeCloudantToolK8'
+      label: Pipeline for testing deployment of the Node.js+Cloudant starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nodecloudant:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t27
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeRedToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'NodeRedToolCE'
+      label: Pipeline for testing deployment of the NodeRED starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nodered:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t28
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeRedToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'NodeRedToolCF'
+      label: Pipeline for testing deployment of the NodeRED starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nodered:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t29
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  NodeRedToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'NodeRedToolK8'
+      label: Pipeline for testing deployment of the NodeRED starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'nodered:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t30
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  SpringToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'SpringToolCE'
+      label: Pipeline for testing deployment of the Spring starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'spring:app:SPRING:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t31
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  SpringToolCF:
+    service_id: pipeline
+    parameters:
+      name: 'SpringToolCF'
+      label: Pipeline for testing deployment of the Spring starter kit via Cloud Foundry toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'spring:app:SPRING:no:noskip:{{testEnv}}:auth:create:toolCF'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t32
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  SpringToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'SpringToolK8'
+      label: Pipeline for testing deployment of the Spring starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'spring:app:SPRING:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t33
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  KituraToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'KituraToolCE'
+      label: Pipeline for testing deployment of the Swift Kitura starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'kitura:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t34
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  KituraToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'KituraToolK8'
+      label: Pipeline for testing deployment of the Swift Kitura starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'kitura:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t35
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  VaporToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'VaporToolCE'
+      label: Pipeline for testing deployment of the Swift Vapor starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'vapor:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t36
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          REGION: 'us-south'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  VaporToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'VaporToolK8'
+      label: Pipeline for testing deployment of the Swift Vapor starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+        - privateWorker
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config.yml
+        env:
+          TEST_NAME: 'vapor:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: t37
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
