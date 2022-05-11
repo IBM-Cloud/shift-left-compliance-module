@@ -13,6 +13,37 @@ template:
   - GoToolCE
   - GoToolCF
   - GoToolK8
+  - JavaToolCE
+  - JavaToolCF
+  - JavaToolK8
+  - KituraToolCE
+  - KituraToolK8
+  - NLUToolCE
+  - NLUToolCF
+  - NLUToolK8
+  - NodeCloudantToolCE
+  - NodeCloudantToolCF
+  - NodeCloudantToolK8
+  - NodeRedToolCE
+  - NodeRedToolCF
+  - NodeRedToolK8
+  - NodeToolCE
+  - NodeToolCF
+  - NodeToolK8
+  - PythonToolCE
+  - PythonToolCF
+  - PythonToolK8
+  - SpringToolCE
+  - SpringToolCF
+  - SpringToolK8
+  - STTToolCE
+  - STTToolCF
+  - STTToolK8
+  - TTSToolCE
+  - TTSToolCF
+  - TTSToolK8
+  - VaporToolCE
+  - VaporToolK8
 
 toolchain:
   name: $env.toolchainName
