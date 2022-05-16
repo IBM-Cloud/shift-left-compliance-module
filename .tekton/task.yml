@@ -74,7 +74,10 @@ spec:
       image: ibmcom/pipeline-base-image:latest
       env:
         - name: IBMCLOUD_API_KEY
-          value: $(params.apikey)
+          valueFrom:
+            secretKeyRef:
+              - name: secure-properties
+                key: apikey
         - name: TEST_DATA
           value: $(params.TEST_DATA)
         - name: repository
@@ -90,13 +93,19 @@ spec:
         - name: appname-prefix
           value: $(params.appname-prefix)
         - name: art-apikey
-          value: $(params.art-apikey)
+          valueFrom:
+            secretKeyRef:
+              - name: secure-properties
+                key: art-apikey
         - name: cluster
           value: $(params.cluster)
         - name: cr-namespace
           value: $(params.cr-namespace)
         - name: gitlab-token
-          value: $(params.gitlab-token)
+          valueFrom:
+            secretKeyRef:
+              - name: secure-properties
+                key: gitlab-token
         - name: gitlab-user
           value: $(params.gitlab-user)
         - name: logs-dir
@@ -112,7 +121,10 @@ spec:
         - name: resource-group
           value: $(params.resource-group)
         - name: slack-url
-          value: $(params.slack-url)
+          valueFrom:
+            secretKeyRef:
+              - name: secure-properties
+                key: slack-url
         - name: space
           value: $(params.space)
         - name: test-dir
