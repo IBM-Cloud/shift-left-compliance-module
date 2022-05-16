@@ -14,7 +14,10 @@ triggers:
   - name: manual-run
     type: manual
     eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
-    properties: []
+    properties:
+      - name: branch
+        type: text
+        value: tektonroar
   - name: cron-monitor
     type: timer
     eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
@@ -23,7 +26,7 @@ triggers:
     properties:
       - name: branch
         type: text
-        value: master
+        value: tektonroar
 properties:
   - name: TEST_DATA
     type: text
