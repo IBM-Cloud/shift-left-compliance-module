@@ -73,7 +73,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       TOOLCHAIN_TEMPLATE_REPO = "https://${var.region}.git.cloud.ibm.com/open-toolchain/compliance-ci-toolchain"
       APPLICATION_REPO        = "https://${var.region}.git.cloud.ibm.com/open-toolchain/hello-compliance-app"
       RESOURCE_GROUP          = var.resource_group
-      API_KEY                 = var.ibmcloud_api_key
+      API_KEY                 = nonsensitive(var.ibmcloud_api_key)
       CLUSTER_NAME            = ibm_container_cluster.cluster.name
       CLUSTER_NAMESPACE       = "default"
       REGISTRY_NAMESPACE      = var.registry_namespace
@@ -86,7 +86,7 @@ resource "null_resource" "create_kubernetes_toolchain" {
       COS_API_KEY             = ibm_iam_service_api_key.cos_service_api_key.apikey
       SM_NAME                 = var.sm_name
       SM_SERVICE_NAME         = var.sm_service_name
-      GITLAB_TOKEN            = var.gitlab_token
+      GITLAB_TOKEN            = nonsensitive(var.gitlab_token)
     }
   }
 }
