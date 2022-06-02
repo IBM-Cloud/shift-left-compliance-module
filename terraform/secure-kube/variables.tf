@@ -67,6 +67,6 @@ variable "sm_name" {
 }
 
 variable "sm_service_name" {
-  description = "Name of the Secrets Manager service. NOTE: Only 1 Secrets Manager instance is allowed. If you already have a Secrets Manager service provisioned, please override this value to its name."
+  description = "Name of the Secrets Manager service. NOTE: If you already have a Secrets Manager service provisioned, please override this value to its name."
   default     = "compliance-ci-secrets-manager"
 }
