@@ -21,7 +21,7 @@ else
   echo "Secrets Manager '$SM_SERVICE_NAME' does not exist."
   echo "Creating Secrets Manager service now..."
   # NOTE: Secrets Manager service can take approx 5-8 minutes to provision
-  ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager lite $REGION
+  ibmcloud resource service-instance-create $SM_SERVICE_NAME secrets-manager standard $REGION
   wait_secs=900
   count=0
   sleep_time=60
