@@ -116,9 +116,11 @@ variable "branch" {
 variable "ibmcloud_api_key" {
   type        = string
   description = "The IAM API Key for IBM Cloud access (https://cloud.ibm.com/iam/apikeys)"
+  sensitive   = true
 }
 
 variable "gitlab_token" {
   type        = string
   description = "A GitLab Personal Access Token (https://us-south.git.cloud.ibm.com/-/profile/personal_access_tokens NOTE: Make sure to create your token in the same region as your toolchain, or 'region' variable.)"
+  sensitive   = true
 }
