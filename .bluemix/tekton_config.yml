@@ -31,6 +31,7 @@ properties:
   - name: GIT_URL
     type: integration
     path: parameters.repo_url
+    value: repo_cli_dev_plugin_test
   - name: MY_APP_NAME
     type: test
     value: ${APP_NAME}
