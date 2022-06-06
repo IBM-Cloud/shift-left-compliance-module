@@ -33,7 +33,7 @@ properties:
     path: parameters.repo_url
     value: repo_cli_dev_plugin_test
   - name: MY_APP_NAME
-    type: test
+    type: text
     value: ${APP_NAME}
   - name: TEST_DATA
     type: text
