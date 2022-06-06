@@ -58,7 +58,7 @@ services:
       enable_traceability: false
       kind: pipeline
       branch: tektonroar
-      nb_repo: false
+      private_repo: false
 
   DjangoToolCE:
     service_id: pipeline
