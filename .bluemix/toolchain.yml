@@ -78,6 +78,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t1
+          APP_NAME: 'DjangoToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -139,6 +140,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t2
+          APP_NAME: 'DjangoToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -200,6 +202,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t3
+          APP_NAME: 'DjangoToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -261,6 +264,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t4
+          APP_NAME: 'GoToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -322,6 +326,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t5
+          APP_NAME: 'GoToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -383,6 +388,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t6
+          APP_NAME: 'GoToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -444,6 +450,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t7
+          APP_NAME: 'JavaToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -505,6 +512,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t8
+          APP_NAME: 'JavaToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -566,6 +574,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t9
+          APP_NAME: 'JavaToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -627,6 +636,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t10
+          APP_NAME: 'NodeToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -688,6 +698,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t11
+          APP_NAME: 'NodeToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -749,6 +760,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t12
+          APP_NAME: 'NodeToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -810,6 +822,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t13
+          APP_NAME: 'NLUToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -871,6 +884,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t14
+          APP_NAME: 'NLUToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -932,6 +946,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t15
+          APP_NAME: 'NLUToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -993,6 +1008,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t16
+          APP_NAME: 'STTToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1054,6 +1070,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t17
+          APP_NAME: 'STTToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1115,6 +1132,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t18
+          APP_NAME: 'STTToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1176,6 +1194,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t19
+          APP_NAME: 'TTSToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1237,6 +1256,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t20
+          APP_NAME: 'TTSToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1298,6 +1318,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t21
+          APP_NAME: 'TTSToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1359,6 +1380,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t22
+          APP_NAME: 'PythonToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1420,6 +1442,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t23
+          APP_NAME: 'PythonToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1481,6 +1504,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t24
+          APP_NAME: 'PythonToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1542,6 +1566,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t25
+          APP_NAME: 'NodeCloudantToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1603,6 +1628,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t26
+          APP_NAME: 'NodeCloudantToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1664,6 +1690,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t27
+          APP_NAME: 'NodeCloudantToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1725,6 +1752,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t28
+          APP_NAME: 'NodeRedToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1786,6 +1814,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t29
+          APP_NAME: 'NodeRedToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1847,6 +1876,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t30
+          APP_NAME: 'NodeRedToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1908,6 +1938,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t31
+          APP_NAME: 'SpringToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -1969,6 +2000,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t32
+          APP_NAME: 'SpringToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -2030,6 +2062,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t33
+          APP_NAME: 'SpringToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -2091,6 +2124,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t34
+          APP_NAME: 'KituraToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -2152,6 +2186,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t35
+          APP_NAME: 'KituraToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -2213,6 +2248,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t36
+          APP_NAME: 'VaporToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test
@@ -2274,6 +2310,7 @@ services:
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
           APPNAME_PREFIX: t37
+          APP_NAME: 'VaporToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
           CR_NAMESPACE: roar-test

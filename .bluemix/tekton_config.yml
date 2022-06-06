@@ -33,7 +33,7 @@ properties:
     path: parameters.repo_url
   - name: MY_APP_NAME
     type: test
-    value: parameters.name
+    value: ${APP_NAME}
   - name: TEST_DATA
     type: text
     value: ${TEST_NAME}
