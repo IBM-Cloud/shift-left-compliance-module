@@ -6,7 +6,6 @@ template:
   description: Toolchain template for creating the Roar Tekton testing environment
   required:
   - repo_cli_dev_plugin_test
-  - privateWorker
   - DjangoToolCE
   - DjangoToolCF
   - DjangoToolK8
@@ -59,7 +58,7 @@ services:
       enable_traceability: false
       kind: pipeline
       branch: tektonroar
-      private_repo: false
+      nb_repo: false
 
   DjangoToolCE:
     service_id: pipeline
@@ -68,7 +67,6 @@ services:
       label: Pipeline for testing deployment of the Django starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -99,7 +97,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -131,7 +128,6 @@ services:
       label: Pipeline for testing deployment of the Django starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -162,7 +158,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -194,7 +189,6 @@ services:
       label: Pipeline for testing deployment of the Django starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -225,7 +219,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -257,7 +250,6 @@ services:
       label: Pipeline for testing deployment of the Go starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -288,7 +280,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -320,7 +311,6 @@ services:
       label: Pipeline for testing deployment of the Go starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -351,7 +341,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -383,7 +372,6 @@ services:
       label: Pipeline for testing deployment of the Go starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -414,7 +402,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -446,7 +433,6 @@ services:
       label: Pipeline for testing deployment of the Java starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -477,7 +463,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -509,7 +494,6 @@ services:
       label: Pipeline for testing deployment of the Java starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -540,7 +524,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -572,7 +555,6 @@ services:
       label: Pipeline for testing deployment of the Java starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -603,7 +585,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -635,7 +616,6 @@ services:
       label: Pipeline for testing deployment of the Node Express starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -666,7 +646,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -698,7 +677,6 @@ services:
       label: Pipeline for testing deployment of the Node Express starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -729,7 +707,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -761,7 +738,6 @@ services:
       label: Pipeline for testing deployment of the Node Express starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -792,7 +768,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -824,7 +799,6 @@ services:
       label: Pipeline for testing deployment of the Natural Language Understanding starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -855,7 +829,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -887,7 +860,6 @@ services:
       label: Pipeline for testing deployment of the Natural Language Understanding starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -918,7 +890,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -950,7 +921,6 @@ services:
       label: Pipeline for testing deployment of the Natural Language Understanding starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -981,7 +951,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1013,7 +982,6 @@ services:
       label: Pipeline for testing deployment of the Speech To Text starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1044,7 +1012,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1076,7 +1043,6 @@ services:
       label: Pipeline for testing deployment of the Speech To Text starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1107,7 +1073,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1139,7 +1104,6 @@ services:
       label: Pipeline for testing deployment of the Speech To Text starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1170,7 +1134,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1202,7 +1165,6 @@ services:
       label: Pipeline for testing deployment of the Text To Speech starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1233,7 +1195,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1265,7 +1226,6 @@ services:
       label: Pipeline for testing deployment of the Text To Speech starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1296,7 +1256,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1328,7 +1287,6 @@ services:
       label: Pipeline for testing deployment of the Text To Speech starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1359,7 +1317,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1391,7 +1348,6 @@ services:
       label: Pipeline for testing deployment of the Python Flask starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1422,7 +1378,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1454,7 +1409,6 @@ services:
       label: Pipeline for testing deployment of the Python Flask starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1485,7 +1439,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1517,7 +1470,6 @@ services:
       label: Pipeline for testing deployment of the Python Flask starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1548,7 +1500,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1580,7 +1531,6 @@ services:
       label: Pipeline for testing deployment of the Node.js+Cloudant starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1611,7 +1561,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1643,7 +1592,6 @@ services:
       label: Pipeline for testing deployment of the Node.js+Cloudant starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1674,7 +1622,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1706,7 +1653,6 @@ services:
       label: Pipeline for testing deployment of the Node.js+Cloudant starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1737,7 +1683,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1769,7 +1714,6 @@ services:
       label: Pipeline for testing deployment of the NodeRED starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1800,7 +1744,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1832,7 +1775,6 @@ services:
       label: Pipeline for testing deployment of the NodeRED starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1863,7 +1805,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1895,7 +1836,6 @@ services:
       label: Pipeline for testing deployment of the NodeRED starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1926,7 +1866,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -1958,7 +1897,6 @@ services:
       label: Pipeline for testing deployment of the Spring starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -1989,7 +1927,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -2021,7 +1958,6 @@ services:
       label: Pipeline for testing deployment of the Spring starter kit via Cloud Foundry toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -2052,7 +1988,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -2084,7 +2019,6 @@ services:
       label: Pipeline for testing deployment of the Spring starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -2115,7 +2049,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -2147,7 +2080,6 @@ services:
       label: Pipeline for testing deployment of the Swift Kitura starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -2178,7 +2110,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -2210,7 +2141,6 @@ services:
       label: Pipeline for testing deployment of the Swift Kitura starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -2241,7 +2171,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -2273,7 +2202,6 @@ services:
       label: Pipeline for testing deployment of the Swift Vapor starter kit via Code Engine toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -2304,7 +2232,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
           #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
           #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
           #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -2336,7 +2263,6 @@ services:
       label: Pipeline for testing deployment of the Swift Vapor starter kit via Helm toolchain
       services:
         - repo_cli_dev_plugin_test
-        - privateWorker
       type: tekton
       ui-pipeline: true
       execute: manual-run
@@ -2367,7 +2293,6 @@ services:
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
-          PRIVATE_WORKER: '{{services.privateWorker.parameters.name}}'
 #          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
 #          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
 #          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
@@ -2404,13 +2329,6 @@ services:
       instance-name: >
         $env.smInstanceName ? '{{smInstanceName}}' : ''
 
-  privateWorker:
-    service_id: private_worker
-    parameters:
-      name: "{{form.private_worker.parameters.name}}"
-      workerQueueCredentials: "{{form.private_worker.parameters.workerQueueCredentials}}"
-      workerQueueIdentifier: "{{form.private_worker.parameters.workerQueueIdentifier}}"
-
 #  slack-roar-testing:
 #    service_id: slack
 #    parameters:
@@ -2443,13 +2361,3 @@ form:
 #      enable-pd-alerts: "$env.enablePDAlerts === 'true'"
     schema:
       $ref: deploy.json
-
-  private_worker:
-    parameters:
-      name: '{{privateWorkerName}}'
-      workerQueueCredentials: '{{privateWorkerCreds}}'
-      # this wont be needed once a fix is in place for https://github.ibm.com/org-ids/roadmap/issues/15360
-      workerQueueIdentifier: "{{privateWorkerIdentifier}}"
-    schema:
-      $ref: privateWorker.json
-
