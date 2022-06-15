@@ -21,7 +21,7 @@ triggers:
   - name: cron-monitor
     type: timer
     eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
-    cron: "0 */2 * * *"
+    cron: "0 1-23/2 * * *"
     timezone: "America/Chicago"
     properties:
       - name: branch

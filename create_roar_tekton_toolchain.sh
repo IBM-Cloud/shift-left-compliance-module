@@ -34,8 +34,8 @@ SM_REGION="$TOOLCHAIN_REGION"
 
 TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
 BRANCH="roartest"
-PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker"
-PRIVATE_WORKER_SERVICEID="ServiceId-f05e7c9b-a0a2-484b-8080-66ae8574947d"
+#PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker"
+#PRIVATE_WORKER_SERVICEID="ServiceId-f05e7c9b-a0a2-484b-8080-66ae8574947d"
 
 # NOTE: the query param enablePDAlerts isn't getting passed down when creating the toolchain
 #ENABLE_PD_ALERTS=true
@@ -61,9 +61,9 @@ PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
 `"&resourceGroupId=$RESOURCE_GROUP_ID&gitLabToken={vault::$SM_NAME.Default.gitLabToken}"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
 `"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
-`"&artApiKey={vault::$SM_NAME.Default.artApiKey}&slackWebhook={vault::$SM_NAME.Default.slack-webhook-roar-$test_env}"`
-`"&privateWorkerName=$PRIVATE_WORKER_NAME&privateWorkerCreds={vault::$SM_NAME.Default.tekton-roar-worker-key}"`
-`"&privateWorkerIdentifier=$PRIVATE_WORKER_SERVICEID"
+`"&artApiKey={vault::$SM_NAME.Default.artApiKey}&slackWebhook={vault::$SM_NAME.Default.slack-webhook-roar-$test_env}"
+#`"&privateWorkerName=$PRIVATE_WORKER_NAME&privateWorkerCreds={vault::$SM_NAME.Default.tekton-roar-worker-key}"`
+#`"&privateWorkerIdentifier=$PRIVATE_WORKER_SERVICEID"
 
 # debugging
 #echo "Here are the parameters:"
