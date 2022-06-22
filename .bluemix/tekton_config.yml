@@ -74,6 +74,9 @@ properties:
   - name: personal-yaas
     type: text
     value: ${PERSONAL_YAAS}
+  - name: pipeline-dockerconfigjson
+    type: secure
+    value: ${PIPELINE_DOCKERCONFIGJSON}
   - name: pipeline-debug
     type: single_select
     value:
