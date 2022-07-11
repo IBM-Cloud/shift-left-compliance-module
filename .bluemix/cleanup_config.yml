@@ -1,0 +1,57 @@
+---
+inputs:
+  - type: git
+    branch: ${PIPELINE_REPO_BRANCH}
+    service: ${PIPELINE_REPO}
+    path: .cleanup
+triggers:
+  - name: commit-push
+    type: git
+    eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
+    service: ${GIT_REPO}
+    branch: master
+    events: { "push": true }
+  - name: manual-run
+    type: manual
+    eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
+    properties:
+      - name: branch
+        type: text
+        value: tektonroar
+  - name: cron-monitor
+    type: timer
+    eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
+    cron: "0 1-23/2 * * *"
+    timezone: "America/Chicago"
+    properties:
+      - name: branch
+        type: text
+        value: tektonroar
+properties:
+  - name: GIT_URL
+    type: integration
+    path: parameters.repo_url
+    value: repo_cli_dev_plugin_test
+  - name: api
+    type: text
+    value: ${API_URL}
+  - name: apikey
+    type: secure
+    value: ${API_KEY}
+  - name: pipeline-debug
+    type: single_select
+    value:
+      "0": true
+      "1": false
+  - name: region
+    type: text
+    value: ${REGION}
+  - name: repository
+    type: integration
+    path: parameters.repo_url
+    value: repo_cli_dev_plugin_test
+  - name: revision
+    type: text
+    value: ${REVISION}
+settings:
+  #slackEnabled: true
