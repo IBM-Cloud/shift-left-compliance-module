@@ -80,6 +80,7 @@ services:
           REPO_COMMIT_EVENT_LISTENER_NAME: 'cleanup-listener'
           REPOSITORY: repo_cli_dev_plugin_test
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          PIPELINE_DOCKERCONFIGJSON: '{{form.pipeline.parameters.dockerconfigjson}}'
           PIPELINE_REPO: repo_cli_dev_plugin_test
           PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           GIT_COMMIT_EVENT_LISTENER_NAME: >

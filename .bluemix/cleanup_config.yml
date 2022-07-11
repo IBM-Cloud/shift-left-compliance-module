@@ -43,6 +43,9 @@ properties:
     value:
       "0": true
       "1": false
+  - name: pipeline-dockerconfigjson
+    type: secure
+    value: ${PIPELINE_DOCKERCONFIGJSON}
   - name: region
     type: text
     value: ${REGION}
