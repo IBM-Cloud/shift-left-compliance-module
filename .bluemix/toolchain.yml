@@ -77,7 +77,7 @@ services:
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           REGION: 'us-south'
-          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'cleanup-listener'
           REPOSITORY: repo_cli_dev_plugin_test
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
           PIPELINE_REPO: repo_cli_dev_plugin_test
