@@ -84,7 +84,7 @@ PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH&testEnv=$test_env"`
 `"&resourceGroupId=$RESOURCE_GROUP_ID&gitLabToken={vault::$SM_NAME.Default.$GITLAB_TOKEN_NAME}"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
-`"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
+`"&smName=$SM_NAME&smRegion=$SM_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
 `"&artApiKey={vault::$SM_NAME.Default.artApiKey}&slackWebhook={vault::$SM_NAME.Default.slack-webhook-roar-$test_env}"`
 `"&dockerconfigjson={vault::$SM_NAME.Default.dockerconfigjson}&prefix=$PREFIX&region=$REGION"
 #`"&privateWorkerName=$PRIVATE_WORKER_NAME&privateWorkerCreds={vault::$SM_NAME.Default.tekton-roar-worker-key}"`
