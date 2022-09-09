@@ -111,7 +111,7 @@ services:
           TEST_NAME: 'django:app:DJANGO:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
-          APPNAME_PREFIX: t1
+          APPNAME_PREFIX: '{{prefix}}1'
           APP_NAME: 'DjangoToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
@@ -174,7 +174,7 @@ services:
           TEST_NAME: 'django:app:DJANGO:no:noskip:{{testEnv}}:auth:create:toolCF'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
-          APPNAME_PREFIX: t2
+          APPNAME_PREFIX: '{{prefix}}2'
           APP_NAME: 'DjangoToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
@@ -237,7 +237,7 @@ services:
           TEST_NAME: 'django:app:DJANGO:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
           API_URL: 'https://cloud.ibm.com'
-          APPNAME_PREFIX: t3
+          APPNAME_PREFIX: '{{prefix}}3'
           APP_NAME: 'DjangoToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test

@@ -33,7 +33,7 @@ SM_NAME="RoarSecretsManager"
 SM_REGION="$TOOLCHAIN_REGION"
 
 TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
-BRANCH="roartest"
+BRANCH="newprefixes"
 #PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker"
 #PRIVATE_WORKER_SERVICEID="ServiceId-f05e7c9b-a0a2-484b-8080-66ae8574947d"
 
@@ -46,9 +46,26 @@ BRANCH="roartest"
 # default to tekton pipelines
 PIPELINE_TYPE="tekton"
 if [ "$test_env" == "prod" ]; then
-  export TOOLCHAIN_NAME="Tekton-Roar-Prod"
-else
-  export TOOLCHAIN_NAME="Tekton-Roar-Ondeck"
+  export TOOLCHAIN_NAME="Roar-UsSouth-Prod"
+  export PREFIX="p"
+elif [ "$test_env" == "ondeck" ]; then
+  export TOOLCHAIN_NAME="Roar-UsSouth-Ondeck"
+  export PREFIX="o"
+elif [ "$test_env" == "us-east" ]; then
+  export TOOLCHAIN_NAME="Roar-UsEast"
+  export PREFIX="w"
+elif [ "$test_env" == "eu-gb" ]; then
+  export TOOLCHAIN_NAME="Roar-EuGb"
+  export PREFIX="g"
+elif [ "$test_env" == "eu-de" ]; then
+  export TOOLCHAIN_NAME="Roar-EuDe"
+  export PREFIX="d"
+elif [ "$test_env" == "au-syd" ]; then
+  export TOOLCHAIN_NAME="Roar-AuSyd"
+  export PREFIX="s"
+elif [ "$test_env" == "jp-tok" ]; then
+  export TOOLCHAIN_NAME="Roar-JpTok"
+  export PREFIX="t"
 fi
 echo "Creating new toolchain $TOOLCHAIN_NAME..."
 
@@ -62,7 +79,7 @@ PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
 `"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
 `"&artApiKey={vault::$SM_NAME.Default.artApiKey}&slackWebhook={vault::$SM_NAME.Default.slack-webhook-roar-$test_env}"`
-`"&dockerconfigjson={vault::$SM_NAME.Default.dockerconfigjson}"
+`"&dockerconfigjson={vault::$SM_NAME.Default.dockerconfigjson}&prefix=$PREFIX"
 #`"&privateWorkerName=$PRIVATE_WORKER_NAME&privateWorkerCreds={vault::$SM_NAME.Default.tekton-roar-worker-key}"`
 #`"&privateWorkerIdentifier=$PRIVATE_WORKER_SERVICEID"
 
