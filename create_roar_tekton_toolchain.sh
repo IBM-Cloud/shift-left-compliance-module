@@ -3,8 +3,8 @@
 # This script will create a toolchain specifically designed for the Roar testing framework.
 # This script uses some hard coded values specific to the testing account `arftt@us.ibm.com`.
 # See the below syntax on how to execute this script.
-# SYNTAX: ./create_roar_tektion_toolchain.sh <prod | ondeck> <API Key>
-# Example: ./create_roar_tektion_toolchain.sh prod "APIKEY***"
+# SYNTAX: ./create_roar_tektion_toolchain.sh <prod | ondeck> <region> <API Key>
+# Example: ./create_roar_tektion_toolchain.sh prod us-south "APIKEY***"
 # NOTE: Make sure the API key and Slack Webhook are for the same test environment and region
 
 if [ "${PIPELINE_DEBUG}" == "1" ]; then
@@ -14,8 +14,8 @@ if [ "${PIPELINE_DEBUG}" == "1" ]; then
 fi
 
 export test_env=$1
-API_KEY=$2
-REGION="us-south"
+export REGION=$2
+API_KEY=$3
 RESOURCE_GROUP="devex-falcon"
 
 # log in using the api key
@@ -45,25 +45,25 @@ BRANCH="newprefixes"
 
 # default to tekton pipelines
 PIPELINE_TYPE="tekton"
-if [ "$test_env" == "prod" ]; then
+if [ "$REGION" == "us-south" && "$test_env" == "prod" ]; then
   export TOOLCHAIN_NAME="Roar-UsSouth-Prod"
   export PREFIX="p"
-elif [ "$test_env" == "ondeck" ]; then
+elif [ "$REGION" == "us-south" && "$test_env" == "ondeck" ]; then
   export TOOLCHAIN_NAME="Roar-UsSouth-Ondeck"
   export PREFIX="o"
-elif [ "$test_env" == "us-east" ]; then
+elif [ "$REGION" == "us-east" ]; then
   export TOOLCHAIN_NAME="Roar-UsEast"
   export PREFIX="w"
-elif [ "$test_env" == "eu-gb" ]; then
+elif [ "$REGION" == "eu-gb" ]; then
   export TOOLCHAIN_NAME="Roar-EuGb"
   export PREFIX="g"
-elif [ "$test_env" == "eu-de" ]; then
+elif [ "$REGION" == "eu-de" ]; then
   export TOOLCHAIN_NAME="Roar-EuDe"
   export PREFIX="d"
-elif [ "$test_env" == "au-syd" ]; then
+elif [ "$REGION" == "au-syd" ]; then
   export TOOLCHAIN_NAME="Roar-AuSyd"
   export PREFIX="s"
-elif [ "$test_env" == "jp-tok" ]; then
+elif [ "$REGION" == "jp-tok" ]; then
   export TOOLCHAIN_NAME="Roar-JpTok"
   export PREFIX="t"
 fi
@@ -79,7 +79,7 @@ PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
 `"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
 `"&artApiKey={vault::$SM_NAME.Default.artApiKey}&slackWebhook={vault::$SM_NAME.Default.slack-webhook-roar-$test_env}"`
-`"&dockerconfigjson={vault::$SM_NAME.Default.dockerconfigjson}&prefix=$PREFIX"
+`"&dockerconfigjson={vault::$SM_NAME.Default.dockerconfigjson}&prefix=$PREFIX&region=$REGION"
 #`"&privateWorkerName=$PRIVATE_WORKER_NAME&privateWorkerCreds={vault::$SM_NAME.Default.tekton-roar-worker-key}"`
 #`"&privateWorkerIdentifier=$PRIVATE_WORKER_SERVICEID"
 
