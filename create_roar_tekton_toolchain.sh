@@ -30,7 +30,7 @@ fi
 RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
 SM_NAME="RoarSecretsManager"
-SM_REGION="$TOOLCHAIN_REGION"
+SM_REGION="ibm:yp:us-south"
 
 TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
 BRANCH="newprefixes"
@@ -45,10 +45,10 @@ BRANCH="newprefixes"
 
 # default to tekton pipelines
 PIPELINE_TYPE="tekton"
-if [ "$REGION" == "us-south" && "$test_env" == "prod" ]; then
+if [[ "$REGION" == "us-south" && "$test_env" == "prod" ]]; then
   export TOOLCHAIN_NAME="Roar-UsSouth-Prod"
   export PREFIX="p"
-elif [ "$REGION" == "us-south" && "$test_env" == "ondeck" ]; then
+elif [[ "$REGION" == "us-south" && "$test_env" == "ondeck" ]]; then
   export TOOLCHAIN_NAME="Roar-UsSouth-Ondeck"
   export PREFIX="o"
 elif [ "$REGION" == "us-east" ]; then
