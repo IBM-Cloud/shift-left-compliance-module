@@ -48,24 +48,31 @@ PIPELINE_TYPE="tekton"
 if [[ "$REGION" == "us-south" && "$test_env" == "prod" ]]; then
   export TOOLCHAIN_NAME="Roar-UsSouth-Prod"
   export PREFIX="p"
+  export GITLAB_TOKEN_NAME="gitLabToken"
 elif [[ "$REGION" == "us-south" && "$test_env" == "ondeck" ]]; then
   export TOOLCHAIN_NAME="Roar-UsSouth-Ondeck"
   export PREFIX="o"
+  export GITLAB_TOKEN_NAME="gitLabToken"
 elif [ "$REGION" == "us-east" ]; then
   export TOOLCHAIN_NAME="Roar-UsEast"
   export PREFIX="w"
+  export GITLAB_TOKEN_NAME="gitLabTokenWashington"
 elif [ "$REGION" == "eu-gb" ]; then
   export TOOLCHAIN_NAME="Roar-EuGb"
   export PREFIX="g"
+  export GITLAB_TOKEN_NAME="gitLabTokenLondon"
 elif [ "$REGION" == "eu-de" ]; then
   export TOOLCHAIN_NAME="Roar-EuDe"
   export PREFIX="d"
+  export GITLAB_TOKEN_NAME="gitLabTokenFrankfurt"
 elif [ "$REGION" == "au-syd" ]; then
   export TOOLCHAIN_NAME="Roar-AuSyd"
   export PREFIX="s"
+  export GITLAB_TOKEN_NAME="gitLabTokenSydney"
 elif [ "$REGION" == "jp-tok" ]; then
   export TOOLCHAIN_NAME="Roar-JpTok"
   export PREFIX="t"
+  export GITLAB_TOKEN_NAME="gitLabTokenTokyo"
 fi
 echo "Creating new toolchain $TOOLCHAIN_NAME..."
 
@@ -75,7 +82,7 @@ export TOOLCHAIN_TEMPLATE_REPO=$(echo "$TOOLCHAIN_TEMPLATE_REPO" | jq -Rr @uri)
 # create parameters for headless toolchain
 PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH&testEnv=$test_env"`
-`"&resourceGroupId=$RESOURCE_GROUP_ID&gitLabToken={vault::$SM_NAME.Default.gitLabToken}"`
+`"&resourceGroupId=$RESOURCE_GROUP_ID&gitLabToken={vault::$SM_NAME.Default.$GITLAB_TOKEN_NAME}"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
 `"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
 `"&artApiKey={vault::$SM_NAME.Default.artApiKey}&slackWebhook={vault::$SM_NAME.Default.slack-webhook-roar-$test_env}"`
