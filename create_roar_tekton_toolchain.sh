@@ -14,7 +14,7 @@ if [ "${PIPELINE_DEBUG}" == "1" ]; then
 fi
 
 export test_env=$1
-export REGION=$2
+REGION=$2
 API_KEY=$3
 RESOURCE_GROUP="devex-falcon"
 
