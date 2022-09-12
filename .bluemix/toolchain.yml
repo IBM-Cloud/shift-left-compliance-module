@@ -2149,7 +2149,7 @@ form:
       gitlab-token: '{{gitLabToken}}'
       git-template-repo: '{{repository}}'
       git-template-branch: '{{branch}}'
-      region: '{{region}}'
+      region: '{{loginRegion}}'
       slack-webhook: '{{slackWebhook}}'
 #      pagerduty-api-token: '{{pagerDutyAPIToken}}'
 #      pagerduty-service-name: '{{pagerDutySvcName}}'
