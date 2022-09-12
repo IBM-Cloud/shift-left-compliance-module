@@ -46,31 +46,31 @@ BRANCH="newprefixes"
 # default to tekton pipelines
 PIPELINE_TYPE="tekton"
 if [[ "$REGION" == "us-south" && "$test_env" == "prod" ]]; then
-  export TOOLCHAIN_NAME="Roar-UsSouth-Prod"
+  export TOOLCHAIN_NAME="Roar-us-south-prod"
   export PREFIX="p"
   export GITLAB_TOKEN_NAME="gitLabToken"
 elif [[ "$REGION" == "us-south" && "$test_env" == "ondeck" ]]; then
-  export TOOLCHAIN_NAME="Roar-UsSouth-Ondeck"
+  export TOOLCHAIN_NAME="Roar-us-south-ondeck"
   export PREFIX="o"
   export GITLAB_TOKEN_NAME="gitLabToken"
 elif [ "$REGION" == "us-east" ]; then
-  export TOOLCHAIN_NAME="Roar-UsEast"
+  export TOOLCHAIN_NAME="Roar-us-east"
   export PREFIX="w"
   export GITLAB_TOKEN_NAME="gitLabTokenWashington"
 elif [ "$REGION" == "eu-gb" ]; then
-  export TOOLCHAIN_NAME="Roar-EuGb"
+  export TOOLCHAIN_NAME="Roar-eu-gb"
   export PREFIX="g"
   export GITLAB_TOKEN_NAME="gitLabTokenLondon"
 elif [ "$REGION" == "eu-de" ]; then
-  export TOOLCHAIN_NAME="Roar-EuDe"
+  export TOOLCHAIN_NAME="Roar-eu-de"
   export PREFIX="d"
   export GITLAB_TOKEN_NAME="gitLabTokenFrankfurt"
 elif [ "$REGION" == "au-syd" ]; then
-  export TOOLCHAIN_NAME="Roar-AuSyd"
+  export TOOLCHAIN_NAME="Roar-au-syd"
   export PREFIX="s"
   export GITLAB_TOKEN_NAME="gitLabTokenSydney"
 elif [ "$REGION" == "jp-tok" ]; then
-  export TOOLCHAIN_NAME="Roar-JpTok"
+  export TOOLCHAIN_NAME="Roar-jp-tok"
   export PREFIX="t"
   export GITLAB_TOKEN_NAME="gitLabTokenTokyo"
 fi
