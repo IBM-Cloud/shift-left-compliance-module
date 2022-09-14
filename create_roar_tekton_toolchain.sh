@@ -3,8 +3,8 @@
 # This script will create a toolchain specifically designed for the Roar testing framework.
 # This script uses some hard coded values specific to the testing account `arftt@us.ibm.com`.
 # See the below syntax on how to execute this script.
-# SYNTAX: ./create_roar_tektion_toolchain.sh <prod | ondeck> <API Key>
-# Example: ./create_roar_tektion_toolchain.sh prod "APIKEY***"
+# SYNTAX: ./create_roar_tektion_toolchain.sh <prod | ondeck> <region> <API Key>
+# Example: ./create_roar_tektion_toolchain.sh prod us-south "APIKEY***"
 # NOTE: Make sure the API key and Slack Webhook are for the same test environment and region
 
 if [ "${PIPELINE_DEBUG}" == "1" ]; then
@@ -14,8 +14,8 @@ if [ "${PIPELINE_DEBUG}" == "1" ]; then
 fi
 
 export test_env=$1
-API_KEY=$2
-REGION="us-south"
+REGION=$2
+API_KEY=$3
 RESOURCE_GROUP="devex-falcon"
 
 # log in using the api key
@@ -30,7 +30,7 @@ fi
 RESOURCE_GROUP_ID=$(ibmcloud resource group $RESOURCE_GROUP --output JSON | jq ".[].id" -r)
 
 SM_NAME="RoarSecretsManager"
-SM_REGION="$TOOLCHAIN_REGION"
+SM_REGION="ibm:yp:us-south"
 
 TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
 BRANCH="roartest"
@@ -45,10 +45,34 @@ BRANCH="roartest"
 
 # default to tekton pipelines
 PIPELINE_TYPE="tekton"
-if [ "$test_env" == "prod" ]; then
-  export TOOLCHAIN_NAME="Tekton-Roar-Prod"
-else
-  export TOOLCHAIN_NAME="Tekton-Roar-Ondeck"
+if [[ "$REGION" == "us-south" && "$test_env" == "prod" ]]; then
+  export TOOLCHAIN_NAME="Roar-us-south-prod"
+  export PREFIX="p"
+  export GITLAB_TOKEN_NAME="gitLabToken"
+elif [[ "$REGION" == "us-south" && "$test_env" == "ondeck" ]]; then
+  export TOOLCHAIN_NAME="Roar-us-south-ondeck"
+  export PREFIX="o"
+  export GITLAB_TOKEN_NAME="gitLabToken"
+elif [ "$REGION" == "us-east" ]; then
+  export TOOLCHAIN_NAME="Roar-us-east"
+  export PREFIX="w"
+  export GITLAB_TOKEN_NAME="gitLabTokenWashington"
+elif [ "$REGION" == "eu-gb" ]; then
+  export TOOLCHAIN_NAME="Roar-eu-gb"
+  export PREFIX="g"
+  export GITLAB_TOKEN_NAME="gitLabTokenLondon"
+elif [ "$REGION" == "eu-de" ]; then
+  export TOOLCHAIN_NAME="Roar-eu-de"
+  export PREFIX="d"
+  export GITLAB_TOKEN_NAME="gitLabTokenFrankfurt"
+elif [ "$REGION" == "au-syd" ]; then
+  export TOOLCHAIN_NAME="Roar-au-syd"
+  export PREFIX="s"
+  export GITLAB_TOKEN_NAME="gitLabTokenSydney"
+elif [ "$REGION" == "jp-tok" ]; then
+  export TOOLCHAIN_NAME="Roar-jp-tok"
+  export PREFIX="t"
+  export GITLAB_TOKEN_NAME="gitLabTokenTokyo"
 fi
 echo "Creating new toolchain $TOOLCHAIN_NAME..."
 
@@ -58,11 +82,11 @@ export TOOLCHAIN_TEMPLATE_REPO=$(echo "$TOOLCHAIN_TEMPLATE_REPO" | jq -Rr @uri)
 # create parameters for headless toolchain
 PARAMETERS="autocreate=true&apiKey={vault::$SM_NAME.Default.apikey}"`
 `"&repository=$TOOLCHAIN_TEMPLATE_REPO&branch=$BRANCH&testEnv=$test_env"`
-`"&resourceGroupId=$RESOURCE_GROUP_ID&gitLabToken={vault::$SM_NAME.Default.gitLabToken}"`
+`"&resourceGroupId=$RESOURCE_GROUP_ID&gitLabToken={vault::$SM_NAME.Default.$GITLAB_TOKEN_NAME}"`
 `"&toolchainName=$TOOLCHAIN_NAME&pipeline_type=$PIPELINE_TYPE"`
-`"&smName=$SM_NAME&smRegion=$TOOLCHAIN_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
+`"&smName=$SM_NAME&smRegion=$SM_REGION&smResourceGroup=$RESOURCE_GROUP&smInstanceName=$SM_NAME"`
 `"&artApiKey={vault::$SM_NAME.Default.artApiKey}&slackWebhook={vault::$SM_NAME.Default.slack-webhook-roar-$test_env}"`
-`"&dockerconfigjson={vault::$SM_NAME.Default.dockerconfigjson}"
+`"&dockerconfigjson={vault::$SM_NAME.Default.dockerconfigjson}&prefix=$PREFIX&loginRegion=$REGION"
 #`"&privateWorkerName=$PRIVATE_WORKER_NAME&privateWorkerCreds={vault::$SM_NAME.Default.tekton-roar-worker-key}"`
 #`"&privateWorkerIdentifier=$PRIVATE_WORKER_SERVICEID"
 
