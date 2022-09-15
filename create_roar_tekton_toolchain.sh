@@ -33,7 +33,7 @@ SM_NAME="RoarSecretsManager"
 SM_REGION="ibm:yp:us-south"
 
 TOOLCHAIN_TEMPLATE_REPO="https://github.com/IBM-Cloud/shift-left-compliance-module"
-BRANCH="roartest"
+BRANCH="eu-gb"
 #PRIVATE_WORKER_NAME="tekton-roar-$test_env-worker"
 #PRIVATE_WORKER_SERVICEID="ServiceId-f05e7c9b-a0a2-484b-8080-66ae8574947d"
 
