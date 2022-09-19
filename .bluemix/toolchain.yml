@@ -115,7 +115,7 @@ services:
           APP_NAME: 'DjangoToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -178,7 +178,7 @@ services:
           APP_NAME: 'DjangoToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -241,7 +241,7 @@ services:
           APP_NAME: 'DjangoToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -304,7 +304,7 @@ services:
           APP_NAME: 'GoToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -367,7 +367,7 @@ services:
           APP_NAME: 'GoToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -430,7 +430,7 @@ services:
           APP_NAME: 'GoToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -493,7 +493,7 @@ services:
           APP_NAME: 'JavaToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -556,7 +556,7 @@ services:
           APP_NAME: 'JavaToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -619,7 +619,7 @@ services:
           APP_NAME: 'NodeToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -682,7 +682,7 @@ services:
           APP_NAME: 'NodeToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -745,7 +745,7 @@ services:
           APP_NAME: 'NodeToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -808,7 +808,7 @@ services:
           APP_NAME: 'NLUToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -871,7 +871,7 @@ services:
           APP_NAME: 'NLUToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -934,7 +934,7 @@ services:
           APP_NAME: 'STTToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -997,7 +997,7 @@ services:
           APP_NAME: 'STTToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1060,7 +1060,7 @@ services:
           APP_NAME: 'TTSToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1123,7 +1123,7 @@ services:
           APP_NAME: 'TTSToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1186,7 +1186,7 @@ services:
           APP_NAME: 'PythonToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1249,7 +1249,7 @@ services:
           APP_NAME: 'PythonToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1312,7 +1312,7 @@ services:
           APP_NAME: 'PythonToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1375,7 +1375,7 @@ services:
           APP_NAME: 'NodeCloudantToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1438,7 +1438,7 @@ services:
           APP_NAME: 'NodeCloudantToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1501,7 +1501,7 @@ services:
           APP_NAME: 'NodeCloudantToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1564,7 +1564,7 @@ services:
           APP_NAME: 'NodeRedToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1627,7 +1627,7 @@ services:
           APP_NAME: 'NodeRedToolCF'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1690,7 +1690,7 @@ services:
           APP_NAME: 'NodeRedToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1753,7 +1753,7 @@ services:
           APP_NAME: 'SpringToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1816,7 +1816,7 @@ services:
           APP_NAME: 'SpringToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1879,7 +1879,7 @@ services:
           APP_NAME: 'KituraToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -1942,7 +1942,7 @@ services:
           APP_NAME: 'KituraToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -2005,7 +2005,7 @@ services:
           APP_NAME: 'VaporToolCE'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
@@ -2068,7 +2068,7 @@ services:
           APP_NAME: 'VaporToolK8'
           ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
           CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test
+          CR_NAMESPACE: roar-test2
           GIT_REPO: repo_cli_dev_plugin_test
           GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
           GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
