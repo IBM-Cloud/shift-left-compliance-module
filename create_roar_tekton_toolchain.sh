@@ -3,8 +3,8 @@
 # This script will create a toolchain specifically designed for the Roar testing framework.
 # This script uses some hard coded values specific to the testing account `arftt@us.ibm.com`.
 # See the below syntax on how to execute this script.
-# SYNTAX: ./create_roar_tektion_toolchain.sh <prod | ondeck> <region> <API Key>
-# Example: ./create_roar_tektion_toolchain.sh prod us-south "APIKEY***"
+# SYNTAX: ./create_roar_tekton_toolchain.sh <prod | ondeck> <region> <API Key>
+# Example: ./create_roar_tekton_toolchain.sh prod us-south "APIKEY***"
 # NOTE: Make sure the API key and Slack Webhook are for the same test environment and region
 
 if [ "${PIPELINE_DEBUG}" == "1" ]; then
