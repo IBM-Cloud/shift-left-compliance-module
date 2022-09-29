@@ -17,7 +17,7 @@ triggers:
     properties:
       - name: branch
         type: text
-        value: tektonroar
+        value: master
   - name: cron-monitor
     type: timer
     eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
@@ -26,7 +26,7 @@ triggers:
     properties:
       - name: branch
         type: text
-        value: tektonroar
+        value: master
 properties:
   - name: GIT_URL
     type: integration

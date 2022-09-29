@@ -53,7 +53,7 @@ services:
       has_issues: false
       enable_traceability: false
       kind: pipeline
-      branch: tektonroar
+      branch: master
       private_repo: false
 
   CleanRoarEnv:
