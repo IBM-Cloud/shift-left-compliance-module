@@ -17,16 +17,16 @@ triggers:
     properties:
       - name: branch
         type: text
-        value: tektonroar
+        value: master
   - name: cron-monitor
     type: timer
     eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
-    cron: "40 */2 * * *"
+    cron: "0 */2 * * *"
     timezone: "America/Chicago"
     properties:
       - name: branch
         type: text
-        value: tektonroar
+        value: master
 properties:
   - name: GIT_URL
     type: integration
