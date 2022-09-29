@@ -9,7 +9,7 @@ triggers:
     type: git
     eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
     service: ${GIT_REPO}
-    branch: master
+    branch: ondeck
     events: { "push": true }
   - name: manual-run
     type: manual
@@ -17,16 +17,16 @@ triggers:
     properties:
       - name: branch
         type: text
-        value: master
+        value: ondeck
   - name: cron-monitor
     type: timer
     eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
-    cron: "15 1-23/2 * * *"
+    cron: "15 */2 * * *"
     timezone: "America/Chicago"
     properties:
       - name: branch
         type: text
-        value: master
+        value: ondeck
 properties:
   - name: GIT_URL
     type: integration
