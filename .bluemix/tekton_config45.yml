@@ -95,6 +95,9 @@ properties:
   - name: revision
     type: text
     value: ${REVISION}
+  - name: skit-raw-url-prefix
+    type: text
+    value: ${SKIT_RAW_URL_PREFIX}
   - name: slack-url
     type: secure
     value: ${SLACK_URL}
