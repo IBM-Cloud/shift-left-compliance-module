@@ -130,7 +130,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -194,7 +194,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -258,7 +258,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -322,7 +322,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -386,7 +386,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -450,7 +450,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -514,7 +514,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-liberty-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-liberty-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -578,7 +578,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-liberty-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-liberty-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -644,7 +644,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/natural-language-understanding-code-pattern'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/natural-language-understanding-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -708,7 +708,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/natural-language-understanding-code-pattern'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/natural-language-understanding-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -772,7 +772,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -836,7 +836,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -900,7 +900,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -964,7 +964,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1028,7 +1028,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1092,7 +1092,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1156,7 +1156,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1220,7 +1220,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1284,7 +1284,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1348,7 +1348,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1412,7 +1412,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1476,7 +1476,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1540,7 +1540,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-kitura-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-kitura-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1604,7 +1604,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-kitura-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-kitura-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1668,7 +1668,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-spring-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-spring-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1732,7 +1732,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-spring-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-spring-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1796,7 +1796,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/speech-to-text-code-pattern'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/speech-to-text-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1860,7 +1860,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/speech-to-text-code-pattern'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/speech-to-text-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1924,7 +1924,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/text-to-speech-code-pattern'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/text-to-speech-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1988,7 +1988,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/text-to-speech-code-pattern'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/text-to-speech-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -2052,7 +2052,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-vapor-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-vapor-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -2116,7 +2116,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-vapor-app'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-vapor-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
