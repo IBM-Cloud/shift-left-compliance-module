@@ -18,15 +18,6 @@ triggers:
       - name: branch
         type: text
         value: ondeck
-  - name: cron-monitor
-    type: timer
-    eventListener: ${REPO_COMMIT_EVENT_LISTENER_NAME}
-    cron: "0 */2 * * *"
-    timezone: "America/Chicago"
-    properties:
-      - name: branch
-        type: text
-        value: ondeck
 properties:
   - name: GIT_URL
     type: integration
