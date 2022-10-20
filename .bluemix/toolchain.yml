@@ -15,8 +15,6 @@ template:
   - GoToolK8
   - JavaToolCE
   - JavaToolK8
-  - KituraToolCE
-  - KituraToolK8
   - NLUToolCE
   - NLUToolK8
   - NodeCloudantToolCE
@@ -31,6 +29,8 @@ template:
   - PythonToolCE
   - PythonToolCF
   - PythonToolK8
+  - KituraToolCE
+  - KituraToolK8
   - SpringToolCE
   - SpringToolK8
   - STTToolCE
@@ -130,6 +130,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -193,6 +194,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -256,6 +258,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-django-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -319,6 +322,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -382,6 +386,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -445,6 +450,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/go-gin-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -508,6 +514,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-liberty-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -571,6 +578,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-liberty-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -598,131 +606,7 @@ services:
 #          DOCKER_PASSWORD: >
 #            $env.dockerPassword ? '{{dockerPassword}}' : ''
 
-  KituraToolCE:
-    service_id: pipeline
-    parameters:
-      name: 'KituraToolCE'
-      label: Pipeline for testing deployment of the Swift Kitura starter kit via Code Engine toolchain
-      services:
-        - repo_cli_dev_plugin_test
-      type: tekton
-      ui-pipeline: true
-      execute: manual-run
-      configuration:
-        content:
-          $text: tekton_config30.yml
-        env:
-          TEST_NAME: 'kitura:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolCE'
-          API_KEY: '{{form.pipeline.parameters.api-key}}'
-          API_URL: 'https://cloud.ibm.com'
-          APPNAME_PREFIX: '{{prefix}}29'
-          APP_NAME: 'KituraToolCE'
-          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test2
-          GIT_REPO: repo_cli_dev_plugin_test
-          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
-          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
-          GITLAB_USER: arftt
-          LOGS_DIR: '/workspace/ROAR'
-          ORG: 'devex-force'
-          PASSPHRASE: 'None'
-          PERSONAL_YAAS: 'None'
-          PIPELINE_DOCKERCONFIGJSON: '{{form.pipeline.parameters.dockerconfigjson}}'
-          REGION: '{{form.pipeline.parameters.region}}'
-          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
-          REPOSITORY: repo_cli_dev_plugin_test
-          RESOURCE_GROUP: 'devex-falcon'
-          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
-          SPACE: 'roar'
-          TEST_DIR: '/workspace/testFiles'
-          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
-          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
-          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
-          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
-          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
-          PIPELINE_REPO: repo_cli_dev_plugin_test
-          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          GIT_COMMIT_EVENT_LISTENER_NAME: >
-            if ( $env.source_provider === 'githubconsolidated' ) {
-              'github-commit';
-            } else if ( $env.source_provider === 'gitlab' ) {
-              'grit-or-gitlab-commit';
-            } else if ( $env.source_provider === 'bitbucketgit' ) {
-              'bitbucket-commit';
-            } else if ( $env.source_provider === 'github_integrated' ) {
-              'github-ent-commit';
-            } else {
-              'grit-or-gitlab-commit';
-            }
-          #  DOCKER_USERNAME: >
-          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
-          #  DOCKER_PASSWORD: >
-          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
 
-  KituraToolK8:
-    service_id: pipeline
-    parameters:
-      name: 'KituraToolK8'
-      label: Pipeline for testing deployment of the Swift Kitura starter kit via Helm toolchain
-      services:
-        - repo_cli_dev_plugin_test
-      type: tekton
-      ui-pipeline: true
-      execute: manual-run
-      configuration:
-        content:
-          $text: tekton_config30.yml
-        env:
-          TEST_NAME: 'kitura:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolK8'
-          API_KEY: '{{form.pipeline.parameters.api-key}}'
-          API_URL: 'https://cloud.ibm.com'
-          APPNAME_PREFIX: '{{prefix}}30'
-          APP_NAME: 'KituraToolK8'
-          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
-          CLUSTER_NAME: roar-test
-          CR_NAMESPACE: roar-test2
-          GIT_REPO: repo_cli_dev_plugin_test
-          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
-          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
-          GITLAB_USER: arftt
-          LOGS_DIR: '/workspace/ROAR'
-          ORG: 'devex-force'
-          PASSPHRASE: 'None'
-          PERSONAL_YAAS: 'None'
-          PIPELINE_DOCKERCONFIGJSON: '{{form.pipeline.parameters.dockerconfigjson}}'
-          REGION: '{{form.pipeline.parameters.region}}'
-          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
-          REPOSITORY: repo_cli_dev_plugin_test
-          RESOURCE_GROUP: 'devex-falcon'
-          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
-          SPACE: 'roar'
-          TEST_DIR: '/workspace/testFiles'
-#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
-#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
-#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
-#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
-#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
-          PIPELINE_REPO: repo_cli_dev_plugin_test
-          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
-          GIT_COMMIT_EVENT_LISTENER_NAME: >
-            if ( $env.source_provider === 'githubconsolidated' ) {
-              'github-commit';
-            } else if ( $env.source_provider === 'gitlab' ) {
-              'grit-or-gitlab-commit';
-            } else if ( $env.source_provider === 'bitbucketgit' ) {
-              'bitbucket-commit';
-            } else if ( $env.source_provider === 'github_integrated' ) {
-              'github-ent-commit';
-            } else {
-              'grit-or-gitlab-commit';
-            }
-#          DOCKER_USERNAME: >
-#            $env.dockerUsername ? '{{dockerUsername}}' : ''
-#          DOCKER_PASSWORD: >
-#            $env.dockerPassword ? '{{dockerPassword}}' : ''
 
   NLUToolCE:
     service_id: pipeline
@@ -760,6 +644,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/natural-language-understanding-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -823,6 +708,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/natural-language-understanding-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -886,6 +772,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -949,6 +836,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1012,6 +900,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-cloudant/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1075,6 +964,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1138,6 +1028,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1201,6 +1092,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/node-red-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1264,6 +1156,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1327,6 +1220,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1390,6 +1284,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/nodejs-express-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1453,6 +1348,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1516,6 +1412,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1579,6 +1476,135 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/python-flask-app/master'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+#          PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+#          PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+#          PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+#          PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+#          ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+#          DOCKER_USERNAME: >
+#            $env.dockerUsername ? '{{dockerUsername}}' : ''
+#          DOCKER_PASSWORD: >
+#            $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  KituraToolCE:
+    service_id: pipeline
+    parameters:
+      name: 'KituraToolCE'
+      label: Pipeline for testing deployment of the Swift Kitura starter kit via Code Engine toolchain
+      services:
+        - repo_cli_dev_plugin_test
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config30.yml
+        env:
+          TEST_NAME: 'kitura:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolCE'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: '{{prefix}}29'
+          APP_NAME: 'KituraToolCE'
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test2
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          PIPELINE_DOCKERCONFIGJSON: '{{form.pipeline.parameters.dockerconfigjson}}'
+          REGION: '{{form.pipeline.parameters.region}}'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-kitura-app/master'
+          SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
+          SPACE: 'roar'
+          TEST_DIR: '/workspace/testFiles'
+          #PAGERDUTY_API_URL: 'https://api.pagerduty.com/'
+          #PAGERDUTY_EVENTS_API_URL: 'https://events.pagerduty.com/v2/enqueue'
+          #PAGERDUTY_API_TOKEN: '{{form.pipeline.parameters.pagerduty-api-token}}'
+          #PAGERDUTY_SVC_NAME: '{{form.pipeline.parameters.pagerduty-service-name}}'
+          #ENABLE_PD_ALERTS: '{{form.pipeline.parameters.enable-pd-alerts}}'
+          PIPELINE_REPO: repo_cli_dev_plugin_test
+          PIPELINE_REPO_BRANCH: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          GIT_COMMIT_EVENT_LISTENER_NAME: >
+            if ( $env.source_provider === 'githubconsolidated' ) {
+              'github-commit';
+            } else if ( $env.source_provider === 'gitlab' ) {
+              'grit-or-gitlab-commit';
+            } else if ( $env.source_provider === 'bitbucketgit' ) {
+              'bitbucket-commit';
+            } else if ( $env.source_provider === 'github_integrated' ) {
+              'github-ent-commit';
+            } else {
+              'grit-or-gitlab-commit';
+            }
+          #  DOCKER_USERNAME: >
+          #    $env.dockerUsername ? '{{dockerUsername}}' : ''
+          #  DOCKER_PASSWORD: >
+          #    $env.dockerPassword ? '{{dockerPassword}}' : ''
+
+  KituraToolK8:
+    service_id: pipeline
+    parameters:
+      name: 'KituraToolK8'
+      label: Pipeline for testing deployment of the Swift Kitura starter kit via Helm toolchain
+      services:
+        - repo_cli_dev_plugin_test
+      type: tekton
+      ui-pipeline: true
+      execute: manual-run
+      configuration:
+        content:
+          $text: tekton_config30.yml
+        env:
+          TEST_NAME: 'kitura:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolK8'
+          API_KEY: '{{form.pipeline.parameters.api-key}}'
+          API_URL: 'https://cloud.ibm.com'
+          APPNAME_PREFIX: '{{prefix}}30'
+          APP_NAME: 'KituraToolK8'
+          ART_API_KEY: '{{form.pipeline.parameters.art-api-key}}'
+          CLUSTER_NAME: roar-test
+          CR_NAMESPACE: roar-test2
+          GIT_REPO: repo_cli_dev_plugin_test
+          GIT_URL: '{{services.repo_cli_dev_plugin_test.parameters.source_repo_url}}'
+          GITLAB_TOKEN: '{{form.pipeline.parameters.gitlab-token}}'
+          GITLAB_USER: arftt
+          LOGS_DIR: '/workspace/ROAR'
+          ORG: 'devex-force'
+          PASSPHRASE: 'None'
+          PERSONAL_YAAS: 'None'
+          PIPELINE_DOCKERCONFIGJSON: '{{form.pipeline.parameters.dockerconfigjson}}'
+          REGION: '{{form.pipeline.parameters.region}}'
+          REPO_COMMIT_EVENT_LISTENER_NAME: 'listener'
+          REPOSITORY: repo_cli_dev_plugin_test
+          RESOURCE_GROUP: 'devex-falcon'
+          REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-kitura-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1642,6 +1668,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-spring-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1705,6 +1732,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/java-spring-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1768,6 +1796,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/speech-to-text-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1831,6 +1860,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/speech-to-text-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1894,6 +1924,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/text-to-speech-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -1957,6 +1988,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/text-to-speech-code-pattern/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -2020,6 +2052,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-vapor-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
@@ -2083,6 +2116,7 @@ services:
           REPOSITORY: repo_cli_dev_plugin_test
           RESOURCE_GROUP: 'devex-falcon'
           REVISION: '{{services.repo_cli_dev_plugin_test.parameters.branch}}'
+          SKIT_RAW_URL_PREFIX: 'https://raw.githubusercontent.com/IBM/swift-vapor-app/master'
           SLACK_URL: '{{form.pipeline.parameters.slack-webhook}}'
           SPACE: 'roar'
           TEST_DIR: '/workspace/testFiles'
