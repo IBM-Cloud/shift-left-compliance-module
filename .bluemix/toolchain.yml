@@ -478,7 +478,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config15.yml
         env:
           TEST_NAME: 'express:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -541,7 +541,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config15.yml
         env:
           TEST_NAME: 'express:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -604,7 +604,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config15.yml
         env:
           TEST_NAME: 'nlu:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -667,7 +667,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config15.yml
         env:
           TEST_NAME: 'nlu:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -730,7 +730,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config15.yml
         env:
           TEST_NAME: 'stt:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -793,7 +793,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config15.yml
         env:
           TEST_NAME: 'stt:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -856,7 +856,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config30.yml
         env:
           TEST_NAME: 'tts:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -919,7 +919,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config30.yml
         env:
           TEST_NAME: 'tts:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -982,7 +982,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config30.yml
         env:
           TEST_NAME: 'flask:app:PYTHON:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1045,7 +1045,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config30.yml
         env:
           TEST_NAME: 'flask:app:PYTHON:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1108,7 +1108,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config30.yml
         env:
           TEST_NAME: 'nodecloudant:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1171,7 +1171,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config30.yml
         env:
           TEST_NAME: 'nodecloudant:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1234,7 +1234,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config45.yml
         env:
           TEST_NAME: 'nodered:app:NODE:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1297,7 +1297,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config45.yml
         env:
           TEST_NAME: 'nodered:app:NODE:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1360,7 +1360,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config45.yml
         env:
           TEST_NAME: 'spring:app:SPRING:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1423,7 +1423,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config45.yml
         env:
           TEST_NAME: 'spring:app:SPRING:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1486,7 +1486,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config45.yml
         env:
           TEST_NAME: 'kitura:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1549,7 +1549,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config45.yml
         env:
           TEST_NAME: 'kitura:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1612,7 +1612,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config45.yml
         env:
           TEST_NAME: 'vapor:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolCE'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
@@ -1675,7 +1675,7 @@ services:
       execute: manual-run
       configuration:
         content:
-          $text: tekton_config.yml
+          $text: tekton_config45.yml
         env:
           TEST_NAME: 'vapor:app:SWIFT:no:noskip:{{testEnv}}:auth:create:toolK8'
           API_KEY: '{{form.pipeline.parameters.api-key}}'
